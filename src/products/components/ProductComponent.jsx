@@ -1,0 +1,102 @@
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from "@mui/material";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import { useEffect, useState } from "react";
+import { useCurrentCustomer } from "../../customers/provider/UserProvider";
+
+export default function ProductComponent({ allProducts = [], handleAddToCart, cart, navigate, category }) {
+    const [quantities, setQuantities] = useState({});
+    const { customer } = useCurrentCustomer()
+
+    useEffect(() => {
+        const initialQuantities = allProducts.reduce((acc, product) => {
+            const cartItem = cart?.find(item => item.id === product._id);
+            acc[product._id] = cartItem ? cartItem.quantity : 0;
+            return acc;
+        }, {});
+
+        setQuantities(initialQuantities);
+
+    }, [allProducts, cart]);
+
+    const handleIncrement = (productId) => {
+        setQuantities(prev => ({
+            ...prev,
+            [productId]: prev[productId] + 1,
+        }));
+    };
+
+    const handleDecrement = (productId) => {
+        setQuantities(prev => ({
+            ...prev,
+            [productId]: Math.max(0, prev[productId] - 1),
+        }));
+    };
+
+    return (
+        <Grid container spacing={2} py={3} justifyContent="center" sx={{ maxWidth: '80vw', margin: '0 auto' }}>
+            {allProducts
+                .filter(product => !category || product.category === category)
+                .map(product => (
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={product._id} mb={10}>
+                        <Card sx={{ maxWidth: "100%", height: 450, borderRadius: "30px", border: "1px solid black" }}>
+                            <CardActionArea sx={{ height: "70%" }} onClick={() => navigate("/product-info/" + product._id)}>
+                                <CardHeader
+                                    sx={{ textAlign: "center", fontWeight: "bold", height: "20%" }}
+                                    title={product.name}
+                                    subheader={product.description}
+                                />
+                                <CardMedia
+                                    sx={{ objectFit: "scale-down", height: "50%", width: "100%" }}
+                                    component="img"
+                                    height="150"
+                                    image={product.image.url}
+                                    alt={product.image.alt}
+                                />
+                                <CardContent>
+                                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                        Price: &#8362; {product.price} <br />
+                                        In Stock: {product.inStock} <br />
+                                        Category: {product.category}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <Box sx={{ display: "flex", justifyContent: "space-between", height: "20%", alignItems: "flex-end" }}>
+                                <CardActions disableSpacing>
+                                    <IconButton aria-label="add to favorites">
+                                        <FavoriteIcon />
+                                    </IconButton>
+                                    <IconButton aria-label="share">
+                                        <ShareIcon />
+                                    </IconButton>
+                                </CardActions>
+                                <Box sx={{
+                                    display: 'flex', border: "1px solid grey", alignItems: "center",
+                                    borderRadius: "20px", width: "35%", justifyContent: 'center', marginRight: 1, marginBottom: 1
+                                }}>
+                                    <Button onClick={() => handleIncrement(product._id)} sx={{ color: "grey", fontSize: "16px", marginRight: -1 }}>+</Button>
+                                    <Typography color="grey">{quantities[product._id] || 0}</Typography>
+                                    <Button onClick={() => handleDecrement(product._id)} sx={{ color: "grey", fontSize: "16px", letterSpacing: "-3px", marginLeft: -1 }}>--</Button>
+                                </Box>
+                            </Box>
+                            <Button
+                                onClick={() => customer ? handleAddToCart(product._id, quantities[product._id]) : console.log("Please LogIn")}
+                                sx={{
+                                    backgroundColor: customer ? "black" : "grey",
+                                    height: "10%",
+                                    width: "100%",
+                                    display: 'flex',
+                                    justifyContent: "center",
+                                    color: "white",
+                                    opacity: customer ? 1 : 0.6,
+                                }}
+                            >
+                                Add To Cart
+                            </Button>
+                        </Card>
+                    </Grid>
+                ))
+            }
+        </Grid >
+    );
+}
