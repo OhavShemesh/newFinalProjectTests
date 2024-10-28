@@ -13,13 +13,14 @@ export default function useProducts() {
 
 
     const ProductsApi = "http://localhost:8181/products";
-    const CustomersApi = "http://localhost:8181/customers";
 
 
     const getProducts = async () => {
         try {
             const response = await axios.get(ProductsApi);
-            setAllProducts(response.data);
+            const data = response.data
+            setAllProducts(data);
+            return data
         } catch (err) {
             console.log(err);
         }
@@ -36,6 +37,25 @@ export default function useProducts() {
             console.log(err);
         }
     };
+    const addProduct = async (newProductDetails) => {
+        try {
+            const response = await axios.post(ProductsApi, newProductDetails)
+            const data = response.data
+            return data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
+    const deleteProduct = async (id) => {
+        try {
+            const response = await axios.delete(`${ProductsApi}/${id}`)
+            const data = response.data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
 
 
 
@@ -74,6 +94,9 @@ export default function useProducts() {
         handleFilterByCategory,
         navigate,
         toTitleCase,
-        
+        addProduct,
+        deleteProduct,
+        getProducts
+
     };
 }

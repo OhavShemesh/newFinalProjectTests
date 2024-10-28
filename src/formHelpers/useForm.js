@@ -34,6 +34,7 @@ export default function useForm(initialForm, schema, handleSubmit) {
             const { name, value } = e.target;
 
 
+
             const errorMessage = validateProperty(name, value);
 
             if (errorMessage) {
@@ -54,6 +55,7 @@ export default function useForm(initialForm, schema, handleSubmit) {
     useEffect(() => {
         const isValid = validateForm();
         setIsFormValid(isValid);
+
     }, [data, validateForm]);
 
 

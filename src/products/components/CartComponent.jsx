@@ -9,7 +9,6 @@ import { useCurrentCustomer } from '../../customers/provider/UserProvider';
 export default function CartComponent() {
     const { getProductById, toTitleCase } = useProducts();
     const [productDetails, setProductDetails] = useState([]);
-    const [loading, setLoading] = useState(false)
     const { handleRemoveItemFromCart, cart, setCart } = useCart()
     const { customer } = useCurrentCustomer()
 

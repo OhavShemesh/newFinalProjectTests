@@ -5,7 +5,6 @@ import BusinessBoardComponent from './components/BusinessBoardComponent';
 import useCustomers from '../customers/hooks/useCustomers';
 import useProducts from '../products/hooks/useProducts';
 import useBusinessBoard from './hooks/useBusinessBoard';
-import ROUTES from '../router/routesModel';
 import { setToLocalStorage } from '../localStorageFunctions/useLocalStorage';
 
 export default function BusinessBoardPage() {

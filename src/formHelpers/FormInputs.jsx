@@ -12,6 +12,13 @@ export default function FormInputs({ label, inputNames, handleChange, error, wid
             imageurl: "url",
             imagealt: "alt",
             housenumber: "houseNumber",
+            productname: "name",
+            productdescription: "description",
+            productprice: "price",
+            productimageurl: "url",
+            productimagealt: "alt",
+            numberofthisproductinstock: "inStock",
+            "product'scategory": "category"
         };
         return nameMap[name] || name;
     };

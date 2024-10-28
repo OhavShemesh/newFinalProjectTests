@@ -3,10 +3,6 @@ import React, { useEffect, useState } from 'react';
 
 export default function MakeCustomerBusiness({ customerDetails, toTitleCase, handleOnSubmitSecretCode, wrongCode }) {
     const [enteredCode, setEnteredCode] = useState("")
-    useEffect(() => {
-        console.log(enteredCode);
-
-    }, [enteredCode])
 
     return (
         <Box sx={{ display: "flex", alignItems: "center", pt: 5, flexDirection: "column", gap: 2 }}>
