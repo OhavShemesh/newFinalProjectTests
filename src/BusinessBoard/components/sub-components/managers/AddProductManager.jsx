@@ -15,6 +15,7 @@ export default function AddProductManager() {
                 url: data.url,
             },
         };
+
         let product = await addProduct(fixedData)
         console.log(product);
     }

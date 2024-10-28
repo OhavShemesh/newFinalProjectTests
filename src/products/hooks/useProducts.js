@@ -51,6 +51,17 @@ export default function useProducts() {
         try {
             const response = await axios.delete(`${ProductsApi}/${id}`)
             const data = response.data
+            return data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
+    const updateProduct = async (id, updatedProductDetails) => {
+        try {
+            const response = await axios.put(`${ProductsApi}/${id}`, updatedProductDetails)
+            const data = response.data
+            return data
         } catch (err) {
             console.log(err);
 
@@ -96,7 +107,8 @@ export default function useProducts() {
         toTitleCase,
         addProduct,
         deleteProduct,
-        getProducts
+        getProducts,
+        updateProduct
 
     };
 }

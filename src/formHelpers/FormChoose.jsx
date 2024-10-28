@@ -1,7 +1,7 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-export default function FormChoose({ label, menuItems, handleChange, error, width }) {
+export default function FormChoose({ label, handleChange, width, currentCategory }) {
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleSelectChange = (event) => {
@@ -16,7 +16,7 @@ export default function FormChoose({ label, menuItems, handleChange, error, widt
             </Box>
             <Box sx={{ display: "flex", width: "80%", gap: "2%", mr: "2%" }}>
                 <FormControl fullWidth variant="filled" >
-                    <InputLabel id="demo-simple-select-filled-label">Select Category</InputLabel>
+                    <InputLabel id="demo-simple-select-filled-label">{currentCategory || "Select Category"}</InputLabel>
                     <Select
                         sx={{ backgroundColor: "lightgrey" }}
                         labelId="demo-simple-select-filled-label"

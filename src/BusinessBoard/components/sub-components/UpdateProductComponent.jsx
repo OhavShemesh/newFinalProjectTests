@@ -6,7 +6,7 @@ export default function UpdateProductComponent({ allProducts, handleFetchProduct
     return (
         <Box>
 
-            <Grid container spacing={3} px={3} justifyContent="center">
+            <Grid container spacing={3} px={3} pb={5} justifyContent="center">
                 {allProducts.map((product) => (
                     <Grid item xs={4} sm={3} md={2.4} key={product._id}>
                         <Card sx={{
@@ -20,7 +20,7 @@ export default function UpdateProductComponent({ allProducts, handleFetchProduct
                                     width: "100%",
                                     backgroundColor: 'white',
                                 }}>
-                                <CardContent sx={{ textAlign: "center", fontWeight: "bold", fontSize: "24px" }}>
+                                <CardContent sx={{ textAlign: "center", fontWeight: "bold", fontSize: "24px", height: "60px" }}>
                                     {product?.name}
                                 </CardContent>
                                 <CardMedia

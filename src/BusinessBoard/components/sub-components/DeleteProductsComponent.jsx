@@ -32,7 +32,7 @@ export default function DeleteProductsComponent({ handleDelete, products }) {
                             backgroundColor: 'white',
                             border: "1px solid black",
                         }}>
-                            <CardContent sx={{ textAlign: "center", fontWeight: "bold", fontSize: "24px" }}>
+                            <CardContent sx={{ textAlign: "center", fontWeight: "bold", fontSize: "24px", height: "50px" }}>
                                 {product?.name}
                             </CardContent>
                             <CardMedia

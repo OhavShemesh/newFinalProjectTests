@@ -33,8 +33,6 @@ export default function useForm(initialForm, schema, handleSubmit) {
         (e) => {
             const { name, value } = e.target;
 
-
-
             const errorMessage = validateProperty(name, value);
 
             if (errorMessage) {

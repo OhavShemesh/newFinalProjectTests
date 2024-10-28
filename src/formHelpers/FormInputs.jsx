@@ -1,7 +1,7 @@
 import { Box, FormHelperText, Input, Typography } from '@mui/material';
 import React from 'react';
 
-export default function FormInputs({ label, inputNames, handleChange, error, width }) {
+export default function FormInputs({ label, inputNames, handleChange, error, width, givenName }) {
 
     const handleFitToSchema = (name) => {
         const nameMap = {
@@ -30,7 +30,7 @@ export default function FormInputs({ label, inputNames, handleChange, error, wid
             </Box>
             <Box sx={{ display: "flex", width: "80%", gap: "2%", mr: "2%" }}>
                 {inputNames?.map((inputName, index) => {
-                    const schemaName = handleFitToSchema(inputName.toLowerCase().replace(/\s+/g, ''));
+                    const schemaName = givenName || handleFitToSchema(inputName.toLowerCase().replace(/\s+/g, ''));
                     return (
                         <Box key={index} sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: `${100 / inputNames.length}%` }}>
                             <Input
