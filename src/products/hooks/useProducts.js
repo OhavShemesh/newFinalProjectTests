@@ -67,6 +67,34 @@ export default function useProducts() {
 
         }
     }
+    const updateInStock = async (id, newStock) => {
+        try {
+            console.log("newStockInPath", newStock);
+
+            const response = await axios.patch(`${ProductsApi}/updateInStock`, { id: id, newStock: newStock })
+            const data = response.data
+            return data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
+    const updateStockAfterOrder = async (cart) => {
+        try {
+            cart.map(async (product) => {
+                const response = await axios.patch(`${ProductsApi}/updateStockAfterOrder`, {
+                    id: product.id,
+                    subFromStock: product.quantity
+                });
+                const data = response.data
+                console.log(data);
+
+            });
+
+        } catch (err) {
+            console.log("Error updating stock:", err);
+        }
+    };
 
 
 
@@ -108,7 +136,9 @@ export default function useProducts() {
         addProduct,
         deleteProduct,
         getProducts,
-        updateProduct
+        updateProduct,
+        updateInStock,
+        updateStockAfterOrder
 
     };
 }

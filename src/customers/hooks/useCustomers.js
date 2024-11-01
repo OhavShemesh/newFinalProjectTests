@@ -59,7 +59,6 @@ export default function useCustomers() {
         try {
             const response = await axios.patch(`${CustomersApi}/${customer_id}`, { product })
             const data = response.data
-            console.log(data);
 
             return data
 

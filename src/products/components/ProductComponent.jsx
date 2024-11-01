@@ -20,12 +20,16 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
     }, [allProducts, cart]);
 
     const handleIncrement = (productId) => {
-        setQuantities(prev => ({
-            ...prev,
-            [productId]: prev[productId] + 1,
-        }));
-    };
+        const product = allProducts.find(product => product._id === productId);
+        const currentQuantity = quantities[productId] || 0;
 
+        if (currentQuantity < product.inStock) {
+            setQuantities(prev => ({
+                ...prev,
+                [productId]: prev[productId] + 1,
+            }));
+        }
+    };
     const handleDecrement = (productId) => {
         setQuantities(prev => ({
             ...prev,
@@ -39,7 +43,7 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
                 .filter(product => !category || product.category === category)
                 .map(product => (
                     <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={product._id} mb={10}>
-                        <Card sx={{ maxWidth: "100%", height: 450, borderRadius: "30px", border: "1px solid black" }}>
+                        <Card sx={{ maxWidth: "100%", height: 450, borderRadius: "30px", border: "1px solid black", opacity: product?.inStock === 0 ? "0.5" : "1", position: "relative" }}>
                             <CardActionArea sx={{ height: "70%" }} onClick={() => navigate("/product-info/" + product._id)}>
                                 <CardHeader
                                     sx={{ textAlign: "center", fontWeight: "bold", height: "20%" }}
@@ -56,7 +60,11 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
                                 <CardContent>
                                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                                         Price: &#8362; {product.price} <br />
-                                        In Stock: {product.inStock} <br />
+                                        In Stock:{" "}
+                                        <span style={{ color: product.inStock ? "inherit" : "red", fontWeight: product.inStock ? "normal" : "bold" }}>
+                                            {product.inStock || "Out Of Stock"}
+                                        </span>
+                                        <br />
                                         Category: {product.category}
                                     </Typography>
                                 </CardContent>
@@ -72,10 +80,11 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
                                 </CardActions>
                                 <Box sx={{
                                     display: 'flex', border: "1px solid grey", alignItems: "center",
-                                    borderRadius: "20px", width: "35%", justifyContent: 'center', marginRight: 1, marginBottom: 1
+                                    borderRadius: "20px", width: "35%", justifyContent: 'center', marginRight: 1, marginBottom: 1,
+                                    pointerEvents: product?.inStock === 0 ? "none" : "auto"
                                 }}>
                                     <Button onClick={() => handleIncrement(product._id)} sx={{ color: "grey", fontSize: "16px", marginRight: -1 }}>+</Button>
-                                    <Typography color="grey">{quantities[product._id] || 0}</Typography>
+                                    <Typography color="grey">{product?.inStock === 0 ? "0" : quantities[product._id] || 0}</Typography>
                                     <Button onClick={() => handleDecrement(product._id)} sx={{ color: "grey", fontSize: "16px", letterSpacing: "-3px", marginLeft: -1 }}>--</Button>
                                 </Box>
                             </Box>

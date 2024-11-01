@@ -12,7 +12,6 @@ export default function DeleteProductsManager() {
             try {
                 const products = await getProducts()
                 setAllProducts(products)
-                console.log(products);
 
             } catch (err) {
                 console.log(err);

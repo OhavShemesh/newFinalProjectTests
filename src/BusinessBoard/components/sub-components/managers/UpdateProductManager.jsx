@@ -20,7 +20,6 @@ export default function UpdateProductManager() {
             try {
                 const products = await getProducts();
                 setAllProducts(products);
-                console.log("Fetched products:", products);
             } catch (err) {
                 console.error("Error fetching products:", err);
             } finally {
@@ -35,7 +34,6 @@ export default function UpdateProductManager() {
             try {
                 let singleProduct = await getProductById(productId)
                 setSingleProduct(singleProduct)
-                console.log("singleProduct", singleProduct);
 
             } catch (err) {
                 console.log(err);

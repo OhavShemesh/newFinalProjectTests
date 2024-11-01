@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -24,7 +24,7 @@ export default function Header({ cart, navigate }) {
   };
 
 
-  const settings = ['Profile', 'Business Board', 'Logout'];
+  const settings = ['Profile', "Manage Orders", 'Business Board', 'Logout'];
 
   return (
     <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", top: 0, zIndex: 1000 }}>

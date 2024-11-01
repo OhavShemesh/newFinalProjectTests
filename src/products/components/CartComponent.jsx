@@ -1,66 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { getFromLocalStorage } from '../../localStorageFunctions/useLocalStorage';
+import React, { useEffect } from 'react';
 import { Box, Button, CardMedia, Grid, IconButton, Typography } from '@mui/material';
-import useProducts from '../hooks/useProducts';
 import DeleteIcon from '@mui/icons-material/Delete';
-import useCart from '../hooks/useCart';
-import { useCurrentCustomer } from '../../customers/provider/UserProvider';
+import { useSnack } from '../../providers/SnackBarProvider';
 
-export default function CartComponent() {
-    const { getProductById, toTitleCase } = useProducts();
-    const [productDetails, setProductDetails] = useState([]);
-    const { handleRemoveItemFromCart, cart, setCart } = useCart()
-    const { customer } = useCurrentCustomer()
-
-    useEffect(() => {
-        if (customer) {
-
-        } else {
-            const cartFromLocalStorage = JSON.parse(getFromLocalStorage("cart")) || [];
-            setCart(cartFromLocalStorage);
-
-        }
-
-    }, []);
-
-
-
-    useEffect(() => {
-        const fetchProductDetails = async () => {
-            const details = await Promise.all(
-                cart.map(async (item) => {
-                    try {
-                        const product = await getProductById(item.id);
-                        return { ...item, product };
-                    } catch (err) {
-                        console.error(`Error fetching product with ID ${item.id}:`, err);
-                        return item;
-                    }
-                })
-            );
-            setProductDetails(details);
-        };
-
-        if (cart.length > 0) {
-            fetchProductDetails();
-        } else {
-            setProductDetails([]);
-        }
-    }, [cart]);
-    const calculateTotalPrice = () => {
-        const total = productDetails.reduce((sum, item) => {
-            const productPrice = item.product?.price || 0;
-            const productTotal = productPrice * item.quantity;
-            return sum + productTotal;
-        }, 0);
-
-        return total.toFixed(2);
-    };
-    const calculateTotalQuantity = () => {
-        return productDetails.reduce((total, item) => {
-            return total + item.quantity;
-        }, 0);
-    };
+export default function CartComponent({ calculateTotalQuantity, calculateTotalPrice, customer, productDetails, toTitleCase, handleRemoveItemFromCart, handlePlaceOrder, cart }) {
     return (
         <Box >
             <Box sx={{ width: "35%", height: "fit-content", border: "1px solid black", position: "fixed", right: 20, borderRadius: "20px", backgroundColor: "black" }}>
@@ -71,9 +14,11 @@ export default function CartComponent() {
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: 'center', mt: 7, mb: 5 }}>
                     <Button
+                        onClick={() => handlePlaceOrder(cart, customer)}
                         variant='contained'
-                        disabled={!customer}
+                        disabled={!customer || cart.length === 0}
                         sx={{
+                            opacity: cart.length === 0 ? "0.5" : "1",
                             color: "black",
                             fontSize: "1rem",
                             backgroundColor: customer ? "white" : "gray",
