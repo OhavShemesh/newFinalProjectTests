@@ -2,7 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import React, { useEffect, useState, useRef } from 'react';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 
-export default function OrdersComponent({ orders, fetchProduct, toTitleCase, handleUpdateStatus }) {
+export default function OrdersComponent({ orders, fetchProduct, toTitleCase, handleUpdateStatus, fetchCustomerName }) {
     const [allOrders, setAllOrders] = useState([]);
     const [expandedOrderId, setExpandedOrderId] = useState(null);
     const [productNames, setProductNames] = useState({});
@@ -33,6 +33,12 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
     const toggleExpandRow = (orderId) => {
         setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
     };
+    const getName = async () => {
+        let customerName = await fetchCustomerName("671e0d5431c931ecd853d143")
+        console.log(customerName);
+
+    }
+    getName()
 
     return (
         <TableContainer component={Paper}>
@@ -84,6 +90,10 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
                                 <TableCell colSpan={7} sx={{ paddingBottom: 0, paddingTop: 0 }}>
                                     <Collapse sx={{ backgroundColor: "#ECECEC" }} in={expandedOrderId === order._id} timeout="auto" unmountOnExit>
                                         <Box sx={{ margin: 2 }}>
+                                            <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline" }}>
+                                                Customer's Name
+                                            </Typography>
+                                            <Typography>{fetchCustomerName(order.customer_id)}</Typography>
                                             <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline" }}>
                                                 Full Address
                                             </Typography>

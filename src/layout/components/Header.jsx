@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button, CardMedia } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -7,6 +7,7 @@ import './styles/Header.css';
 import ROUTES from '../../router/routesModel';
 import { removeToken } from '../../localStorageFunctions/useLocalStorage';
 import { useCurrentCustomer } from '../../customers/provider/UserProvider';
+import { Image } from '@mui/icons-material';
 
 export default function Header({ cart, navigate }) {
 
@@ -30,9 +31,14 @@ export default function Header({ cart, navigate }) {
     <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", top: 0, zIndex: 1000 }}>
       <AppBar className="appbar" position="static">
         <Toolbar className="toolbar">
-          <Typography sx={{ cursor: "pointer" }} variant="h6" noWrap component="div" onClick={() => navigate(ROUTES.ROOT)}>
-            MyStore
-          </Typography>
+          <IconButton sx={{ cursor: "pointer" }} variant="h6" onClick={() => navigate(ROUTES.ROOT)}>
+            <CardMedia
+              component='img'
+              src='./MyStoreLogo.png'
+              alt='MyStore'
+              sx={{ height: "50px" }}
+            />
+          </IconButton>
           <div className="search">
             <div className="search-icon-wrapper">
               <SearchIcon />
@@ -79,6 +85,8 @@ export default function Header({ cart, navigate }) {
                       handleLogout();
                     } else if (setting === 'Business Board') {
                       navigate(ROUTES.BUSINESS_BOARD)
+                    } else if (setting === `Manage Orders`) {
+                      navigate(ROUTES.MANAGE_MY_ORDERS)
                     }
                   }}                >
                   <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>

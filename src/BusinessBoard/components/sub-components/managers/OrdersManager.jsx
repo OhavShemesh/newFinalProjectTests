@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import OrdersComponent from '../OrdersComponent'
 import { Typography } from '@mui/material'
 import useOrders from '../../../../orders/hooks/useOrders'
 import useProducts from '../../../../products/hooks/useProducts'
+import useCustomers from '../../../../customers/hooks/useCustomers'
+import OrdersComponent from '../OrdersComponent'
 
 export default function OrdersManager() {
-
+    const { getCustomerById } = useCustomers()
     const { getAllOrders, updateOrderStatus } = useOrders()
     const { getProductById, toTitleCase } = useProducts()
     const [allOrders, setAllOrders] = useState()
@@ -48,6 +49,16 @@ export default function OrdersManager() {
 
         }
     }
+    const fetchCustomerName = async (customer_id) => {
+        try {
+            let customer = await getCustomerById(customer_id)
+            return customer
+
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
 
 
     if (isLoading) {
@@ -57,7 +68,7 @@ export default function OrdersManager() {
     return (
         <>
             <Typography sx={{ textAlign: "center", pt: 2, pb: 5 }} variant="h3">MANAGE ORDERS</Typography>
-            <OrdersComponent orders={allOrders} fetchProduct={fetchProduct} toTitleCase={toTitleCase} handleUpdateStatus={handleUpdateStatus} />
+            <OrdersComponent orders={allOrders} fetchProduct={fetchProduct} toTitleCase={toTitleCase} handleUpdateStatus={handleUpdateStatus} fetchCustomerName={fetchCustomerName} />
         </>
     )
 }
