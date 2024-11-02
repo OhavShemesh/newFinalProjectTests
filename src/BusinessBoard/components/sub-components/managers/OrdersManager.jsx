@@ -51,8 +51,12 @@ export default function OrdersManager() {
     }
     const fetchCustomerName = async (customer_id) => {
         try {
+            const nameArr = []
             let customer = await getCustomerById(customer_id)
-            return customer
+            let customerFirstName = String(`${customer.name.first} ${customer.name.middle || ""} ${customer.name.last}`)
+            nameArr.push(customerFirstName)
+
+            return nameArr
 
         } catch (err) {
             console.log(err);

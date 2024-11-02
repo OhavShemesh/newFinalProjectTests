@@ -6,6 +6,7 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
     const [allOrders, setAllOrders] = useState([]);
     const [expandedOrderId, setExpandedOrderId] = useState(null);
     const [productNames, setProductNames] = useState({});
+    const [customerNames, setCustomerNames] = useState({});
     const fetchedProductIds = useRef(new Set());
 
     useEffect(() => {
@@ -33,12 +34,20 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
     const toggleExpandRow = (orderId) => {
         setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
     };
-    const getName = async () => {
-        let customerName = await fetchCustomerName("671e0d5431c931ecd853d143")
-        console.log(customerName);
 
-    }
-    getName()
+    const getName = async (customer_id) => {
+        let name = await fetchCustomerName(customer_id);
+        let nameFromArray = String(name[0]);
+        return nameFromArray;
+    };
+
+    const handleExpand = async (orderId, customer_id) => {
+        if (expandedOrderId !== orderId) {
+            const name = await getName(customer_id);
+            setCustomerNames((prev) => ({ ...prev, [customer_id]: name }));
+        }
+        toggleExpandRow(orderId);
+    };
 
     return (
         <TableContainer component={Paper}>
@@ -57,7 +66,7 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
                 <TableBody>
                     {allOrders?.map((order) => (
                         <React.Fragment key={order._id}>
-                            <TableRow onClick={() => toggleExpandRow(order._id)} sx={{ cursor: 'pointer' }}>
+                            <TableRow onClick={() => handleExpand(order._id, order.customer_id)} sx={{ cursor: 'pointer' }}>
                                 <TableCell>
                                     <IconButton size="small">
                                         {expandedOrderId === order._id ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
@@ -93,7 +102,7 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
                                             <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline" }}>
                                                 Customer's Name
                                             </Typography>
-                                            <Typography>{fetchCustomerName(order.customer_id)}</Typography>
+                                            <Typography variant='h6' sx={{ textAlign: "center", paddingBottom: "2%" }}>{toTitleCase(customerNames[order.customer_id]) || "Loading..."}</Typography>
                                             <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline" }}>
                                                 Full Address
                                             </Typography>
@@ -155,6 +164,7 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
                             </TableRow>
                         </React.Fragment>
                     ))}
+
                 </TableBody>
             </Table>
         </TableContainer >

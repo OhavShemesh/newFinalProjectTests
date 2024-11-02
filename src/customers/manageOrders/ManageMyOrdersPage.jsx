@@ -13,7 +13,8 @@ export default function ManageMyOrdersPage() {
     const { getAllOrders } = useOrders();
     const [customerDetails, setCustomerDetails] = useState();
     const [customerOrders, setCustomerOrders] = useState([]);
-    const [productImages, setProductImages] = useState({}); // State to hold images
+    const [productImages, setProductImages] = useState({});
+    const [allProductsInOrder, setAllProductsInOrder] = useState()
 
     useEffect(() => {
         const fetchCustomerDetails = async () => {
@@ -75,12 +76,41 @@ export default function ManageMyOrdersPage() {
         }
     }, [customer]);
 
+    const fetchProductName = async (id) => {
+        try {
+            let product = await getProductById(id)
+            return product.name
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
+    const getTotalOrderPrice = async (order) => {
+        try {
+            let totalPrice = 0;
+
+            for (const object of order.productsAndQuantity) {
+                const product = await getProductById(object.id);
+
+                const productTotal = product.price * object.quantity;
+
+                totalPrice += productTotal;
+            }
+
+            return totalPrice;
+        } catch (err) {
+            console.log(err);
+            return null;
+        }
+    };
     return (
         <ManageMyOrdersComponent
             customerDetails={customerDetails}
             customerOrders={customerOrders}
             toTitleCase={toTitleCase}
-            productImages={productImages} 
+            productImages={productImages}
+            fetchProductName={fetchProductName}
+            getTotalOrderPrice={getTotalOrderPrice}
         />
     );
 }

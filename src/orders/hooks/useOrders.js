@@ -52,11 +52,22 @@ export default function useOrders() {
             throw err;
         }
     };
+    const getOrderById = async (id) => {
+        try {
+            const response = await axios.get(`${ordersApi}/${id}`)
+            return response.data
+        } catch (err) {
+            console.error("Failed to get order by id:", err.message);
+            throw err;
+
+        }
+    }
     return {
         placeNewOrder,
         getAllOrders,
         updateOrdersInCustomer,
-        updateOrderStatus
+        updateOrderStatus,
+        getOrderById
     }
 
 }
