@@ -1,6 +1,7 @@
 import { Alert, Snackbar, IconButton } from "@mui/material";
 import React, { useContext, useCallback, useState, createContext, useEffect } from "react";
 import CloseIcon from '@mui/icons-material/Close';
+import './SnackbarProvider.css';
 
 const SnackbarContext = createContext();
 
@@ -18,6 +19,9 @@ export default function SnackbarProvider({ children }) {
             return;
         }
         setOpenSnack(false);
+    };
+
+    const handleExited = () => {
         setCurrentSnack(null);
     };
 
@@ -29,7 +33,7 @@ export default function SnackbarProvider({ children }) {
 
             const timer = setTimeout(() => {
                 handleClose();
-            }, 1000);
+            }, 2000);
 
             return () => clearTimeout(timer);
         }
@@ -46,8 +50,10 @@ export default function SnackbarProvider({ children }) {
                     <Snackbar
                         open={isSnackOpen}
                         onClose={handleClose}
-                        autoHideDuration={null}
+                        autoHideDuration={2000}
                         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                        onExited={handleExited}
+                        sx={{ marginTop: "40px" }}
                     >
                         <Alert
                             severity={currentSnack.color}
@@ -62,8 +68,9 @@ export default function SnackbarProvider({ children }) {
                                     <CloseIcon fontSize="small" />
                                 </IconButton>
                             }
+                            className="fade-out"
                         >
-                            {currentSnack.message}
+                            {typeof currentSnack.message === "string" ? currentSnack.message : currentSnack.message}
                         </Alert>
                     </Snackbar>
                 )}

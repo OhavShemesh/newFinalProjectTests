@@ -8,7 +8,7 @@ import { getFromLocalStorage } from '../../localStorageFunctions/useLocalStorage
 
 
 export default function CartPage() {
-    const { getProductById, toTitleCase } = useProducts();
+    const { getProductById, toTitleCase, navigate } = useProducts();
     const [productDetails, setProductDetails] = useState([]);
     const { handleRemoveItemFromCart, cart, setCart, handlePlaceOrder } = useCart()
     const { customer } = useCurrentCustomer()
@@ -68,7 +68,7 @@ export default function CartPage() {
     return (
         <>
             <CartCheckCustomer />
-            <CartComponent calculateTotalPrice={calculateTotalPrice} calculateTotalQuantity={calculateTotalQuantity} customer={customer} productDetails={productDetails} toTitleCase={toTitleCase} handleRemoveItemFromCart={handleRemoveItemFromCart} handlePlaceOrder={handlePlaceOrder} cart={cart} />
+            <CartComponent calculateTotalPrice={calculateTotalPrice} calculateTotalQuantity={calculateTotalQuantity} customer={customer} productDetails={productDetails} toTitleCase={toTitleCase} handleRemoveItemFromCart={handleRemoveItemFromCart} handlePlaceOrder={handlePlaceOrder} cart={cart} navigate={navigate} />
         </>
     )
 }

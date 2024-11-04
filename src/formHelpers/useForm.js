@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 export default function useForm(initialForm, schema, handleSubmit) {
     const [error, setError] = useState({});
+
     const [data, setData] = useState(initialForm);
     const [isFormValid, setIsFormValid] = useState(false);
 
@@ -21,6 +22,8 @@ export default function useForm(initialForm, schema, handleSubmit) {
 
     const validateForm = useCallback(() => {
         const joiSchema = Joi.object(schema);
+        console.log("data", data);
+
         const { error } = joiSchema.validate(data, { abortEarly: false });
 
         if (error) {
@@ -32,6 +35,7 @@ export default function useForm(initialForm, schema, handleSubmit) {
     const handleChange = useCallback(
         (e) => {
             const { name, value } = e.target;
+
 
             const errorMessage = validateProperty(name, value);
 
@@ -60,6 +64,12 @@ export default function useForm(initialForm, schema, handleSubmit) {
     const onSubmit = () => {
         handleSubmit(data)
     }
+
+    useEffect(() => {
+        console.log("initialForm", initialForm);
+        console.log("data", data);
+
+    }, [data])
 
 
     return {

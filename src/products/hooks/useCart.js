@@ -5,6 +5,7 @@ import { useCurrentCustomer } from '../../customers/provider/UserProvider';
 import useCustomers from '../../customers/hooks/useCustomers';
 import useOrders from '../../orders/hooks/useOrders';
 import { useSnack } from '../../providers/SnackBarProvider';
+import { Typography } from '@mui/material';
 
 export default function useCart() {
     const navigate = useNavigate();
@@ -110,7 +111,6 @@ export default function useCart() {
             }
         }
 
-        // Update the cart to remove out-of-stock items and adjust quantities for insufficient stock
         const updatedCart = cart.filter(item => !outOfStockIds.includes(item.id))
             .map(item => {
                 const update = insufficientStockUpdates.find(update => update.id === item.id);
@@ -126,19 +126,16 @@ export default function useCart() {
             await setCartInDb(customer._id, updatedCart);
         }
 
-        // If there were any out-of-stock or insufficient stock items, stop the process by returning true
         return outOfStockIds.length > 0 || insufficientStockUpdates.length > 0;
     };
 
     const handlePlaceOrder = async () => {
         const isStockIssue = await checkStock(cart);
 
-        // If there was a stock issue, do not proceed with placing the order
         if (isStockIssue) {
             return;
         }
 
-        // Continue with placing the order only if all items have sufficient stock
         const orderProducts = cart.map(item => ({
             id: item.id,
             quantity: item.quantity
@@ -159,7 +156,6 @@ export default function useCart() {
                 await updateOrdersInCustomer(customer._id, orderId);
                 await updateStockAfterOrder(cart);
                 await handleRemoveAllFromCart();
-
             } else {
                 setSnack("error", "Nothing in cart")
             }

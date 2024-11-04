@@ -13,7 +13,7 @@ export default function Layout({ children }) {
         <>
             <Header navigate={navigate} cart={cart} />
             <Main>{children}</Main>
-            <Footer />
+            <Footer navigate={navigate} />
         </>
     )
 }

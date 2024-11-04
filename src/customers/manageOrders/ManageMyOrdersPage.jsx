@@ -97,7 +97,7 @@ export default function ManageMyOrdersPage() {
                 totalPrice += productTotal;
             }
 
-            return totalPrice;
+            return parseFloat(totalPrice.toFixed(2));
         } catch (err) {
             console.log(err);
             return null;

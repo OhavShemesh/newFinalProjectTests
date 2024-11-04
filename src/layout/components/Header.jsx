@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button, CardMedia } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { AppBar, Box, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Button, CardMedia } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import './styles/Header.css';
 import ROUTES from '../../router/routesModel';
 import { removeToken } from '../../localStorageFunctions/useLocalStorage';
 import { useCurrentCustomer } from '../../customers/provider/UserProvider';
-import { Image } from '@mui/icons-material';
+import SearchBar from './sub-component/SearchBar';
 
 export default function Header({ cart, navigate }) {
 
@@ -25,12 +23,12 @@ export default function Header({ cart, navigate }) {
   };
 
 
-  const settings = ['Profile', "Manage Orders", 'Business Board', 'Logout'];
+  const settings = ['Profile', "Manage Orders", 'Logout'];
 
   return (
     <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", top: 0, zIndex: 1000 }}>
-      <AppBar className="appbar" position="static">
-        <Toolbar className="toolbar">
+      <AppBar position="static">
+        <Toolbar className="toolbar" sx={{ gap: 0 }}>
           <IconButton sx={{ cursor: "pointer" }} variant="h6" onClick={() => navigate(ROUTES.ROOT)}>
             <CardMedia
               component='img'
@@ -39,16 +37,7 @@ export default function Header({ cart, navigate }) {
               sx={{ height: "50px" }}
             />
           </IconButton>
-          <div className="search">
-            <div className="search-icon-wrapper">
-              <SearchIcon />
-            </div>
-            <InputBase
-              sx={{ color: 'white' }}
-              placeholder="Search"
-              className="styled-input-base"
-            />
-          </div>
+          <SearchBar />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: "flex", gap: 3 }}>
             <IconButton onClick={() => {
@@ -83,12 +72,15 @@ export default function Header({ cart, navigate }) {
                   onClick={() => {
                     if (setting === 'Logout') {
                       handleLogout();
-                    } else if (setting === 'Business Board') {
-                      navigate(ROUTES.BUSINESS_BOARD)
-                    } else if (setting === `Manage Orders`) {
-                      navigate(ROUTES.MANAGE_MY_ORDERS)
+                    } else if (setting === 'Manage Orders') {
+                      navigate(ROUTES.MANAGE_MY_ORDERS);
+                      handleUserMenu();
+                    } else if (setting === 'Profile') {
+                      navigate(ROUTES.PROFILE_PAGE);
+                      handleUserMenu();
                     }
-                  }}                >
+                  }}
+                >
                   <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                 </MenuItem>
               ))}

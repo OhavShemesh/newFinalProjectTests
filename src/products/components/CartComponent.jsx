@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { Box, Button, CardMedia, Grid, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSnack } from '../../providers/SnackBarProvider';
+import ROUTES from '../../router/routesModel';
 
-export default function CartComponent({ calculateTotalQuantity, calculateTotalPrice, customer, productDetails, toTitleCase, handleRemoveItemFromCart, handlePlaceOrder, cart }) {
+export default function CartComponent({ calculateTotalQuantity, calculateTotalPrice, customer, productDetails, toTitleCase, handleRemoveItemFromCart, handlePlaceOrder, cart, navigate }) {
+    const setSnack = useSnack()
     return (
         <Box >
             <Box sx={{ width: "35%", height: "fit-content", border: "1px solid black", position: "fixed", right: 20, borderRadius: "20px", backgroundColor: "black" }}>
@@ -14,7 +16,18 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: 'center', mt: 7, mb: 5 }}>
                     <Button
-                        onClick={() => handlePlaceOrder(cart, customer)}
+                        onClick={() => {
+                            handlePlaceOrder(cart, customer)
+                            setSnack(
+                                "success",
+                                <>
+                                    Your order was placed successfully! You can manage it in
+                                    <Typography onClick={() => navigate(ROUTES.MANAGE_MY_ORDERS)} sx={{ cursor: "pointer" }} component="span" color="purple"> Manage Orders</Typography>
+                                </>
+                            );
+
+
+                        }}
                         variant='contained'
                         disabled={!customer || cart.length === 0}
                         sx={{

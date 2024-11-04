@@ -9,6 +9,7 @@ import CartComponent from '../products/components/CartComponent';
 import CartPage from '../products/pages/CartPage';
 import BusinessBoardPage from '../BusinessBoard/BusinessBoardPage';
 import ManageMyOrdersPage from '../customers/manageOrders/manageMyOrdersPage';
+import ProfilePage from '../customers/profile/ProfilePage';
 
 
 export default function Router() {
@@ -21,6 +22,7 @@ export default function Router() {
             <Route path={ROUTES.CART} element={<CartPage />} />
             <Route path={ROUTES.BUSINESS_BOARD} element={<BusinessBoardPage />} />
             <Route path={ROUTES.MANAGE_MY_ORDERS} element={<ManageMyOrdersPage />} />
+            <Route path={ROUTES.PROFILE_PAGE} element={<ProfilePage />} />
         </Routes>
     )
 }
