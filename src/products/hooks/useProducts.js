@@ -69,7 +69,6 @@ export default function useProducts() {
     }
     const updateInStock = async (id, newStock) => {
         try {
-            console.log("newStockInPath", newStock);
 
             const response = await axios.patch(`${ProductsApi}/updateInStock`, { id: id, newStock: newStock })
             const data = response.data
@@ -87,12 +86,12 @@ export default function useProducts() {
                     subFromStock: product.quantity
                 });
                 const data = response.data
-                console.log(data);
 
             });
 
         } catch (err) {
-            console.log("Error updating stock:", err);
+            console.log(err);
+
         }
     };
 
@@ -103,7 +102,6 @@ export default function useProducts() {
     }, []);
 
     const handleFilterByCategory = (innerText) => {
-        console.log(innerText);
 
         if (innerText !== "all") {
             setChosenCategory(innerText);

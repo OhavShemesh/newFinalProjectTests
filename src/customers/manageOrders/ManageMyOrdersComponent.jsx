@@ -85,7 +85,7 @@ export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, 
                             </Box>
                             <Typography sx={{ fontWeight: "bold" }} color={
                                 order.status === "Pending" ? "orange" :
-                                    order.status === "In Progress" ? "blue" :
+                                    order.status === "In Progress" ? "#00BFFF" :
                                         order.status === "Completed" ? "green" : "black"
                             }>
                                 {order.status}

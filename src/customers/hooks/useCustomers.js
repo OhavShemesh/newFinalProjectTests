@@ -18,7 +18,6 @@ export default function useCustomers() {
     const login = async (loginDetails) => {
         try {
             let customer = await axios.post(`${CustomersApi}/login`, loginDetails)
-            console.log("customer", customer.data);
 
             return customer.data
 
@@ -72,10 +71,8 @@ export default function useCustomers() {
         if (secretCode === code) {
             try {
                 const response = await axios.patch(`${CustomersApi}/updateBusiness`, { customerId });
-                console.log('Updated Customer:', response.data);
                 return response.data
             } catch (error) {
-                console.error('Error updating customer:', error);
                 return true
             }
         } else {

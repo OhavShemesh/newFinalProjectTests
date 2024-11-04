@@ -21,7 +21,8 @@ export default function UpdateProductManager() {
                 const products = await getProducts();
                 setAllProducts(products);
             } catch (err) {
-                console.error("Error fetching products:", err);
+                console.log(err);
+
             } finally {
                 setIsLoading(false);
             }
@@ -59,7 +60,6 @@ export default function UpdateProductManager() {
             },
         };
         let product = await updateProduct(productId, fixedData)
-        console.log(product);
 
     }
 

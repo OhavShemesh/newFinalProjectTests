@@ -21,7 +21,8 @@ export default function BusinessBoardPage() {
                 const customerData = await getCustomerById(customer?._id);
                 setCustomerDetails(customerData);
             } catch (error) {
-                console.error('Failed to fetch customer details:', error);
+                console.log(err);
+
             }
         };
 
@@ -38,7 +39,8 @@ export default function BusinessBoardPage() {
             window.location.reload()
 
         } catch (error) {
-            console.error('Failed to fetch customer details:', error);
+            console.log(err);
+
         }
     };
 

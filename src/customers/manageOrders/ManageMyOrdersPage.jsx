@@ -24,7 +24,8 @@ export default function ManageMyOrdersPage() {
                     setCustomerDetails(fetchedDetails);
                 }
             } catch (err) {
-                console.error(err);
+                console.log(err);
+
             }
         };
 

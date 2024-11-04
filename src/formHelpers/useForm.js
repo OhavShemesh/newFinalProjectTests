@@ -22,7 +22,6 @@ export default function useForm(initialForm, schema, handleSubmit) {
 
     const validateForm = useCallback(() => {
         const joiSchema = Joi.object(schema);
-        console.log("data", data);
 
         const { error } = joiSchema.validate(data, { abortEarly: false });
 
@@ -65,11 +64,6 @@ export default function useForm(initialForm, schema, handleSubmit) {
         handleSubmit(data)
     }
 
-    useEffect(() => {
-        console.log("initialForm", initialForm);
-        console.log("data", data);
-
-    }, [data])
 
 
     return {

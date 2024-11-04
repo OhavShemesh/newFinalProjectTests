@@ -26,7 +26,6 @@ export default function UpdateStockManager() {
     const handleChangeInStock = async (productId) => {
         try {
             const product = await updateInStock(productId, Math.max(0, newStock));
-            console.log(product);
             setEditProductId(null);
             setNewStock('');
             setSomethingChanged(true);
@@ -37,7 +36,6 @@ export default function UpdateStockManager() {
 
     const handleAddToStock = async (productId) => {
         try {
-            console.log(productId);
             let product = await getProductById(productId);
             const updateStock = Math.max(0, +product.inStock + +addStock);
             await updateInStock(productId, updateStock);
@@ -49,9 +47,6 @@ export default function UpdateStockManager() {
         }
     };
 
-    useEffect(() => {
-        console.log("newStock", newStock);
-    }, [newStock]);
 
     useEffect(() => {
         const fetchProducts = async () => {

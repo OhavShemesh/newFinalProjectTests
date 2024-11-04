@@ -5,16 +5,18 @@ import { Box, Button, CardMedia, Container, Typography } from '@mui/material';
 import useCart from '../hooks/useCart';
 import { useCurrentCustomer } from '../../customers/provider/UserProvider';
 import useCustomers from '../../customers/hooks/useCustomers';
+import { useSnack } from '../../providers/SnackBarProvider';
 
 export default function SingleProduct() {
     const { getProductById, toTitleCase } = useProducts();
-    const { handleAddToCart } = useCart()
+    const { handleAddToCart } = useCart();
     const { id } = useParams();
     const [singleProduct, setSingleProduct] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [quantity, setQuantity] = useState(0)
-    const { getCustomerById } = useCustomers()
-    const { customer } = useCurrentCustomer()
+    const [quantity, setQuantity] = useState(0);
+    const { getCustomerById } = useCustomers();
+    const { customer } = useCurrentCustomer();
+    const setSnack = useSnack()
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -22,7 +24,8 @@ export default function SingleProduct() {
                 const product = await getProductById(id);
                 setSingleProduct(product);
             } catch (err) {
-                console.error('Error fetching product:', err);
+                console.log(err);
+
             } finally {
                 setLoading(false);
             }
@@ -42,7 +45,8 @@ export default function SingleProduct() {
                         setQuantity(cartItem.quantity);
                     }
                 } catch (err) {
-                    console.error("Error fetching customer data:", err);
+                    console.log(err);
+
                 }
             }
         };
@@ -51,7 +55,9 @@ export default function SingleProduct() {
     }, [customer, singleProduct]);
 
     const handleIncrement = () => {
-        setQuantity(prev => prev + 1);
+        if (quantity < singleProduct?.inStock) {
+            setQuantity(prev => prev + 1);
+        }
     };
 
     const handleDecrement = () => {
@@ -85,18 +91,20 @@ export default function SingleProduct() {
                     display: 'flex', border: "1px solid black", width: "fit-content", alignItems: "center",
                     borderRadius: "20px", backgroundColor: "black"
                 }}>
-                    <Button onClick={() => handleIncrement()} sx={{ color: "white", fontSize: "20px" }}>+</Button>
+                    <Button onClick={handleIncrement} sx={{ color: "white", fontSize: "20px" }}>+</Button>
                     <Typography sx={{ color: "white" }}>{quantity}</Typography>
-                    <Button onClick={() => handleDecrement()} sx={{ color: "white", fontSize: "20px", letterSpacing: "-3px" }}>--</Button>
+                    <Button onClick={handleDecrement} sx={{ color: "white", fontSize: "20px", letterSpacing: "-3px" }}>--</Button>
                 </Box>
+                <Typography variant='h6' sx={{ fontWeight: "bold" }}>In Stock: <Typography sx={{ fontSize: "smaller", color: singleProduct?.inStock === 0 ? "red" : "auto" }} variant='span'>{singleProduct?.inStock === 0 ? "Out Of Stock" : singleProduct?.inStock}</Typography></Typography>
                 <Box sx={{ marginTop: "auto", marginBottom: 3 }}>
-                    <Button onClick={() => customer ? handleAddToCart(singleProduct?._id, quantity) : console.log("please Login")}
+                    <Button onClick={() => customer ? handleAddToCart(singleProduct?._id, quantity) : setSnack("error", "please Login")}
                         sx={{
                             color: 'white',
                             backgroundColor: customer ? "black" : "grey",
                             borderRadius: "20px",
                             width: "100%",
-                            opacity: customer ? 1 : 0.6,
+                            opacity: singleProduct?.inStock === 0 ? "0.6" : "1" || customer ? 1 : 0.6,
+                            pointerEvents: singleProduct?.inStock === 0 ? "none" : "auto"
 
                         }}>
                         Add To Cart

@@ -3,14 +3,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import { useEffect, useState } from "react";
 import { useCurrentCustomer } from "../../customers/provider/UserProvider";
-import { useLocation } from "react-router-dom"; // Import useLocation for getting search params
+import { useLocation } from "react-router-dom";
+import { useSnack } from "../../providers/SnackBarProvider";
 
 export default function ProductComponent({ allProducts = [], handleAddToCart, cart, navigate, category }) {
     const [quantities, setQuantities] = useState({});
     const { customer } = useCurrentCustomer();
-    const location = useLocation(); // Get the location to access URL search params
+    const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const searchValue = searchParams.get("searchValue") || ""; // Get the search value from params
+    const searchValue = searchParams.get("searchValue") || "";
+    const setSnack = useSnack()
 
     useEffect(() => {
         const initialQuantities = allProducts.reduce((acc, product) => {
@@ -41,10 +43,9 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
         }));
     };
 
-    // Filter products based on category and search value
     const filteredProducts = allProducts.filter(product => {
         const matchesCategory = !category || product.category === category;
-        const matchesSearchValue = product.name.toLowerCase().includes(searchValue.toLowerCase()); // Only filter by name
+        const matchesSearchValue = product.name.toLowerCase().includes(searchValue.toLowerCase());
         return matchesCategory && matchesSearchValue;
     });
 
@@ -57,7 +58,7 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
                             <CardHeader
                                 sx={{ textAlign: "center", fontWeight: "bold", height: "20%" }}
                                 title={product.name}
-                                subheader={product.description} // You can keep the description if you want it to display
+                                subheader={product.description}
                             />
                             <CardMedia
                                 sx={{ objectFit: "scale-down", height: "50%", width: "100%" }}
@@ -98,7 +99,7 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
                             </Box>
                         </Box>
                         <Button
-                            onClick={() => customer ? handleAddToCart(product._id, quantities[product._id]) : console.log("Please LogIn")}
+                            onClick={() => customer ? handleAddToCart(product._id, quantities[product._id]) : setSnack("error", "Please LogIn")}
                             sx={{
                                 backgroundColor: customer ? "black" : "grey",
                                 height: "10%",

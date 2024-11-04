@@ -56,7 +56,6 @@ export default function ProfilePage() {
         if (formValues) {
             formValuesAfter = formValues
         }
-        console.log("formvalues", formValuesAfter);
 
     }, [formValues])
 

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 
 export default function FormInputsForProfile({ label, inputNames, handleChange, error, width, details }) {
-    // Local editMode state for individual control
     const [editMode, setEditMode] = useState(false);
 
     const handleFitToSchema = (name) => {

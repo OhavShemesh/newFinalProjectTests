@@ -70,8 +70,9 @@ export default function useCart() {
                 localStorage.setItem("cart", JSON.stringify(updatedCart));
                 await setCartInDb(customer._id, updatedCart);
             }
-        } catch (error) {
-            console.error("Error updating cart in database:", error);
+        } catch (err) {
+            console.log(err);
+
         }
     };
 
@@ -83,8 +84,9 @@ export default function useCart() {
                 localStorage.setItem("cart", JSON.stringify(updatedCart));
                 await setCartInDb(customer._id, updatedCart);
             }
-        } catch (error) {
-            console.error("Error updating cart in database:", error);
+        } catch (err) {
+            console.log(err);
+
         }
 
     }
@@ -119,7 +121,6 @@ export default function useCart() {
                 }
                 return item;
             });
-        console.log("updatedCart", updatedCart);
 
         setCart(updatedCart);
         if (customer) {
@@ -144,7 +145,6 @@ export default function useCart() {
         try {
             const customerDetails = await getCustomerById(customer._id);
             if (orderProducts.length > 0) {
-                console.log("orderProducts", orderProducts);
 
                 const orderDetails = {
                     customer_id: customerDetails._id,

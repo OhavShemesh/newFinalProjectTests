@@ -36,7 +36,8 @@ export default function useOrders() {
             });
             return response.data;
         } catch (err) {
-            console.error("Failed to update orders in customer:", err.message);
+            console.log(err);
+
             throw err;
         }
     };
@@ -48,7 +49,8 @@ export default function useOrders() {
             });
             return response.data;
         } catch (err) {
-            console.error("Failed to update orders in customer:", err.message);
+            console.log(err);
+
             throw err;
         }
     };
@@ -57,7 +59,8 @@ export default function useOrders() {
             const response = await axios.get(`${ordersApi}/${id}`)
             return response.data
         } catch (err) {
-            console.error("Failed to get order by id:", err.message);
+            console.log(err);
+
             throw err;
 
         }

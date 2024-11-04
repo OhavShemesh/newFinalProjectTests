@@ -66,8 +66,8 @@ export default function SearchBar({ customToolBarStyle, customSearchStyle }) {
                 <StyledInputBase
                     placeholder="Search…"
                     inputProps={{ 'aria-label': 'search' }}
-                    value={filtered} // Make sure to set the input value
-                    onChange={(e) => setFiltered(e.target.value)} // Set the filtered value
+                    value={filtered} 
+                    onChange={(e) => setFiltered(e.target.value)} 
                 />
             </Search>
         </Toolbar>

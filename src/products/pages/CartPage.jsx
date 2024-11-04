@@ -34,7 +34,7 @@ export default function CartPage() {
                         const product = await getProductById(item.id);
                         return { ...item, product };
                     } catch (err) {
-                        console.error(`Error fetching product with ID ${item.id}:`, err);
+                        console.log(err);
                         return item;
                     }
                 })

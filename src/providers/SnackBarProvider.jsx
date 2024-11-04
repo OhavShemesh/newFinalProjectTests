@@ -19,9 +19,6 @@ export default function SnackbarProvider({ children }) {
             return;
         }
         setOpenSnack(false);
-    };
-
-    const handleExited = () => {
         setCurrentSnack(null);
     };
 
@@ -52,7 +49,6 @@ export default function SnackbarProvider({ children }) {
                         onClose={handleClose}
                         autoHideDuration={2000}
                         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                        onExited={handleExited}
                         sx={{ marginTop: "40px" }}
                     >
                         <Alert
