@@ -21,11 +21,11 @@ export default function DeleteProductsComponent({ handleDelete, products }) {
     };
 
     return (
-        <Box sx={{ pb: 5 }}>
+        <Box sx={{ pb: 5, width: "80%", margin: "auto" }}>
             <Typography sx={{ textAlign: "center", pt: 2, pb: 5 }} variant="h3">DELETE PRODUCTS</Typography>
             <Grid container spacing={3} px={3} justifyContent="center">
                 {displayedProducts.map((product) => (
-                    <Grid item xs={4} sm={3} md={2.4} key={product._id}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} key={product._id}>
                         <Card sx={{
                             borderRadius: "40px",
                             width: "100%",

@@ -1,14 +1,14 @@
-import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, IconButton, Typography } from '@mui/material'
+import { Box, Card, CardActionArea, CardContent, CardMedia, Grid } from '@mui/material'
 import React, { useEffect } from 'react'
 
 export default function UpdateProductComponent({ allProducts, handleFetchProductId }) {
 
     return (
-        <Box>
+        <Box sx={{ width: "80%", margin: "auto" }}>
 
             <Grid container spacing={3} px={3} pb={5} justifyContent="center">
                 {allProducts.map((product) => (
-                    <Grid item xs={4} sm={3} md={2.4} key={product._id}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} key={product._id}>
                         <Card sx={{
                             borderRadius: "40px",
                             border: "1px solid black",

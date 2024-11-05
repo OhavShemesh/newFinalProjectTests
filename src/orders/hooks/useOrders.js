@@ -65,12 +65,22 @@ export default function useOrders() {
 
         }
     }
+    const deleteOrder = async (id) => {
+        try {
+            const response = await axios.delete(`${ordersApi}/${id}`)
+            return response.data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
     return {
         placeNewOrder,
         getAllOrders,
         updateOrdersInCustomer,
         updateOrderStatus,
-        getOrderById
+        getOrderById,
+        deleteOrder
     }
 
 }

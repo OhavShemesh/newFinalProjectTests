@@ -9,7 +9,7 @@ import OrdersManager from './sub-components/managers/OrdersManager';
 import UpdateStockManager from './sub-components/managers/UpdateStockManager';
 
 export default function BusinessBoardComponent() {
-  const [selectedComponent, setSelectedComponent] = useState('Add'); 
+  const [selectedComponent, setSelectedComponent] = useState('Add');
 
   const renderContent = () => {
     switch (selectedComponent) {
@@ -31,7 +31,7 @@ export default function BusinessBoardComponent() {
   return (
     <>
       <SideBarComponent setSelectedComponent={setSelectedComponent} selectedComponent={selectedComponent} />
-      <Box sx={{ marginLeft: "7vw" }}>
+      <Box sx={{ marginLeft: "100px" }}>
         {renderContent()}
       </Box>
     </>

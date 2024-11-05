@@ -1,7 +1,7 @@
-import { Box, ImageListItem, Typography, Collapse } from '@mui/material';
+import { Box, ImageListItem, Typography, Collapse, Button } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 
-export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, customerOrders, productImages, fetchProductName, getTotalOrderPrice }) {
+export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, customerOrders, productImages, fetchProductName, getTotalOrderPrice, handleCancleOrder }) {
     const [expandedOrderId, setExpandedOrderId] = useState(null);
     const [productNames, setProductNames] = useState({});
     const [orderPrices, setOrderPrices] = useState({});
@@ -112,6 +112,11 @@ export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, 
                                         {totalPrice !== undefined ? `₪${totalPrice}` : "Calculating..."}
                                     </Typography>
                                 </Box>
+                                {order?.status === "Pending" &&
+                                    <Box sx={{ display: "flex", justifyContent: "center" }}>
+                                        <Button onClick={() => handleCancleOrder(order._id)} variant='contained' sx={{ backgroundColor: "black" }}>Cancle Order</Button>
+                                    </Box>
+                                }
                             </Collapse>
                         </Box>
                     );

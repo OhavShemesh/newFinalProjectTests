@@ -5,16 +5,18 @@ import useCustomers from '../hooks/useCustomers';
 import useProducts from '../../products/hooks/useProducts';
 import useOrders from '../../orders/hooks/useOrders';
 import ROUTES from '../../router/routesModel';
+import { useSnack } from '../../providers/SnackBarProvider';
+import { Typography } from '@mui/material';
 
 export default function ManageMyOrdersPage() {
     const { customer } = useCurrentCustomer();
     const { toTitleCase, navigate, getProductById } = useProducts();
     const { getCustomerById } = useCustomers();
-    const { getAllOrders } = useOrders();
+    const { getAllOrders, getOrderById, deleteOrder } = useOrders();
     const [customerDetails, setCustomerDetails] = useState();
     const [customerOrders, setCustomerOrders] = useState([]);
     const [productImages, setProductImages] = useState({});
-    const [allProductsInOrder, setAllProductsInOrder] = useState()
+    const setSnack = useSnack()
 
     useEffect(() => {
         const fetchCustomerDetails = async () => {
@@ -104,6 +106,41 @@ export default function ManageMyOrdersPage() {
             return null;
         }
     };
+
+    const handleCancleOrder = async (id) => {
+        console.log(id);
+
+        try {
+            const todayDate = new Date();
+            const order = await getOrderById(id);
+            const createdAtDate = new Date(order.createdAt);
+            const fiveDaysAgoDate = new Date();
+            fiveDaysAgoDate.setDate(todayDate.getDate() - 5);
+
+            if (createdAtDate <= fiveDaysAgoDate) {
+                setSnack("error", (
+                    <>
+                        We're sorry, but your order cannot be cancelled as more than 5 days have passed since it was created.
+                        <Typography sx={{ color: "purple", fontWeight: "bold", cursor: "pointer" }}>
+                            Contact Us
+                        </Typography>
+                    </>
+                ));
+            } else {
+                try {
+                    await deleteOrder(id)
+                    setCustomerOrders(prevOrders => prevOrders.filter(order => order._id !== id));
+                    setSnack("success", "Order Deleted")
+                } catch (err) {
+                    console.log(err);
+
+                }
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
         <ManageMyOrdersComponent
             customerDetails={customerDetails}
@@ -112,6 +149,7 @@ export default function ManageMyOrdersPage() {
             productImages={productImages}
             fetchProductName={fetchProductName}
             getTotalOrderPrice={getTotalOrderPrice}
+            handleCancleOrder={handleCancleOrder}
         />
     );
 }
