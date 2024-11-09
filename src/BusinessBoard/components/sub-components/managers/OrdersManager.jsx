@@ -71,7 +71,7 @@ export default function OrdersManager() {
 
     return (
         <>
-            <Typography sx={{ textAlign: "center", pt: 2, pb: 5 }} variant="h3">MANAGE ORDERS</Typography>
+            <Typography sx={{ textAlign: "center", pt: 2, pb: 5, color: "black" }} variant="h3">MANAGE ORDERS</Typography>
             <OrdersComponent orders={allOrders} fetchProduct={fetchProduct} toTitleCase={toTitleCase} handleUpdateStatus={handleUpdateStatus} fetchCustomerName={fetchCustomerName} />
         </>
     )

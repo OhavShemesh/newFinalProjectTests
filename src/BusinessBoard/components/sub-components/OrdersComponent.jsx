@@ -63,6 +63,8 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
                         <TableCell align="center" sx={{ fontWeight: "bold" }}>PLACED AT</TableCell>
                     </TableRow>
                 </TableHead>
+            </Table>
+            <Table>
                 <TableBody>
                     {allOrders?.map((order) => (
                         <React.Fragment key={order._id}>
@@ -97,7 +99,7 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
 
                             <TableRow>
                                 <TableCell colSpan={7} sx={{ paddingBottom: 0, paddingTop: 0 }}>
-                                    <Collapse sx={{ backgroundColor: "#ECECEC" }} in={expandedOrderId === order._id} timeout="auto" unmountOnExit>
+                                    <Collapse sx={{ backgroundColor: "white", filter: "brightness(0.9)" }} in={expandedOrderId === order._id} timeout="auto" unmountOnExit>
                                         <Box sx={{ margin: 2 }}>
                                             <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline" }}>
                                                 Customer's Name
@@ -106,7 +108,7 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
                                             <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline" }}>
                                                 Full Address
                                             </Typography>
-                                            <Table sx={{ width: "50%", margin: "auto" }}>
+                                            <Table sx={{ width: "50%", margin: "auto" }} aria-label="simple table">
                                                 <TableHead>
                                                     <TableRow>
                                                         <TableCell align="center" sx={{ fontWeight: "bold" }}>City</TableCell>

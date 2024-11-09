@@ -7,9 +7,9 @@ export default function LoginComponent({ handleChange, error, isFormValid, onSub
 
 
     return (
-        <>
-            <form>
-                <Typography variant="h4" sx={{ py: "1%", mb: "2%" }}>
+        <Box sx={{ minHeight: "100vh", backgroundColor: "white", paddingTop: "3%" }}>
+            <Box sx={{ width: "70%", margin: "auto", border: '1px solid', borderColor: "black", borderRadius: "20px" }}>
+                <Typography variant="h4" sx={{ py: "1%", mb: "2%", textAlign: "center", backgroundColor: '#000000', height: "2%", border: "1px solid ", borderColor: "#000000", color: "#FFFFFF", borderRadius: "20px 20px 0 0 " }}>
                     Customer Login Form
                 </Typography>
                 <FormInputs width={"80%"} error={error} handleChange={handleChange} label={"Email"} inputNames={["Email"]} />
@@ -25,13 +25,14 @@ export default function LoginComponent({ handleChange, error, isFormValid, onSub
                             borderRadius: "10px",
                             width: "50%",
                             fontSize: "1rem",
-                            border: "3px solid black"
+                            border: "3px solid",
+                            borderColor: "black"
                         }}
                     >
                         Register
                     </Button>
                 </Box>
-            </form>
-        </>
+            </Box>
+        </Box>
     );
 }

@@ -6,7 +6,7 @@ import { useCurrentCustomer } from "../../customers/provider/UserProvider";
 import { useLocation } from "react-router-dom";
 import { useSnack } from "../../providers/SnackBarProvider";
 
-export default function ProductComponent({ allProducts = [], handleAddToCart, cart, navigate, category }) {
+export default function ProductComponent({ allProducts = [], handleAddToCart, cart, navigate, category, toTitleCase }) {
     const [quantities, setQuantities] = useState({});
     const { customer } = useCurrentCustomer();
     const location = useLocation();
@@ -53,11 +53,11 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
         <Grid container spacing={2} py={3} justifyContent="center" sx={{ maxWidth: '80vw', margin: '0 auto' }}>
             {filteredProducts.map(product => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} key={product._id} mb={10}>
-                    <Card sx={{ maxWidth: "100%", height: 450, borderRadius: "30px", border: "1px solid black", opacity: product?.inStock === 0 ? "0.5" : "1", position: "relative" }}>
+                    <Card sx={{ maxWidth: "100%", height: 450, borderRadius: "20px", border: "1px solid", borderColor: "black", opacity: product?.inStock === 0 ? "0.5" : "1", position: "relative" }}>
                         <CardActionArea sx={{ height: "70%" }} onClick={() => navigate("/product-info/" + product._id)}>
                             <CardHeader
                                 sx={{ textAlign: "center", fontWeight: "bold", height: "20%" }}
-                                title={product.name}
+                                title={toTitleCase(product.name)}
                                 subheader={product.description}
                             />
                             <CardMedia
@@ -90,7 +90,7 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
                             </CardActions>
                             <Box sx={{
                                 display: 'flex', border: "1px solid grey", alignItems: "center",
-                                borderRadius: "20px", width: "35%", justifyContent: 'center', marginRight: 1, marginBottom: 1,
+                                borderRadius: "15px", width: "35%", justifyContent: 'center', marginRight: 1, marginBottom: 1,
                                 pointerEvents: product?.inStock === 0 ? "none" : "auto"
                             }}>
                                 <Button onClick={() => handleIncrement(product._id)} sx={{ color: "grey", fontSize: "16px", marginRight: -1 }}>+</Button>
@@ -108,6 +108,7 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
                                 justifyContent: "center",
                                 color: "white",
                                 opacity: customer ? 1 : 0.6,
+                                borderRadius: "0"
                             }}
                         >
                             Add To Cart

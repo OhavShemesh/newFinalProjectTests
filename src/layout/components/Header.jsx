@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Button, CardMedia } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -6,17 +6,20 @@ import ROUTES from '../../router/routesModel';
 import { removeToken } from '../../localStorageFunctions/useLocalStorage';
 import { useCurrentCustomer } from '../../customers/provider/UserProvider';
 import SearchBar from './sub-component/SearchBar';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { useCustomTheme } from '../../providers/CustomThemeProvider';
 
 export default function Header({ cart, navigate }) {
 
   const { customer } = useCurrentCustomer()
-
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const { mode, toggleMode } = useCustomTheme();
+
 
   const handleUserMenu = (event) => {
     setAnchorElUser((prev) => (prev ? null : event.currentTarget));
   };
-
   const handleLogout = () => {
     removeToken()
     window.location.reload();
@@ -28,31 +31,34 @@ export default function Header({ cart, navigate }) {
   return (
     <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", top: 0, zIndex: 1000 }}>
       <AppBar position="static">
-        <Toolbar className="toolbar" sx={{ gap: 0 }}>
+        <Toolbar className="toolbar" sx={{ gap: 0, backgroundColor: "#000000" }}>
           <IconButton sx={{ cursor: "pointer" }} variant="h6" onClick={() => navigate(ROUTES.ROOT)}>
             <CardMedia
               component='img'
               src='./MyStoreLogo.png'
               alt='MyStore'
-              sx={{ height: "50px" }}
+              sx={{ height: { xs: "40px", sm: "50px" } }}
             />
           </IconButton>
           <SearchBar />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: "flex", gap: 3 }}>
+            <IconButton onClick={toggleMode}>
+              {mode === "light" ? <DarkModeIcon sx={{ color: "#FFFFFF" }} /> : <LightModeIcon sx={{ color: "#FFFFFF" }} />}
+            </IconButton>
             <IconButton onClick={() => {
               navigate(ROUTES.CART);
               window.location.reload();
-            }} size="large" color="inherit">
+            }} size="large" sx={{ color: "#FFFFFF" }}>
               <Badge badgeContent={cart?.length} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            {customer ? <IconButton onClick={handleUserMenu} size="large" color="inherit">
+            {customer ? <IconButton onClick={handleUserMenu} size="large" sx={{ color: "#FFFFFF" }}>
               <AccountCircle className="account-icon" />
             </IconButton> : <Box sx={{ display: "flex", gap: 1 }}>
-              <Button onClick={() => { navigate(ROUTES.LOGIN) }} sx={{ backgroundColor: "black", border: "1px solid white" }} variant='contained'>Login</Button>
-              <Button onClick={() => { navigate(ROUTES.REGISTER) }} sx={{ backgroundColor: "black", border: "1px solid white" }} variant='contained'>Register</Button>
+              <Button onClick={() => { navigate(ROUTES.LOGIN) }} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant='contained'>Login</Button>
+              <Button onClick={() => { navigate(ROUTES.REGISTER) }} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant='contained'>Register</Button>
             </Box>
             }
             <Menu

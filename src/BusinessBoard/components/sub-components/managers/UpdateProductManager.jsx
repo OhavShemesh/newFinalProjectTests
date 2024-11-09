@@ -80,7 +80,7 @@ export default function UpdateProductManager() {
 
     return (
         <>
-            <Typography sx={{ textAlign: "center", pt: 2, pb: 5 }} variant="h3">UPDATE PRODUCT</Typography>
+            <Typography sx={{ textAlign: "center", pt: 2, pb: 5, color: "black" }} variant="h3">UPDATE PRODUCT</Typography>
             <Box>
                 {isLoading ? (
                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>

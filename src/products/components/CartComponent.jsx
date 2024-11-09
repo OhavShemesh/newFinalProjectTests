@@ -7,12 +7,12 @@ import ROUTES from '../../router/routesModel';
 export default function CartComponent({ calculateTotalQuantity, calculateTotalPrice, customer, productDetails, toTitleCase, handleRemoveItemFromCart, handlePlaceOrder, cart, navigate }) {
     const setSnack = useSnack()
     return (
-        <Box >
-            <Box sx={{ width: "35%", height: "fit-content", border: "1px solid black", position: "fixed", right: 20, borderRadius: "20px", backgroundColor: "black" }}>
-                <Typography color='white' sx={{ textAlign: 'center', mt: 3, mb: 5, fontWeight: "bold" }} variant='h3'>YOUR CART</Typography>
+        <Box sx={{ minHeight: "100vh" }}>
+            <Box sx={{ width: "35%", height: "fit-content", border: "2px solid", borderColor: "black", position: "fixed", right: 20, borderRadius: "20px", backgroundColor: "#000000" }}>
+                <Typography color='#FFFFFF' sx={{ textAlign: 'center', mt: 3, mb: 5, fontWeight: "bold" }} variant='h3'>YOUR CART</Typography>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2, ml: 2 }}>
-                    <Typography variant='h5' color='white'>Total Products In Cart: {calculateTotalQuantity()}</Typography>
-                    <Typography variant='h5' color='white' sx={{ fontWeight: "bolder" }}>Total Price: {calculateTotalPrice()}₪</Typography>
+                    <Typography variant='h5' color='#FFFFFF'>Total Products In Cart: <span style={{ fontWeight: "bold", textDecoration: "underline" }}>{calculateTotalQuantity()}</span></Typography>
+                    <Typography variant='h5' color='#FFFFFF'>Total Price: <span style={{ fontWeight: "bold", textDecoration: "underline" }}>{calculateTotalPrice()}₪</span></Typography>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: 'center', mt: 7, mb: 5 }}>
                     <Button
@@ -49,7 +49,7 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
             <Grid container spacing={2} sx={{ width: "60%", my: 2, ml: 1, position: "relative" }}>
                 {productDetails.length > 0 ? (
                     productDetails.map((item) => (
-                        <Grid item xs={12} sx={{ border: '1px solid black', width: "25%", display: 'flex', borderRadius: "20px", gap: 1, m: 2 }} key={item.id}>
+                        <Grid item xs={12} sx={{ border: '1px solid', borderColor: "black", width: "25%", display: 'flex', borderRadius: "20px", gap: 1, m: 2 }} key={item.id}>
                             <CardMedia
                                 component="img"
                                 image={item.product?.image.url}
@@ -60,12 +60,12 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
                                     borderRadius: "20px"
                                 }}
                             />
-                            <Box sx={{ borderRight: "1px solid black", height: "5vw", margin: "auto 5px" }}>
+                            <Box sx={{ borderRight: "1px solid", borderColor: "black", height: "5vw", margin: "auto 5px" }}>
                             </Box>
                             <Box sx={{ marginTop: 2, marginLeft: 2 }}>
-                                <Typography variant='h5' sx={{ fontWeight: "600" }}>{toTitleCase(item.product?.name)}</Typography>
-                                <Typography variant='h6'>{item.product?.price}₪</Typography>
-                                <Typography variant='h6'>Quantity: {item.quantity}</Typography>
+                                <Typography sx={{ color: "black" }} variant='h6'>{item.product?.price}₪</Typography>
+                                <Typography sx={{ color: "black" }} variant='h6'>Quantity: {item.quantity}</Typography>
+                                <Typography sx={{ color: "black", fontWeight: "600" }} variant='h5'>{toTitleCase(item.product?.name)}</Typography>
                             </Box>
                             <IconButton onClick={() => handleRemoveItemFromCart(item.id)} sx={{ position: "absolute", right: 30 }}>
                                 <DeleteIcon />
@@ -73,7 +73,7 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
                         </Grid>
                     ))
                 ) : (
-                    <Typography>Your cart is empty.</Typography>
+                    <Typography sx={{ color: "black" }}>Your cart is empty.</Typography>
                 )
                 }
             </Grid >

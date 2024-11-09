@@ -1,4 +1,4 @@
-import { Box, ImageListItem, Typography, Collapse, Button } from '@mui/material';
+import { Box, ImageListItem, Typography, Collapse, Button, List, ListItem } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 
 export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, customerOrders, productImages, fetchProductName, getTotalOrderPrice, handleCancleOrder }) {
@@ -39,11 +39,14 @@ export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, 
     }, [customerOrders, getTotalOrderPrice]);
 
     return (
-        <Box>
-            <Typography paddingTop={2} textAlign="center" variant="h3">
+        <Box sx={{
+            minHeight: "100vh",
+            paddingBottom: "5%"
+        }}>
+            <Typography sx={{ color: "black" }} paddingTop={2} textAlign="center" variant="h3">
                 {`${toTitleCase(customerDetails?.name.first)} ${toTitleCase(customerDetails?.name.last)}'s Orders`}
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, marginTop: "3%" }}>
+            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 5, marginTop: "3%" }}>
                 {customerOrders.map((order) => {
                     const totalPrice = orderPrices[order._id];
 
@@ -51,7 +54,8 @@ export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, 
                         <Box
                             key={order._id}
                             sx={{
-                                border: "1px solid black",
+                                border: "1px solid",
+                                borderColor: "black",
                                 width: "50%",
                                 borderRadius: "30px",
                                 display: "flex",
@@ -64,7 +68,7 @@ export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, 
                             }}
                             onClick={() => toggleExpand(order._id)}
                         >
-                            <Typography sx={{ fontWeight: "bold" }} variant="h6">
+                            <Typography sx={{ fontWeight: "bold", color: "black" }} variant="h6">
                                 {new Date(order.createdAt).toLocaleDateString("en-GB")}
                             </Typography>
                             <Box sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 1.5, justifyContent: "center" }}>
@@ -93,22 +97,22 @@ export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, 
 
                             <Collapse in={expandedOrderId === order._id}>
                                 <Box sx={{ padding: 2 }}>
-                                    <Typography sx={{ textAlign: "center" }} variant="body1">
+                                    <Typography sx={{ textAlign: "center", color: "black" }} variant="body1">
                                         <strong>Products In Order</strong>
                                     </Typography>
-                                    <div>
-                                        <ul>
+                                    <Box>
+                                        <List >
                                             {order.productsAndQuantity.map((product) => (
-                                                <li key={product.id}>
+                                                <ListItem sx={{ color: "black", typography: "body1", padding: "0" }} key={product.id}>
                                                     {product.quantity} x {toTitleCase(productNames[product.id]) || "Unknown Product"}
-                                                </li>
+                                                </ListItem>
                                             ))}
-                                        </ul>
-                                    </div>
-                                    <Typography sx={{ textAlign: "center" }} variant="body1">
-                                        <strong>Total Price</strong>
+                                        </List>
+                                    </Box>
+                                    <Typography sx={{ textAlign: "center", marginTop: 5 }}>
+                                        <Typography sx={{ fontWeight: "bold", color: "black", fontSize: "24px" }}>Total Price</Typography >
                                     </Typography>
-                                    <Typography sx={{ textAlign: "center" }} variant="body2">
+                                    <Typography sx={{ textAlign: "center", color: "black", fontSize: "20px" }} variant="body2">
                                         {totalPrice !== undefined ? `₪${totalPrice}` : "Calculating..."}
                                     </Typography>
                                 </Box>

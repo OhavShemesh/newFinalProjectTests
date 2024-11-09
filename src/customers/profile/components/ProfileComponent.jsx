@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 import FormInputsForProfile from '../helper/FormInputsForProfile';
 
 export default function ProfileComponent({ customerDetails, handleChange, error, onSubmit, isFormValid }) {
-    const [showPicture, setShowPicture] = useState(true);
 
     return (
         <Container sx={{ paddingTop: 2, display: "flex", flexDirection: "column", gap: 2 }}>
-            <Typography variant='h5'>Your Details:</Typography>
+            <Typography sx={{ color: "black" }} variant='h5'>Your Details:</Typography>
             <Box paddingLeft={10}>
                 <FormInputsForProfile
                     label="Name"
@@ -39,33 +38,16 @@ export default function ProfileComponent({ customerDetails, handleChange, error,
                     handleChange={handleChange}
                     error={error}
                 />
-                <Box>
-                    {showPicture ? (
-                        <Box sx={{ position: "relative", height: "150px" }}>
-                            <FormInputsForProfile
-                                label="Profile Picture"
-                            />
-                            <CardMedia
-                                component="img"
-                                src={customerDetails?.image?.url}
-                                alt={customerDetails?.image?.alt}
-                                sx={{ width: "150px", height: "150px", position: "absolute", top: "0", left: "21%", border: "1px solid black", cursor: "pointer" }}
-                                onClick={() => setShowPicture(false)}
-                            />
-                        </Box>
-                    ) : (
-                        <FormInputsForProfile
-                            label="Profile Picture"
-                            inputNames={["Image Url", "Image Alt"]}
-                            details={{
-                                "Image Url": customerDetails?.image?.url || "",
-                                "Image Alt": customerDetails?.image?.alt || ""
-                            }}
-                            handleChange={handleChange}
-                            error={error}
-                        />
-                    )}
-                </Box>
+                <FormInputsForProfile
+                    label="Profile Picture"
+                    inputNames={["Image Url", "Image Alt"]}
+                    details={{
+                        "Image Url": customerDetails?.image?.url || "",
+                        "Image Alt": customerDetails?.image?.alt || ""
+                    }}
+                    handleChange={handleChange}
+                    error={error}
+                />
                 <FormInputsForProfile
                     label="Address"
                     inputNames={["City", "Street", "House Number", "Zip"]}
@@ -89,7 +71,8 @@ export default function ProfileComponent({ customerDetails, handleChange, error,
                         borderRadius: "10px",
                         width: "50%",
                         fontSize: "1rem",
-                        border: "3px solid black"
+                        border: "3px solid",
+                        borderColor: "black"
                     }}
                 >
                     Save Changes

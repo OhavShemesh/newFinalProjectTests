@@ -27,6 +27,17 @@ export default function useCustomers() {
         }
     }
 
+    const getAllCustomers = async (id) => {
+        try {
+            let customers = await axios.get(CustomersApi)
+            return customers.data
+
+        } catch (err) {
+            console.log(err);
+
+        }
+
+    }
     const getCustomerById = async (id) => {
         try {
             let customer = await axios.get(`${CustomersApi}/${id}`)
@@ -79,7 +90,26 @@ export default function useCustomers() {
             return "wrong code"
         }
     }
+    const sendContactMessage = async (message, customerId) => {
+        try {
+            const response = await axios.patch(`${CustomersApi}/contactMessage`, { customerId: customerId, message: message })
+            const data = response.data
+            return data
+        } catch (err) {
+            console.log(err);
 
+        }
+    }
+    const deleteContactMessage = async (message, customerId) => {
+        try {
+            const response = await axios.patch(`${CustomersApi}/deleteMessage`, { customerId: customerId, message: message })
+            const data = response.data
+            return data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
 
 
     return {
@@ -88,7 +118,10 @@ export default function useCustomers() {
         getCustomerById,
         getCartFromDb,
         setCartInDb,
-        updateBusinessStatus
+        updateBusinessStatus,
+        sendContactMessage,
+        getAllCustomers,
+        deleteContactMessage
     }
 
 }

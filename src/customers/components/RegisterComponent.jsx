@@ -6,10 +6,10 @@ import FormInputs from '../../formHelpers/FormInputs';
 export default function RegisterComponent({ handleChange, error, isFormValid, onSubmit }) {
 
 
-    return ( 
-        <>
-            <form>
-                <Typography variant="h4" sx={{ py: "1%", mb: "2%" }}>
+    return (
+        <Box sx={{ minHeight: "100vh", backgroundColor: "white", paddingTop: "3%" }}>
+            <Box sx={{ width: "70%", margin: "auto", border: '1px solid', borderColor: "black", borderRadius: "20px" }}>
+                <Typography variant="h4" sx={{ py: "1%", mb: "2%", textAlign: "center", backgroundColor: '#000000', height: "2%", border: "1px solid ", borderColor: "#000000", color: "#FFFFFF", borderRadius: "20px 20px 0 0 " }}>
                     Customer Registration Form
                 </Typography>
                 <FormInputs error={error} handleChange={handleChange} label={"Full Name"} inputNames={["First Name", "Middle Name", "Last Name"]} />
@@ -28,13 +28,14 @@ export default function RegisterComponent({ handleChange, error, isFormValid, on
                             borderRadius: "10px",
                             width: "50%",
                             fontSize: "1rem",
-                            border: "3px solid black"
+                            border: "3px solid",
+                            borderColor: "black"
                         }}
                     >
                         Register
                     </Button>
                 </Box>
-            </form>
-        </>
+            </Box>
+        </Box>
     );
 }

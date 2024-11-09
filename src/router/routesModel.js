@@ -7,6 +7,7 @@ const ROUTES = {
     PRODUCT_INFO: "/product-info",
     BUSINESS_BOARD: "/business-board",
     MANAGE_MY_ORDERS: "/manage-my-order",
-    PROFILE_PAGE: "/profile-page"
+    PROFILE_PAGE: "/profile-page",
+    CONTACT: "/contact"
 }
 export default ROUTES;

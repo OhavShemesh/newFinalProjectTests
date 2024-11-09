@@ -75,7 +75,7 @@ export default function SingleProduct() {
     }
 
     return (
-        <Box sx={{ display: "flex", mt: 2 }}>
+        <Box sx={{ display: "flex", pt: 3, minHeight: "100vh" }}>
             <Box sx={{ width: "40%", ml: 2 }}>
                 <CardMedia
                     sx={{ objectFit: "scale-down", borderRadius: "20px" }}
@@ -84,9 +84,9 @@ export default function SingleProduct() {
                 />
             </Box>
             <Box sx={{ mt: 2, ml: 2, display: 'flex', flexDirection: "column", gap: 2 }}>
-                <Typography variant='h3' sx={{ fontWeight: "bold" }}>{toTitleCase(singleProduct?.name)}</Typography>
-                <Typography variant='h6' >{singleProduct?.description}</Typography>
-                <Typography variant='h5' sx={{ fontWeight: "bold" }}>Price: {singleProduct?.price}₪</Typography>
+                <Typography variant='h3' sx={{ fontWeight: "bold", color: "black" }}>{toTitleCase(singleProduct?.name)}</Typography>
+                <Typography variant='h6' sx={{ color: "black" }}>{singleProduct?.description}</Typography>
+                <Typography variant='h5' sx={{ fontWeight: "bold", color: "black" }}>Price: {singleProduct?.price}₪</Typography>
                 <Box sx={{
                     display: 'flex', border: "1px solid black", width: "fit-content", alignItems: "center",
                     borderRadius: "20px", backgroundColor: "black"
@@ -95,7 +95,7 @@ export default function SingleProduct() {
                     <Typography sx={{ color: "white" }}>{quantity}</Typography>
                     <Button onClick={handleDecrement} sx={{ color: "white", fontSize: "20px", letterSpacing: "-3px" }}>--</Button>
                 </Box>
-                <Typography variant='h6' sx={{ fontWeight: "bold" }}>In Stock: <Typography sx={{ fontSize: "smaller", color: singleProduct?.inStock === 0 ? "red" : "auto" }} variant='span'>{singleProduct?.inStock === 0 ? "Out Of Stock" : singleProduct?.inStock}</Typography></Typography>
+                <Typography variant='h6' sx={{ fontWeight: "bold", color: "black" }}>In Stock: <Typography sx={{ fontSize: "smaller", color: singleProduct?.inStock === 0 ? "red" : "auto" }} variant='span'>{singleProduct?.inStock === 0 ? "Out Of Stock" : singleProduct?.inStock}</Typography></Typography>
                 <Box sx={{ marginTop: "auto", marginBottom: 3 }}>
                     <Button onClick={() => customer ? handleAddToCart(singleProduct?._id, quantity) : setSnack("error", "please Login")}
                         sx={{

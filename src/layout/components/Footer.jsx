@@ -16,9 +16,9 @@ export default function Footer({ navigate }) {
       }}
     >
       <Toolbar className="toolbar" sx={{ justifyContent: 'center' }}>
-        <Button sx={{ color: 'white' }}>About</Button>
-        <Button sx={{ color: 'white' }}>Contact</Button>
-        <Button onClick={() => navigate(ROUTES.BUSINESS_BOARD)} sx={{ color: 'white' }}>Business Board</Button>
+        <Button sx={{ color: '#FFFFFF' }}>About</Button>
+        <Button onClick={() => navigate(ROUTES.CONTACT)} sx={{ color: '#FFFFFF' }}>Contact</Button>
+        <Button onClick={() => navigate(ROUTES.BUSINESS_BOARD)} sx={{ color: '#FFFFFF' }}>Business Board</Button>
       </Toolbar>
     </Box>
   );

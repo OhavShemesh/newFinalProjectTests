@@ -1,4 +1,4 @@
-import { Box, FormHelperText, Input, Typography } from '@mui/material';
+import { Box, FormHelperText, TextField, Typography } from '@mui/material';
 import React from 'react';
 
 export default function FormInputs({ label, inputNames, handleChange, error, width, givenName }) {
@@ -33,12 +33,14 @@ export default function FormInputs({ label, inputNames, handleChange, error, wid
                     const schemaName = givenName || handleFitToSchema(inputName.toLowerCase().replace(/\s+/g, ''));
                     return (
                         <Box key={index} sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: `${100 / inputNames.length}%` }}>
-                            <Input
+                            <TextField
                                 type={inputName}
                                 error={Boolean(error?.[schemaName])}
                                 onChange={(e) => handleChange(e)}
                                 name={schemaName}
                                 placeholder={inputName}
+                                multiline
+                                minRows={1}
                                 sx={{
                                     backgroundColor: "lightgrey",
                                     width: "100%",

@@ -30,7 +30,8 @@ export default function DeleteProductsComponent({ handleDelete, products }) {
                             borderRadius: "40px",
                             width: "100%",
                             backgroundColor: 'white',
-                            border: "1px solid black",
+                            border: "1px solid",
+                            borderColor: "black"
                         }}>
                             <CardContent sx={{ textAlign: "center", fontWeight: "bold", fontSize: "24px", height: "50px" }}>
                                 {product?.name}

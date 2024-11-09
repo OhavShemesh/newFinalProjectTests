@@ -11,7 +11,9 @@ export default function UpdateProductComponent({ allProducts, handleFetchProduct
                     <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} key={product._id}>
                         <Card sx={{
                             borderRadius: "40px",
-                            border: "1px solid black",
+                            border: "1px solid",
+                            borderColor: "black"
+
                         }}>
                             <CardActionArea
                                 onClick={() => handleFetchProductId(product._id)}

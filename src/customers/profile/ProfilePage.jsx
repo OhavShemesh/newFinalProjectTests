@@ -5,36 +5,49 @@ import useCustomers from '../hooks/useCustomers';
 import useForm from '../../formHelpers/useForm';
 import signupSchema from '../../formHelpers/schemas/signupSchema';
 import { Container, Typography } from '@mui/material';
+import initialRegisterForm from '../helpers/initialForms/initialRegisterForm';
 
 export default function ProfilePage() {
     const { customer } = useCurrentCustomer();
     const [customerDetails, setCustomerDetails] = useState(null);
     const { getCustomerById } = useCustomers();
     const [isLoading, setIsLoading] = useState(true);
-    const [formValues, setFormValues] = useState({});
+    const [formValues, setFormValues] = useState(null)
 
-    const initialEditProfileForm = (details) => ({
-        first: details?.name?.first || "",
-        middle: details?.name?.middle || "",
-        last: details?.name?.last || "",
-        phone: details?.phone || "",
-        email: details?.email || "",
-        password: details?.password || "",
-        url: details?.image?.url || "",
-        alt: details?.image?.alt || "",
-        city: details?.address?.city || "",
-        street: details?.address?.street || "",
-        houseNumber: details?.address?.houseNumber || "",
-        zip: details?.address?.zip || "",
-    });
+    useEffect(() => {
+        try {
+            const initialEditForm = () => ({
+                first: customerDetails?.name.first,
+                middle: customerDetails?.name.middle,
+                last: customerDetails?.name.last,
+                phone: customerDetails?.phone,
+                email: customerDetails?.email,
+                password: customerDetails?.password,
+                url: customerDetails?.image.url,
+                alt: customerDetails?.image.alt,
+                city: customerDetails?.address.city,
+                street: customerDetails?.address.street,
+                houseNumber: customerDetails?.address.houseNumber,
+                zip: customerDetails?.address.zip,
+            })
+            setFormValues(initialEditForm())
+        } catch (err) {
+            console.log(err);
 
+        }
+    }, [customerDetails])
+
+
+    useEffect(() => {
+        console.log("formValues", formValues);
+
+    }, [formValues])
     useEffect(() => {
         const fetchCustomerDetails = async () => {
             if (customer) {
                 try {
                     const details = await getCustomerById(customer._id);
                     setCustomerDetails(details);
-                    setFormValues(initialEditProfileForm(details));
                 } catch (err) {
                     console.log(err);
                 } finally {
@@ -50,23 +63,15 @@ export default function ProfilePage() {
         console.log(data);
     };
 
-    let formValuesAfter
-
-    useEffect(() => {
-        if (formValues) {
-            formValuesAfter = formValues
-        }
-
-    }, [formValues])
 
 
     const { handleChange, error, onSubmit, isFormValid } = useForm(
-        formValuesAfter,
+        formValues,
         signupSchema,
         handleSubmit
     );
 
-    if (isLoading || !Object.keys(formValues).length) {
+    if (isLoading || !formValues) {
         return (
             <Container>
                 <Typography>Loading...</Typography>
@@ -77,7 +82,7 @@ export default function ProfilePage() {
     return (
         <>
             <Container sx={{ borderBottom: "1px dotted grey" }}>
-                <Typography sx={{ pb: 2 }} textAlign={"center"} variant="h2">Profile Page</Typography>
+                <Typography sx={{ pb: 2, color: "black" }} textAlign={"center"} variant="h2">Profile Page</Typography>
             </Container>
             <ProfileComponent
                 customerDetails={customerDetails}

@@ -30,7 +30,7 @@ export default function SnackbarProvider({ children }) {
 
             const timer = setTimeout(() => {
                 handleClose();
-            }, 2000);
+            }, 3000);
 
             return () => clearTimeout(timer);
         }
@@ -47,7 +47,7 @@ export default function SnackbarProvider({ children }) {
                     <Snackbar
                         open={isSnackOpen}
                         onClose={handleClose}
-                        autoHideDuration={2000}
+                        autoHideDuration={3000}
                         anchorOrigin={{ vertical: "top", horizontal: "right" }}
                         sx={{ marginTop: "40px" }}
                     >

@@ -5,8 +5,8 @@ import FormChoose from '../../../formHelpers/FormChoose'
 
 export default function AddProductComponent({ handleChange, error, onSubmit, isFormValid }) {
     return (
-        <>
-            <Typography sx={{ textAlign: "center", py: 2 }} variant='h3'>ADD NEW PRODUCT</Typography>
+        <Box sx={{ minHeight: "100vh" }}>
+            <Typography sx={{ textAlign: "center", py: 2, color: "black" }} variant='h3'>ADD NEW PRODUCT</Typography>
             <Box sx={{ width: "70%", margin: "auto", pt: 2 }}>
                 <FormInputs error={error} handleChange={handleChange} label={"Name"} inputNames={["Product Name"]} />
                 <FormInputs error={error} handleChange={handleChange} label={"Description"} inputNames={["Product Description"]} />
@@ -25,13 +25,14 @@ export default function AddProductComponent({ handleChange, error, onSubmit, isF
                             borderRadius: "10px",
                             width: "50%",
                             fontSize: "1rem",
-                            border: "3px solid black"
+                            border: "3px solid",
+                            borderColor: "black"
                         }}
                     >
                         Add Product
                     </Button>
                 </Box >
             </Box>
-        </>
+        </Box>
     )
 }

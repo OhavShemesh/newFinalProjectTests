@@ -21,10 +21,10 @@ export default function FormInputsForProfile({ label, inputNames, handleChange, 
         return nameMap[name] || name;
     };
 
-    return (
+    return ( 
         <Box sx={{ py: "2%", width: width || "100%", display: "flex", alignItems: "flex-start", margin: "auto" }}>
             <Box sx={{ width: "20%", ml: "2%", display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ fontWeight: "bold" }}>{label}:</Typography>
+                <Typography sx={{ fontWeight: "bold", color: "black" }}>{label}:</Typography>
             </Box>
             <Box sx={{ display: "flex", width: "80%", gap: "2%", mr: "2%" }}>
                 {inputNames?.map((inputName, index) => {
@@ -43,9 +43,17 @@ export default function FormInputsForProfile({ label, inputNames, handleChange, 
                                         placeholder={inputName}
                                         sx={{
                                             backgroundColor: "lightgrey",
-                                            width: "100%"
+                                            width: "100%",
                                         }}
-                                        inputProps={{ style: { textAlign: "center" } }}
+                                        inputProps={{
+                                            style: { textAlign: "center" },
+                                            sx: {
+                                                "&::placeholder": {
+                                                    color: "grey",
+                                                    opacity: 1,
+                                                }
+                                            }
+                                        }}
                                     />
                                     <FormHelperText error={Boolean(error?.[schemaName])}>
                                         {error?.[schemaName]}
@@ -53,7 +61,7 @@ export default function FormInputsForProfile({ label, inputNames, handleChange, 
                                 </>
                             ) : (
                                 <Typography variant="body1" sx={{
-                                    textAlign: "center", width: "100%", borderBottom: "1px solid black", height: "30px", display: "flex", justifyContent: "center", alignItems: label === "Profile Picture" ? "start" : "center", backgroundColor: "lightgrey", overflow: "auto"
+                                    textAlign: "center", width: "100%", borderBottom: "1px solid", borderColor: "black", height: "30px", display: "flex", justifyContent: "center", alignItems: label === "Profile Picture" ? "start" : "center", backgroundColor: "lightgrey", overflow: "auto", color: "black"
                                 }}>
                                     {displayValue}
                                 </Typography>

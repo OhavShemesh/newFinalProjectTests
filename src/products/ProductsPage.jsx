@@ -6,7 +6,7 @@ import useCart from './hooks/useCart';
 import { useCurrentCustomer } from '../customers/provider/UserProvider';
 
 export default function ProductsPage() {
-    const { allProducts, navigate } = useProducts();
+    const { allProducts, navigate, toTitleCase } = useProducts();
     const [category, setCategory] = useState("");
     const { handleAddToCart, isAddedMap, cart } = useCart()
 
@@ -20,7 +20,8 @@ export default function ProductsPage() {
                 isAddedMap={isAddedMap}
                 navigate={navigate}
                 category={category}
-                cart={cart} />
+                cart={cart}
+                toTitleCase={toTitleCase} />
         </>
     )
 }
