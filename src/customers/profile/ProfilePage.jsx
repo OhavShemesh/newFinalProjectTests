@@ -39,10 +39,6 @@ export default function ProfilePage() {
 
 
     useEffect(() => {
-        console.log("formValues", formValues);
-
-    }, [formValues])
-    useEffect(() => {
         const fetchCustomerDetails = async () => {
             if (customer) {
                 try {

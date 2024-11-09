@@ -34,10 +34,6 @@ const CustomThemeProvider = ({ children }) => {
         [mode]
     );
 
-    useEffect(() => {
-        console.log(mode);
-    }, [mode]);
-
     return (
         <ThemeContext.Provider value={{ mode, toggleMode }}>
             <ThemeProvider theme={theme}>{children}</ThemeProvider>

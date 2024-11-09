@@ -111,6 +111,17 @@ export default function useCustomers() {
         }
     }
 
+    const sendEmail = async (recipient, subject, body) => {
+        try {
+            const response = axios.post(`${CustomersApi}/sendMail`, { recipient: recipient, subject: subject, body: body })
+            const data = response.data
+            return data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
+
 
     return {
         register,
@@ -121,7 +132,8 @@ export default function useCustomers() {
         updateBusinessStatus,
         sendContactMessage,
         getAllCustomers,
-        deleteContactMessage
+        deleteContactMessage,
+        sendEmail
     }
 
 }

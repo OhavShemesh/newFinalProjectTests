@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import SendIcon from '@mui/icons-material/Send';
 
-export default function MessagesComponent({ allCustomersDetails = [], toTitleCase, handleDeleteMessage, handleCompleteMessage }) {
+export default function MessagesComponent({ allCustomersDetails = [], toTitleCase, handleDeleteMessage, handleCompleteMessage, handleResponseMessage, handleOnChange }) {
     const [expanded, setExpanded] = useState(null);
 
     const toggleExpandRow = (uniqueId) => {
@@ -53,6 +53,7 @@ export default function MessagesComponent({ allCustomersDetails = [], toTitleCas
                                                     </Typography>
                                                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                                         <TextField
+                                                            onChange={handleOnChange}
                                                             sx={{ width: "40%" }}
                                                             placeholder="Response"
                                                             multiline
@@ -60,13 +61,13 @@ export default function MessagesComponent({ allCustomersDetails = [], toTitleCas
                                                             inputProps={{ style: { textAlign: 'center' } }}
                                                             onClick={(e) => e.stopPropagation()}
                                                         />
-                                                        <IconButton sx={{ width: "50px", height: "50px" }}>
+                                                        <IconButton onClick={() => handleResponseMessage(message?.message, customerDetails?._id, customerDetails?.email)} sx={{ width: "50px", height: "50px" }}>
                                                             <SendIcon sx={{ color: "black", fontSize: "28px" }} />
                                                         </IconButton>
                                                     </Box>
                                                     <Box sx={{ display: "flex", justifyContent: "center", gap: 1, paddingTop: 2 }}>
-                                                        <Button onClick={() => handleDeleteMessage(message?.message, customerDetails?._id)} variant="contained" color="error">Delete</Button>
-                                                        <Button onClick={() => handleCompleteMessage(message?.message, customerDetails?._id)} variant="contained" color="success">Completed</Button>
+                                                        <Button onClick={() => handleDeleteMessage(message?.message, customerDetails?._id, customerDetails?.email)} variant="contained" color="error">Delete</Button>
+                                                        <Button onClick={() => handleCompleteMessage(message?.message, customerDetails?._id, customerDetails?.email)} variant="contained" color="success">Completed</Button>
                                                     </Box>
                                                 </Box>
                                             </Collapse>
