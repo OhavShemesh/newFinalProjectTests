@@ -5,14 +5,13 @@ import { useCurrentCustomer } from '../../customers/provider/UserProvider';
 import useCustomers from '../../customers/hooks/useCustomers';
 import useOrders from '../../orders/hooks/useOrders';
 import { useSnack } from '../../providers/SnackBarProvider';
-import { Typography } from '@mui/material';
+import Layout from '../../layout/Layout';
 
 export default function useCart() {
     const navigate = useNavigate();
     const { setCartInDb, getCartFromDb, getCustomerById } = useCustomers()
     const { placeNewOrder, updateOrdersInCustomer } = useOrders()
     const { updateStockAfterOrder, getProductById } = useProducts()
-    const [hasOutOfStock, setHasOutOfStock] = useState(false)
     const { customer } = useCurrentCustomer()
     const setSnack = useSnack();
 
@@ -26,9 +25,6 @@ export default function useCart() {
                     let cartFromDb = await getCartFromDb(customer._id);
                     setCart(cartFromDb);
 
-                } else {
-                    const savedCart = localStorage.getItem("cart");
-                    setCart(savedCart ? JSON.parse(savedCart) : []);
                 }
             } catch (error) {
                 setCart([]);
@@ -52,6 +48,7 @@ export default function useCart() {
                     updatedCart[existingItemIndex].quantity = quantity;
                     setSnack("success", "Cart updated");
                 }
+
                 return updatedCart;
             } else if (quantity > 0) {
                 setSnack("success", "Item added to cart");
@@ -67,7 +64,6 @@ export default function useCart() {
             if (customer) {
                 const updatedCart = cart.filter(item => item.id !== id);
                 setCart(updatedCart);
-                localStorage.setItem("cart", JSON.stringify(updatedCart));
                 await setCartInDb(customer._id, updatedCart);
             }
         } catch (err) {
@@ -81,7 +77,6 @@ export default function useCart() {
             if (customer) {
                 const updatedCart = []
                 setCart(updatedCart);
-                localStorage.setItem("cart", JSON.stringify(updatedCart));
                 await setCartInDb(customer._id, updatedCart);
             }
         } catch (err) {
@@ -134,7 +129,7 @@ export default function useCart() {
         const isStockIssue = await checkStock(cart);
 
         if (isStockIssue) {
-            return;
+            return false
         }
 
         const orderProducts = cart.map(item => ({
@@ -156,6 +151,7 @@ export default function useCart() {
                 await updateOrdersInCustomer(customer._id, orderId);
                 await updateStockAfterOrder(cart);
                 await handleRemoveAllFromCart();
+
             } else {
                 setSnack("error", "Nothing in cart")
             }
@@ -165,9 +161,6 @@ export default function useCart() {
         }
     };
 
-    useEffect(() => {
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart]);
 
 
     useEffect(() => {

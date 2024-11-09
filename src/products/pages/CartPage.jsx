@@ -4,7 +4,6 @@ import CartCheckCustomer from '../helpers/CartCheckCustomer'
 import useProducts from '../hooks/useProducts';
 import useCart from '../hooks/useCart';
 import { useCurrentCustomer } from '../../customers/provider/UserProvider';
-import { getFromLocalStorage } from '../../localStorageFunctions/useLocalStorage';
 
 
 export default function CartPage() {
@@ -12,18 +11,6 @@ export default function CartPage() {
     const [productDetails, setProductDetails] = useState([]);
     const { handleRemoveItemFromCart, cart, setCart, handlePlaceOrder } = useCart()
     const { customer } = useCurrentCustomer()
-
-    useEffect(() => {
-        if (customer) {
-
-        } else {
-            const cartFromLocalStorage = JSON.parse(getFromLocalStorage("cart")) || [];
-            setCart(cartFromLocalStorage);
-
-        }
-
-    }, []);
-
 
 
     useEffect(() => {

@@ -16,15 +16,18 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: 'center', mt: 7, mb: 5 }}>
                     <Button
-                        onClick={() => {
-                            handlePlaceOrder(cart, customer)
-                            setSnack(
-                                "success",
-                                <>
-                                    Your order was placed successfully! You can manage it in
-                                    <Typography onClick={() => navigate(ROUTES.MANAGE_MY_ORDERS)} sx={{ cursor: "pointer" }} component="span" color="purple"> Manage Orders</Typography>
-                                </>
-                            );
+                        onClick={async () => {
+                            let checkOrder = await handlePlaceOrder(cart, customer)
+
+                            if (checkOrder) {
+                                setSnack(
+                                    "success",
+                                    <>
+                                        Your order was placed successfully! You can manage it in
+                                        <Typography onClick={() => navigate(ROUTES.MANAGE_MY_ORDERS)} sx={{ cursor: "pointer" }} component="span" color="purple"> Manage Orders</Typography>
+                                    </>
+                                );
+                            }
 
 
                         }}

@@ -87,7 +87,7 @@ export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, 
                                     );
                                 })}
                             </Box>
-                            <Typography sx={{ fontWeight: "bold" }} color={
+                            <Typography variant='body1' sx={{ fontWeight: "bold" }} color={
                                 order.status === "Pending" ? "orange" :
                                     order.status === "In Progress" ? "#00BFFF" :
                                         order.status === "Completed" ? "green" : "black"
@@ -109,9 +109,9 @@ export default function ManageMyOrdersComponent({ customerDetails, toTitleCase, 
                                             ))}
                                         </List>
                                     </Box>
-                                    <Typography sx={{ textAlign: "center", marginTop: 5 }}>
-                                        <Typography sx={{ fontWeight: "bold", color: "black", fontSize: "24px" }}>Total Price</Typography >
-                                    </Typography>
+                                    <Box sx={{ textAlign: "center", marginTop: 5 }}>
+                                        <Typography variant='h5' sx={{ fontWeight: "bold", color: "black" }}>Total Price</Typography >
+                                    </Box>
                                     <Typography sx={{ textAlign: "center", color: "black", fontSize: "20px" }} variant="body2">
                                         {totalPrice !== undefined ? `₪${totalPrice}` : "Calculating..."}
                                     </Typography>

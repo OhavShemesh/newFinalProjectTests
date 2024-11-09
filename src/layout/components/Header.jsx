@@ -12,6 +12,7 @@ import { useCustomTheme } from '../../providers/CustomThemeProvider';
 
 export default function Header({ cart, navigate }) {
 
+
   const { customer } = useCurrentCustomer()
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { mode, toggleMode } = useCustomTheme();

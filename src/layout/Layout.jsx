@@ -4,9 +4,11 @@ import Main from './components/Main'
 import Footer from './components/Footer'
 import useCart from '../products/hooks/useCart'
 
+
 export default function Layout({ children }) {
 
     const { navigate, cart } = useCart()
+
 
 
     return (
