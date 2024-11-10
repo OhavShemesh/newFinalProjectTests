@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Grid, IconButton, Menu, Typography } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import { useEffect, useState } from "react";
@@ -6,7 +6,7 @@ import { useCurrentCustomer } from "../../customers/provider/UserProvider";
 import { useLocation } from "react-router-dom";
 import { useSnack } from "../../providers/SnackBarProvider";
 
-export default function ProductComponent({ allProducts = [], handleAddToCart, cart, navigate, category, toTitleCase }) {
+export default function ProductComponent({ allProducts = [], handleAddToCart, cart, navigate, category, toTitleCase, handleLikeProduct, customerDetails, handleShare }) {
     const [quantities, setQuantities] = useState({});
     const { customer } = useCurrentCustomer();
     const location = useLocation();
@@ -49,6 +49,7 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
         return matchesCategory && matchesSearchValue;
     });
 
+
     return (
         <Grid container spacing={2} py={3} justifyContent="center" sx={{ maxWidth: '80vw', margin: '0 auto' }}>
             {filteredProducts.map(product => (
@@ -81,10 +82,11 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
                         </CardActionArea>
                         <Box sx={{ display: "flex", justifyContent: "space-between", height: "20%", alignItems: "flex-end" }}>
                             <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
-                                    <FavoriteIcon />
+                                <IconButton onClick={() => handleLikeProduct(product?._id)} aria-label="add to favorites">
+                                    <FavoriteIcon
+                                        color={customerDetails?.likes?.includes(product._id) ? "error" : "auto"} />
                                 </IconButton>
-                                <IconButton aria-label="share">
+                                <IconButton onClick={() => handleShare(product?._id)} aria-label="share">
                                     <ShareIcon />
                                 </IconButton>
                             </CardActions>

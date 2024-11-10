@@ -66,9 +66,9 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
                             <Box sx={{ borderRight: "1px solid", borderColor: "black", height: "5vw", margin: "auto 5px" }}>
                             </Box>
                             <Box sx={{ marginTop: 2, marginLeft: 2 }}>
+                                <Typography sx={{ color: "black", fontWeight: "600" }} variant='h5'>{toTitleCase(item.product?.name)}</Typography>
                                 <Typography sx={{ color: "black" }} variant='h6'>{item.product?.price}₪</Typography>
                                 <Typography sx={{ color: "black" }} variant='h6'>Quantity: {item.quantity}</Typography>
-                                <Typography sx={{ color: "black", fontWeight: "600" }} variant='h5'>{toTitleCase(item.product?.name)}</Typography>
                             </Box>
                             <IconButton onClick={() => handleRemoveItemFromCart(item.id)} sx={{ position: "absolute", right: 30 }}>
                                 <DeleteIcon />

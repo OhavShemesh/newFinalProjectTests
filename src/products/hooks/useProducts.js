@@ -86,6 +86,7 @@ export default function useProducts() {
                     subFromStock: product.quantity
                 });
                 const data = response.data
+                return data
 
             });
 

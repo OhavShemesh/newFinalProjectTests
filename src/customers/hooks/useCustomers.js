@@ -121,6 +121,16 @@ export default function useCustomers() {
 
         }
     }
+    const likeProducts = async (productId, customerId) => {
+        try {
+            const response = await axios.patch(`${CustomersApi}/likeProduct`, { productId: productId, customerId: customerId })
+            const data = response.data
+            return data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
 
 
     return {
@@ -133,7 +143,8 @@ export default function useCustomers() {
         sendContactMessage,
         getAllCustomers,
         deleteContactMessage,
-        sendEmail
+        sendEmail,
+        likeProducts
     }
 
 }

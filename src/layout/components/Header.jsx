@@ -49,7 +49,6 @@ export default function Header({ cart, navigate, customerDetails }) {
             </IconButton>
             <IconButton onClick={() => {
               navigate(ROUTES.CART);
-              window.location.reload();
             }} size="large" sx={{ color: "#FFFFFF" }}>
               <Badge badgeContent={cart?.length} color="error">
                 <ShoppingCartIcon />
@@ -61,7 +60,7 @@ export default function Header({ cart, navigate, customerDetails }) {
                   component="img"
                   src={customerDetails.image.url}
                   alt={customerDetails.image.alt || "User Image"}
-                  sx={{ width: 32, height: 32, borderRadius: "50%" }}  
+                  sx={{ width: 32, height: 32, borderRadius: "50%" }}
                 />
               ) : (
                 <AccountCircle className="account-icon" sx={{ fontSize: 32 }} />

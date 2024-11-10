@@ -20,7 +20,7 @@ export default function BusinessBoardPage() {
             try {
                 const customerData = await getCustomerById(customer?._id);
                 setCustomerDetails(customerData);
-            } catch (error) {
+            } catch (err) {
                 console.log(err);
 
             }
