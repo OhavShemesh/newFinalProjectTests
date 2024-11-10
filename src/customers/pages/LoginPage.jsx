@@ -7,8 +7,10 @@ import loginSchema from '../../formHelpers/schemas/loginSchema'
 import initialLoginForm from '../helpers/initialForms/initialLoginForm'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from '../../router/routesModel'
+import { useSnack } from '../../providers/SnackBarProvider'
 
 export default function LoginPage() {
+    const setSnack = useSnack()
     const navigate = useNavigate()
 
     const { login } = useCustomers()
@@ -16,9 +18,13 @@ export default function LoginPage() {
     const handleSubmit = async (loginDetails) => {
 
         let customer = await login(loginDetails)
-        setToLocalStorage("token", customer)
-        navigate(ROUTES.ROOT)
-        window.location.reload();
+        if (customer) {
+            setToLocalStorage("token", customer)
+            navigate(ROUTES.ROOT)
+            window.location.reload();
+        } else {
+            setSnack("error", "Incorrect email or password. Please try again.");
+        }
 
 
     }

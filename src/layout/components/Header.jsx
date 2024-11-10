@@ -10,7 +10,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { useCustomTheme } from '../../providers/CustomThemeProvider';
 
-export default function Header({ cart, navigate }) {
+export default function Header({ cart, navigate, customerDetails }) {
 
 
   const { customer } = useCurrentCustomer()
@@ -56,11 +56,21 @@ export default function Header({ cart, navigate }) {
               </Badge>
             </IconButton>
             {customer ? <IconButton onClick={handleUserMenu} size="large" sx={{ color: "#FFFFFF" }}>
-              <AccountCircle className="account-icon" />
-            </IconButton> : <Box sx={{ display: "flex", gap: 1 }}>
-              <Button onClick={() => { navigate(ROUTES.LOGIN) }} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant='contained'>Login</Button>
-              <Button onClick={() => { navigate(ROUTES.REGISTER) }} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant='contained'>Register</Button>
-            </Box>
+              {customerDetails?.image?.url ? (
+                <CardMedia
+                  component="img"
+                  src={customerDetails.image.url}
+                  alt={customerDetails.image.alt || "User Image"}
+                  sx={{ width: 32, height: 32, borderRadius: "50%" }}  
+                />
+              ) : (
+                <AccountCircle className="account-icon" sx={{ fontSize: 32 }} />
+              )}
+            </IconButton>
+              : <Box sx={{ display: "flex", gap: 1 }}>
+                <Button onClick={() => { navigate(ROUTES.LOGIN) }} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant='contained'>Login</Button>
+                <Button onClick={() => { navigate(ROUTES.REGISTER) }} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant='contained'>Register</Button>
+              </Box>
             }
             <Menu
               sx={{ mt: '30px' }}
