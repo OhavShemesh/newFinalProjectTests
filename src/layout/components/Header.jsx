@@ -11,21 +11,19 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import { useCustomTheme } from '../../providers/CustomThemeProvider';
 
 export default function Header({ cart, navigate, customerDetails }) {
-
-
-  const { customer } = useCurrentCustomer()
+  const { customer } = useCurrentCustomer();
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { mode, toggleMode } = useCustomTheme();
-
+  const [isImageValid, setIsImageValid] = useState(true); // New state to handle image validation
 
   const handleUserMenu = (event) => {
     setAnchorElUser((prev) => (prev ? null : event.currentTarget));
   };
+
   const handleLogout = () => {
-    removeToken()
+    removeToken();
     window.location.reload();
   };
-
 
   const settings = ['Profile', "Manage Orders", 'Logout'];
 
@@ -47,30 +45,47 @@ export default function Header({ cart, navigate, customerDetails }) {
             <IconButton onClick={toggleMode}>
               {mode === "light" ? <DarkModeIcon sx={{ color: "#FFFFFF" }} /> : <LightModeIcon sx={{ color: "#FFFFFF" }} />}
             </IconButton>
-            <IconButton onClick={() => {
-              navigate(ROUTES.CART);
-            }} size="large" sx={{ color: "#FFFFFF" }}>
+            <IconButton onClick={() => navigate(ROUTES.CART)} size="large" sx={{ color: "#FFFFFF" }}>
               <Badge badgeContent={cart?.length} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            {customer ? <IconButton onClick={handleUserMenu} size="large" sx={{ color: "#FFFFFF" }}>
-              {customerDetails?.image?.url ? (
-                <CardMedia
-                  component="img"
-                  src={customerDetails.image.url}
-                  alt={customerDetails.image.alt || "User Image"}
-                  sx={{ width: 32, height: 32, borderRadius: "50%" }}
-                />
-              ) : (
-                <AccountCircle className="account-icon" sx={{ fontSize: 32 }} />
-              )}
-            </IconButton>
-              : <Box sx={{ display: "flex", gap: 1 }}>
-                <Button onClick={() => { navigate(ROUTES.LOGIN) }} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant='contained'>Login</Button>
-                <Button onClick={() => { navigate(ROUTES.REGISTER) }} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant='contained'>Register</Button>
+            {customer ? (
+              <IconButton onClick={handleUserMenu} size="large" sx={{ color: "#FFFFFF" }}>
+                {customerDetails?.image?.url && isImageValid ? (
+                  <CardMedia
+                    component="img"
+                    src={customerDetails.image.url}
+                    alt={customerDetails.image.alt || "User Image"}
+                    sx={{ width: 32, height: 32, borderRadius: "50%" }}
+                    onLoad={() => setIsImageValid(true)}
+                    onError={() => setIsImageValid(false)} // Update state if image fails to load
+                  />
+                ) : (
+                  <Box sx={{ position: "relative" }}>
+                    <AccountCircle sx={{ fontSize: 32 }} />
+                    <Badge
+                      badgeContent="Invalid Image"
+                      color="error"
+                      sx={{
+                        "& .MuiBadge-badge": {
+                          fontSize: "8px",
+                          top: 0,
+                          right: 0,
+                          transform: "scale(1.2)",
+                          zIndex: 1,
+                        },
+                      }}
+                    />
+                  </Box>
+                )}
+              </IconButton>
+            ) : (
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <Button onClick={() => navigate(ROUTES.LOGIN)} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant="contained">Login</Button>
+                <Button onClick={() => navigate(ROUTES.REGISTER)} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant="contained">Register</Button>
               </Box>
-            }
+            )}
             <Menu
               sx={{ mt: '30px' }}
               id="menu-appbar"
@@ -104,6 +119,6 @@ export default function Header({ cart, navigate, customerDetails }) {
           </Box>
         </Toolbar>
       </AppBar>
-    </Box >
+    </Box>
   );
 }

@@ -31,6 +31,7 @@ export default function Layout({ children }) {
 
 
 
+
     return (
         <>
             <Header navigate={navigate} cart={cart} customerDetails={customerDetails} />
