@@ -7,6 +7,7 @@ import { useCurrentCustomer } from '../customers/provider/UserProvider';
 import useCustomers from '../customers/hooks/useCustomers';
 import { Typography } from '@mui/material';
 import { useSnack } from '../providers/SnackBarProvider';
+import ROUTES from '../router/routesModel';
 
 export default function ProductsPage() {
     const { allProducts, navigate, toTitleCase } = useProducts();
@@ -60,9 +61,7 @@ export default function ProductsPage() {
             });
     };
 
-    if (!customerDetails) {
-        return <Typography>Loading Customer...</Typography>
-    }
+
     if (isLoading) {
         return <Typography>Loading...</Typography>
     }

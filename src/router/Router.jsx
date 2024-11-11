@@ -12,6 +12,8 @@ import ManageMyOrdersPage from '../customers/manageOrders/manageMyOrdersPage';
 import ProfilePage from '../customers/profile/ProfilePage';
 import ContactPage from '../layout/components/sub-component/contact/ContactPage';
 import AboutPage from '../layout/components/sub-component/about/AboutPage';
+import ErrorPage from './errorPage/ErrorPage';
+import Error404 from './errorPage/Error404';
 
 
 export default function Router() {
@@ -27,6 +29,7 @@ export default function Router() {
             <Route path={ROUTES.PROFILE_PAGE} element={<ProfilePage />} />
             <Route path={ROUTES.CONTACT} element={<ContactPage />} />
             <Route path={ROUTES.ABOUT} element={<AboutPage />} />
+            <Route path={ROUTES.ERROR404} element={<ErrorPage />} />
         </Routes>
     )
 }

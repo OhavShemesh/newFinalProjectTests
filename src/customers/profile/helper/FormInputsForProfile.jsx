@@ -21,7 +21,7 @@ export default function FormInputsForProfile({ label, inputNames, handleChange, 
         return nameMap[name] || name;
     };
 
-    return ( 
+    return (
         <Box sx={{ py: "2%", width: width || "100%", display: "flex", alignItems: "flex-start", margin: "auto" }}>
             <Box sx={{ width: "20%", ml: "2%", display: 'flex', alignItems: 'center' }}>
                 <Typography sx={{ fontWeight: "bold", color: "black" }}>{label}:</Typography>
@@ -61,7 +61,7 @@ export default function FormInputsForProfile({ label, inputNames, handleChange, 
                                 </>
                             ) : (
                                 <Typography variant="body1" sx={{
-                                    textAlign: "center", width: "100%", borderBottom: "1px solid", borderColor: "black", height: "30px", display: "flex", justifyContent: "center", alignItems: label === "Profile Picture" ? "start" : "center", backgroundColor: "lightgrey", overflow: "auto", color: "black"
+                                    textAlign: "center", width: "100%", borderBottom: "1px solid", borderColor: "black", height: "30px", display: "flex", justifyContent: "center", alignItems: label === "Profile Picture" ? "start" : "center", backgroundColor: "lightgrey", overflowY: "auto", overflowX: "hidden", color: "black"
                                 }}>
                                     {displayValue}
                                 </Typography>

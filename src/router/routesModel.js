@@ -9,6 +9,8 @@ const ROUTES = {
     MANAGE_MY_ORDERS: "/manage-my-order",
     PROFILE_PAGE: "/profile-page",
     CONTACT: "/contact",
-    ABOUT: "/about"
+    ABOUT: "/about",
+    ERROR404: "/*"
+
 }
 export default ROUTES;

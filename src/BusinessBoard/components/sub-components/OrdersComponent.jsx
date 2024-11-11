@@ -139,8 +139,8 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-                                                    {order.productsAndQuantity.map((product) => (
-                                                        <TableRow key={product._id}>
+                                                    {order.productsAndQuantity.map((product, index) => (
+                                                        <TableRow key={index}>
                                                             <TableCell align="center">
                                                                 {productNames[product.id] || "Loading..."}
                                                             </TableCell>

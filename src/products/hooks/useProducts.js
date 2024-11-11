@@ -2,13 +2,15 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentCustomer } from '../../customers/provider/UserProvider';
+import { useSnack } from '../../providers/SnackBarProvider';
+import ROUTES from '../../router/routesModel';
 
 export default function useProducts() {
     const [allProducts, setAllProducts] = useState([]);
     const [singleProduct, setSingleProduct] = useState({});
     const [chosenCategory, setChosenCategory] = useState("")
     const navigate = useNavigate()
-    const { customer } = useCurrentCustomer()
+    const setSnack = useSnack()
 
 
 
@@ -23,6 +25,7 @@ export default function useProducts() {
             return data
         } catch (err) {
             console.log(err);
+
         }
     };
 

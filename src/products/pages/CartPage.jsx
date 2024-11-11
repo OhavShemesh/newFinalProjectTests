@@ -29,7 +29,7 @@ export default function CartPage() {
             setProductDetails(details);
         };
 
-        if (cart.length > 0) {
+        if (cart?.length > 0) {
             fetchProductDetails();
         } else {
             setProductDetails([]);

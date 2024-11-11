@@ -1,8 +1,10 @@
 import axios from 'axios';
+import { useSnack } from '../../providers/SnackBarProvider';
 
 export default function useCustomers() {
 
     const CustomersApi = "http://localhost:8181/customers";
+    const setSnack = useSnack()
 
 
     const register = async (registerData) => {
@@ -45,7 +47,6 @@ export default function useCustomers() {
 
         } catch (err) {
             console.log(err);
-
         }
 
     }

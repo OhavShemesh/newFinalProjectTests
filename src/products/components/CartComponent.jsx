@@ -32,9 +32,9 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
 
                         }}
                         variant='contained'
-                        disabled={!customer || cart.length === 0}
+                        disabled={!customer || cart?.length === 0}
                         sx={{
-                            opacity: cart.length === 0 ? "0.5" : "1",
+                            opacity: cart?.length === 0 ? "0.5" : "1",
                             color: "black",
                             fontSize: "1rem",
                             backgroundColor: customer ? "white" : "gray",
