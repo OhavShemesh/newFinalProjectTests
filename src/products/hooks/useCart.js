@@ -1,62 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useProducts from './useProducts';
 import { useCurrentCustomer } from '../../customers/provider/UserProvider';
 import useCustomers from '../../customers/hooks/useCustomers';
 import useOrders from '../../orders/hooks/useOrders';
 import { useSnack } from '../../providers/SnackBarProvider';
-import Layout from '../../layout/Layout';
+import { useCart as useCartContext } from '../../providers/CartProvider';
 
 export default function useCart() {
     const navigate = useNavigate();
-    const { setCartInDb, getCartFromDb, getCustomerById } = useCustomers()
-    const { placeNewOrder, updateOrdersInCustomer } = useOrders()
-    const { updateStockAfterOrder, getProductById } = useProducts()
-    const { customer } = useCurrentCustomer()
+    const { setCartInDb, getCustomerById } = useCustomers();
+    const { placeNewOrder, updateOrdersInCustomer } = useOrders();
+    const { updateStockAfterOrder, getProductById } = useProducts();
+    const { customer } = useCurrentCustomer();
     const setSnack = useSnack();
-
-
-    const [cart, setCart] = useState([]);
-
-    useEffect(() => {
-        const fetchCart = async () => {
-            try {
-                if (customer) {
-                    let cartFromDb = await getCartFromDb(customer._id);
-                    setCart(cartFromDb);
-
-                }
-            } catch (error) {
-                setCart([]);
-            }
-        };
-
-        fetchCart();
-    }, [customer]);
-
+    const { cart, setCart } = useCartContext();
 
     const handleAddToCart = async (id, quantity) => {
-        setCart(prev => {
-            const existingItemIndex = prev.findIndex(item => item.id === id);
+        try {
+            if (customer) {
+                const updatedCart = [...cart];
+                const existingItemIndex = updatedCart.findIndex(item => item.id === id);
 
-            if (existingItemIndex !== -1) {
-                const updatedCart = [...prev];
-                if (quantity === 0) {
-                    updatedCart.splice(existingItemIndex, 1);
-                    setSnack("info", "Item removed from cart");
-                } else {
-                    updatedCart[existingItemIndex].quantity = quantity;
-                    setSnack("success", "Cart updated");
+                if (existingItemIndex !== -1) {
+                    if (quantity === 0) {
+                        updatedCart.splice(existingItemIndex, 1);
+                        setSnack("info", "Item removed from cart");
+                    } else {
+                        updatedCart[existingItemIndex].quantity = quantity;
+                        setSnack("success", "Cart updated");
+                    }
+                } else if (quantity > 0) {
+                    updatedCart.push({ id, quantity });
+                    setSnack("success", "Item added to cart");
                 }
 
-                return updatedCart;
-            } else if (quantity > 0) {
-                setSnack("success", "Item added to cart");
-                return [...prev, { id, quantity }];
-            } else {
-                return prev;
+                await setCartInDb(customer._id, updatedCart);
+                setCart(updatedCart);
             }
-        });
+        } catch (err) {
+            console.log(err);
+            setSnack("error", "Failed to update cart");
+        }
     };
 
     const handleRemoveItemFromCart = async (id) => {
@@ -127,7 +112,10 @@ export default function useCart() {
 
     const handlePlaceOrder = async () => {
         const isStockIssue = await checkStock(cart);
-
+        if (!customer) {
+            setSnack("error", "Please Login")
+            return false
+        }
         if (isStockIssue) {
             return false
         }
@@ -160,18 +148,6 @@ export default function useCart() {
             console.log(err);
         }
     };
-
-
-
-    useEffect(() => {
-        const syncCartToDb = async () => {
-            if (customer && cart?.length > 0) {
-                await setCartInDb(customer._id, cart);
-            }
-        };
-        syncCartToDb();
-    }, [cart]);
-
 
     return {
         handleAddToCart,

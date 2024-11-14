@@ -9,7 +9,7 @@ import { useCurrentCustomer } from '../../customers/provider/UserProvider';
 export default function CartPage() {
     const { getProductById, toTitleCase, navigate } = useProducts();
     const [productDetails, setProductDetails] = useState([]);
-    const { handleRemoveItemFromCart, cart, setCart, handlePlaceOrder } = useCart()
+    const { handleRemoveItemFromCart, cart, handlePlaceOrder } = useCart()
     const { customer } = useCurrentCustomer()
 
 
@@ -54,7 +54,6 @@ export default function CartPage() {
 
     return (
         <>
-            <CartCheckCustomer />
             <CartComponent calculateTotalPrice={calculateTotalPrice} calculateTotalQuantity={calculateTotalQuantity} customer={customer} productDetails={productDetails} toTitleCase={toTitleCase} handleRemoveItemFromCart={handleRemoveItemFromCart} handlePlaceOrder={handlePlaceOrder} cart={cart} navigate={navigate} />
         </>
     )

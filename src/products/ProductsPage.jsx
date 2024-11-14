@@ -5,7 +5,7 @@ import ProductsFilter from './helpers/ProductsFilter';
 import useCart from './hooks/useCart';
 import { useCurrentCustomer } from '../customers/provider/UserProvider';
 import useCustomers from '../customers/hooks/useCustomers';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useSnack } from '../providers/SnackBarProvider';
 import ROUTES from '../router/routesModel';
 
@@ -68,7 +68,7 @@ export default function ProductsPage() {
 
 
     return (
-        <>
+        <Box sx={{ height: "100%", backgroundColor: "white" }}>
             <ProductsFilter setCategory={setCategory} />
             <ProductComponent
                 allProducts={allProducts}
@@ -81,6 +81,6 @@ export default function ProductsPage() {
                 handleLikeProduct={handleLikeProduct}
                 customerDetails={customerDetails}
                 handleShare={handleShare} />
-        </>
+        </Box>
     )
 }

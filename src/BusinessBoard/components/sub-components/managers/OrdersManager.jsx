@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import useOrders from '../../../../orders/hooks/useOrders'
 import useProducts from '../../../../products/hooks/useProducts'
 import useCustomers from '../../../../customers/hooks/useCustomers'
@@ -70,9 +70,9 @@ export default function OrdersManager() {
     }
 
     return (
-        <>
-            <Typography sx={{ textAlign: "center", pt: 2, pb: 5, color: "black" }} variant="h3">MANAGE ORDERS</Typography>
+        <Box sx={{ height: "100vh", backgroundColor: "white" }}>
+            <Typography sx={{ textAlign: "center", py: 2, color: "black", fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" } }} variant='h3'>Manage Orders</Typography>
             <OrdersComponent orders={allOrders} fetchProduct={fetchProduct} toTitleCase={toTitleCase} handleUpdateStatus={handleUpdateStatus} fetchCustomerName={fetchCustomerName} />
-        </>
+        </Box>
     )
 }

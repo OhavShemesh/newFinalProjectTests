@@ -6,8 +6,8 @@ export default function ProfileComponent({ customerDetails, handleChange, error,
 
     return (
         <Container sx={{ paddingTop: 2, display: "flex", flexDirection: "column", gap: 2 }}>
-            <Typography sx={{ color: "black" }} variant='h5'>Your Details:</Typography>
-            <Box paddingLeft={10}>
+            <Typography sx={{ color: "black", pb: { xs: 3, sm: 3, md: 0 } }} variant='h5'>Your Details:</Typography>
+            <Box sx={{ pl: { xs: 0, sm: 0, md: 10 } }}>
                 <FormInputsForProfile
                     label="Name"
                     inputNames={["First Name", "Middle Name", "Last Name"]}
@@ -61,7 +61,7 @@ export default function ProfileComponent({ customerDetails, handleChange, error,
                     error={error}
                 />
             </Box>
-            <Box sx={{ display: "flex", justifyContent: "flex-end", my: 3, width: "80%" }}>
+            <Box sx={{ display: "flex", justifyContent: { xs: "center", sm: "center", md: "flex-end" }, my: 3, width: { xs: "100%", sm: "100%", md: "80%" } }}>
                 <Button
                     onClick={onSubmit}
                     disabled={!isFormValid}
@@ -70,7 +70,7 @@ export default function ProfileComponent({ customerDetails, handleChange, error,
                         backgroundColor: "black",
                         borderRadius: "10px",
                         width: "50%",
-                        fontSize: "1rem",
+                        fontSize: { xs: "0.7rem", sm: "0.8rem", md: "1rem" },
                         border: "3px solid",
                         borderColor: "black"
                     }}

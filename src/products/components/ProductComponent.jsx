@@ -53,30 +53,32 @@ export default function ProductComponent({ allProducts = [], handleAddToCart, ca
     return (
         <Grid container spacing={2} py={3} justifyContent="center" sx={{ maxWidth: '80vw', margin: '0 auto' }}>
             {filteredProducts.map(product => (
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} key={product._id} mb={10}>
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} key={product._id} sx={{ marginBottom: { xs: 2, sm: 3, md: 5 } }}>
                     <Card sx={{ maxWidth: "100%", height: 450, borderRadius: "20px", border: "1px solid", borderColor: "black", opacity: product?.inStock === 0 ? "0.5" : "1", position: "relative" }}>
                         <CardActionArea sx={{ height: "70%" }} onClick={() => navigate("/product-info/" + product._id)}>
                             <CardHeader
-                                sx={{ textAlign: "center", fontWeight: "bold", height: "20%" }}
-                                title={toTitleCase(product.name)}
-                                subheader={product.description}
+                                sx={{
+                                    textAlign: "center", fontWeight: "bold", height: "20%",
+                                }}
+                                title={toTitleCase(product?.name)}
+                                subheader={product?.description}
                             />
                             <CardMedia
                                 sx={{ objectFit: "scale-down", height: "50%", width: "100%" }}
                                 component="img"
                                 height="150"
-                                image={product.image.url}
-                                alt={product.image.alt}
+                                image={product?.image?.url}
+                                alt={product?.image?.alt}
                             />
                             <CardContent>
                                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                    Price: &#8362; {product.price} <br />
+                                    Price: &#8362; {product?.price} <br />
                                     In Stock:{" "}
-                                    <span style={{ color: product.inStock ? "inherit" : "red", fontWeight: product.inStock ? "normal" : "bold" }}>
-                                        {product.inStock || "Out Of Stock"}
+                                    <span style={{ color: product?.inStock ? "inherit" : "red", fontWeight: product?.inStock ? "normal" : "bold" }}>
+                                        {product?.inStock || "Out Of Stock"}
                                     </span>
                                     <br />
-                                    Category: {product.category}
+                                    Category: {product?.category}
                                 </Typography>
                             </CardContent>
                         </CardActionArea>

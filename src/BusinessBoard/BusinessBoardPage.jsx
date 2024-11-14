@@ -5,13 +5,13 @@ import BusinessBoardComponent from './components/BusinessBoardComponent';
 import useCustomers from '../customers/hooks/useCustomers';
 import useProducts from '../products/hooks/useProducts';
 import useBusinessBoard from './hooks/useBusinessBoard';
-import { setToLocalStorage } from '../localStorageFunctions/useLocalStorage';
+import { setTokenInLocalStorage } from '../localStorageFunctions/useLocalStorage';
 
 export default function BusinessBoardPage() {
     const { customer } = useCurrentCustomer();
     const { getCustomerById } = useCustomers();
     const [customerDetails, setCustomerDetails] = useState({});
-    const { toTitleCase, navigate } = useProducts()
+    const { toTitleCase } = useProducts()
     const { makeBusiness } = useBusinessBoard()
     const [wrongCode, setWrongCode] = useState(false)
 
@@ -34,7 +34,7 @@ export default function BusinessBoardPage() {
     const handleSubmitSecretCode = async (code) => {
         try {
             const customerafterbusiness = await makeBusiness(code, customer?._id);
-            setToLocalStorage("token", customerafterbusiness)
+            setTokenInLocalStorage(customerafterbusiness)
             setWrongCode(true)
             window.location.reload()
 

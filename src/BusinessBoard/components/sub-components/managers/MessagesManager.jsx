@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import MessagesComponent from '../MessagesComponent'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useCurrentCustomer } from '../../../../customers/provider/UserProvider'
 import useCustomers from '../../../../customers/hooks/useCustomers'
 import useProducts from "../../../../products/hooks/useProducts"
@@ -124,9 +124,9 @@ Your Support Team`);
     }
 
     return (
-        <>
-            <Typography sx={{ textAlign: "center", pt: 2, pb: 5, color: "black" }} variant="h3">MANAGE CUSTOMER MESSAGES</Typography>
+        <Box sx={{ height: "100vh", backgroundColor: "white" }}>
+            <Typography sx={{ textAlign: "center", py: 2, color: "black", fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" } }} variant='h3'>Manage Messages</Typography>
             <MessagesComponent allCustomersDetails={allCustomersDetails} toTitleCase={toTitleCase} handleDeleteMessage={handleDeleteMessage} handleCompleteMessage={handleCompleteMessage} handleResponseMessage={handleResponseMessage} handleOnChange={handleOnChange} />
-        </>
+        </Box>
     )
 }

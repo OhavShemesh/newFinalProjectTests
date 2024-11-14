@@ -9,12 +9,13 @@ import SearchBar from './sub-component/SearchBar';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { useCustomTheme } from '../../providers/CustomThemeProvider';
+import axios from 'axios';
 
 export default function Header({ cart, navigate, customerDetails }) {
   const { customer } = useCurrentCustomer();
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { mode, toggleMode } = useCustomTheme();
-  const [isImageValid, setIsImageValid] = useState(true); // New state to handle image validation
+  const [isImageValid, setIsImageValid] = useState(true);
 
   const handleUserMenu = (event) => {
     setAnchorElUser((prev) => (prev ? null : event.currentTarget));
@@ -25,41 +26,59 @@ export default function Header({ cart, navigate, customerDetails }) {
     window.location.reload();
   };
 
+
+
   const settings = ['Profile', "Manage Orders", 'Logout'];
 
   return (
     <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", top: 0, zIndex: 1000 }}>
       <AppBar position="static">
-        <Toolbar className="toolbar" sx={{ gap: 0, backgroundColor: "#000000" }}>
+        <Toolbar sx={{ gap: 0, backgroundColor: "#000000" }}>
           <IconButton sx={{ cursor: "pointer" }} variant="h6" onClick={() => navigate(ROUTES.ROOT)}>
-            <CardMedia
-              component='img'
-              src='./MyStoreLogo.png'
-              alt='MyStore'
-              sx={{ height: { xs: "40px", sm: "50px" } }}
-            />
+            <picture>
+              <source media="(max-width: 800px)" srcSet="./MySmallStoreLogo.png" />
+              <source media="(min-width: 800px)" srcSet="./MyStoreLogo.png" />
+              <CardMedia
+                component="img"
+                src="./MyStoreLogo.png"
+                alt=""
+                sx={{ height: { xs: '30px', sm: '50px' } }}
+              />
+            </picture>
           </IconButton>
           <SearchBar />
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: "flex", gap: 3 }}>
+          <Box sx={{ display: "flex", gap: { xs: 0, sm: 1, md: 3 } }}>
             <IconButton onClick={toggleMode}>
-              {mode === "light" ? <DarkModeIcon sx={{ color: "#FFFFFF" }} /> : <LightModeIcon sx={{ color: "#FFFFFF" }} />}
+              {mode === "light" ? <DarkModeIcon sx={{ color: "#FFFFFF", fontSize: { xs: "18px", sm: "24px" } }} /> : <LightModeIcon sx={{ color: "#FFFFFF", fontSize: { xs: "18px", sm: "24px" } }} />}
             </IconButton>
-            <IconButton onClick={() => navigate(ROUTES.CART)} size="large" sx={{ color: "#FFFFFF" }}>
-              <Badge badgeContent={cart?.length} color="error">
-                <ShoppingCartIcon />
+            <IconButton onClick={() => navigate(ROUTES.CART)} sx={{ color: "#FFFFFF" }}>
+              <Badge
+                badgeContent={cart?.length}
+                color="error"
+                sx={{
+                  '& .MuiBadge-badge': {
+                    fontSize: { xs: '0.5rem', sm: "0.7rem" },
+                    minWidth: '15px',
+                    width: { xs: "15px", sm: "20px" },
+                    height: { xs: "15px", sm: "20px" },
+                    padding: '0 4px',
+                  },
+                }}
+              >
+                <ShoppingCartIcon sx={{ fontSize: { xs: "18px", sm: "24px" } }} />
               </Badge>
             </IconButton>
             {customer ? (
-              <IconButton onClick={handleUserMenu} size="large" sx={{ color: "#FFFFFF" }}>
+              <IconButton onClick={handleUserMenu} sx={{ color: "#FFFFFF" }}>
                 {customerDetails?.image?.url && isImageValid ? (
                   <CardMedia
                     component="img"
                     src={customerDetails.image.url}
                     alt={customerDetails.image.alt || "User Image"}
-                    sx={{ width: 32, height: 32, borderRadius: "50%" }}
+                    sx={{ width: { xs: 24, sm: 32 }, height: { xs: 24, sm: 32 }, borderRadius: "50%" }}
                     onLoad={() => setIsImageValid(true)}
-                    onError={() => setIsImageValid(false)} // Update state if image fails to load
+                    onError={() => setIsImageValid(false)}
                   />
                 ) : (
                   <Box sx={{ position: "relative" }}>
@@ -81,9 +100,24 @@ export default function Header({ cart, navigate, customerDetails }) {
                 )}
               </IconButton>
             ) : (
-              <Box sx={{ display: "flex", gap: 1 }}>
-                <Button onClick={() => navigate(ROUTES.LOGIN)} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant="contained">Login</Button>
-                <Button onClick={() => navigate(ROUTES.REGISTER)} sx={{ backgroundColor: "black", border: "1px solid #FFFFFF" }} variant="contained">Register</Button>
+              <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+                <Button onClick={() => navigate(ROUTES.LOGIN)} sx={{
+                  backgroundColor: "black",
+                  border: "1px solid #FFFFFF",
+                  fontSize: { xs: "0.5rem", sm: "0.7rem" },
+                  width: { xs: "50px", sm: "auto" },
+                  minWidth: "unset",
+                  height: { xs: "70%", sm: "auto" }
+                }}
+                  variant="contained">Login</Button>
+                <Button onClick={() => navigate(ROUTES.REGISTER)} sx={{
+                  backgroundColor: "black",
+                  border: "1px solid #FFFFFF",
+                  fontSize: { xs: "0.5rem", sm: "0.7rem" },
+                  width: { xs: "50px", sm: "auto" },
+                  minWidth: "unset",
+                  height: { xs: "70%", sm: "auto" }
+                }} variant="contained">Register</Button>
               </Box>
             )}
             <Menu

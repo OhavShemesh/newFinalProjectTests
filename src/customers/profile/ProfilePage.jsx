@@ -4,7 +4,7 @@ import { useCurrentCustomer } from '../provider/UserProvider';
 import useCustomers from '../hooks/useCustomers';
 import useForm from '../../formHelpers/useForm';
 import signupSchema from '../../formHelpers/schemas/signupSchema';
-import { Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import initialRegisterForm from '../helpers/initialForms/initialRegisterForm';
 
 export default function ProfilePage() {
@@ -76,9 +76,9 @@ export default function ProfilePage() {
     }
 
     return (
-        <>
+        <Box sx={{ height: "100vh", backgroundColor: "white" }}>
             <Container sx={{ borderBottom: "1px dotted grey" }}>
-                <Typography sx={{ pb: 2, color: "black" }} textAlign={"center"} variant="h2">Profile Page</Typography>
+                <Typography sx={{ pb: 2, color: "black", fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" } }} textAlign={"center"} variant="h2">Profile Page</Typography>
             </Container>
             <ProfileComponent
                 customerDetails={customerDetails}
@@ -87,6 +87,6 @@ export default function ProfilePage() {
                 onSubmit={onSubmit}
                 isFormValid={isFormValid}
             />
-        </>
+        </Box>
     );
 }

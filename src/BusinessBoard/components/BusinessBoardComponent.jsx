@@ -34,7 +34,7 @@ export default function BusinessBoardComponent() {
   return (
     <Box>
       <SideBarComponent setSelectedComponent={setSelectedComponent} selectedComponent={selectedComponent} />
-      <Box sx={{ marginLeft: "100px" }}>
+      <Box sx={{ marginLeft: { xs: '0', sm: "0", md: "100px" }, paddingTop: { xs: "80px", sm: "80px", md: "0" } }}>
         {renderContent()}
       </Box>
     </Box>

@@ -51,37 +51,36 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
 
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ maxWidth: "100%" }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell sx={{ width: "5%" }} />
-                        <TableCell align="center" sx={{ fontWeight: "bold", width: "14%" }}>ORDER ID</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: "bold", width: "14%" }}>CUSTOMER'S PHONE</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: "bold", width: "14%" }}>DELIVERY CITY</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: "bold", width: "14%" }}>PRODUCTS AND QUANTITY</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: "bold", width: "14%" }}>STATUS</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: "bold", width: "14%" }}>PLACED AT</TableCell>
+                        <TableCell sx={{ width: "6%" }} />
+                        <TableCell align="center" sx={{ fontWeight: "bold", width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }}>ORDER ID</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: "bold", width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }}>CUSTOMER'S PHONE</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: "bold", width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }}>DELIVERY CITY</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: "bold", width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }}>PRODUCTS AND QUANTITY</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: "bold", width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }}>STATUS</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: "bold", width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }}>PLACED AT</TableCell>
                     </TableRow>
                 </TableHead>
-            </Table>
-            <Table>
                 <TableBody>
                     {allOrders?.map((order) => (
                         <React.Fragment key={order._id}>
                             <TableRow onClick={() => handleExpand(order._id, order.customer_id)} sx={{ cursor: 'pointer' }}>
-                                <TableCell sx={{ width: "5%" }}>
+                                <TableCell sx={{ width: "6%" }}>
                                     <IconButton size="small">
                                         {expandedOrderId === order._id ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                                     </IconButton>
                                 </TableCell>
-                                <TableCell sx={{ width: "14%" }} align="center">{order._id}</TableCell>
-                                <TableCell sx={{ width: "14%" }} align="center">{order?.phone}</TableCell>
-                                <TableCell sx={{ width: "14%" }} align="center">{toTitleCase(order?.address.city)}</TableCell>
-                                <TableCell sx={{ width: "14%" }} align="center">{order?.productsAndQuantity.length}</TableCell>
+                                <TableCell sx={{ width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }} align="center">{order?._id}</TableCell>
+                                <TableCell sx={{ width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }} align="center">{order?.phone}</TableCell>
+                                <TableCell sx={{ width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }} align="center">{toTitleCase(order?.address.city)}</TableCell>
+                                <TableCell sx={{ width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }} align="center">{order?.productsAndQuantity.length}</TableCell>
                                 <TableCell
                                     align="center"
                                     sx={{
-                                        width: "14%",
+                                        fontSize: { xs: "10px", sm: "12px", md: "16px" },
+                                        width: "15.5%",
                                         color: order?.status === "Pending"
                                             ? "orange"
                                             : order?.status === "In Progress"
@@ -93,7 +92,7 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
                                 >
                                     {order?.status}
                                 </TableCell>
-                                <TableCell sx={{ width: "14%" }} align="center">
+                                <TableCell sx={{ width: "15.5%", fontSize: { xs: "10px", sm: "12px", md: "16px" } }} align="center">
                                     {new Date(order.createdAt).toLocaleDateString("en-GB")}
                                 </TableCell>
                             </TableRow>

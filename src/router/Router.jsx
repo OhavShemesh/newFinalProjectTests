@@ -14,6 +14,7 @@ import ContactPage from '../layout/components/sub-component/contact/ContactPage'
 import AboutPage from '../layout/components/sub-component/about/AboutPage';
 import ErrorPage from './errorPage/ErrorPage';
 import Error404 from './errorPage/Error404';
+import SingleProductPage from '../products/components/SingleProductPage';
 
 
 export default function Router() {
@@ -22,7 +23,7 @@ export default function Router() {
             <Route path={ROUTES.ROOT} element={<ProductsPage />} />
             <Route path={ROUTES.REGISTER} element={<RegitsterPage />} />
             <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-            <Route path={ROUTES.PRODUCT_INFO + "/:id"} element={<SingleProduct />} />
+            <Route path={ROUTES.PRODUCT_INFO + "/:id"} element={<SingleProductPage />} />
             <Route path={ROUTES.CART} element={<CartPage />} />
             <Route path={ROUTES.BUSINESS_BOARD} element={<BusinessBoardPage />} />
             <Route path={ROUTES.MANAGE_MY_ORDERS} element={<ManageMyOrdersPage />} />

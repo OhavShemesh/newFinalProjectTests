@@ -10,6 +10,7 @@ export default function CustomerProvider({ children }) {
   const [customer, setCustomer] = useState(null);
   const [token, setToken] = useState(getToken());
 
+
   useEffect(() => {
     if (!customer) {
       const customerFromLocalStorage = getCustomer();

@@ -12,7 +12,7 @@ export default function ManageMyOrdersPage() {
     const { customer } = useCurrentCustomer();
     const { toTitleCase, navigate, getProductById } = useProducts();
     const { getCustomerById } = useCustomers();
-    const { getAllOrders, getOrderById, deleteOrder } = useOrders();
+    const { getOrderById, deleteOrder } = useOrders();
     const [customerDetails, setCustomerDetails] = useState();
     const [customerOrders, setCustomerOrders] = useState([]);
     const [productImages, setProductImages] = useState({});
@@ -37,8 +37,10 @@ export default function ManageMyOrdersPage() {
     useEffect(() => {
         const fetchCustomerOrders = async () => {
             try {
-                let orders = await getAllOrders();
-                let customerOrdersFromDb = orders.filter((order) => order.customer_id === customer._id);
+                const customerFromDB = await getCustomerById(customer?._id);
+                const customerOrdersFromDb = await Promise.all(
+                    customerFromDB?.orders.map(async (order) => await getOrderById(order))
+                );
                 setCustomerOrders(customerOrdersFromDb);
             } catch (err) {
                 console.log(err);
@@ -141,6 +143,7 @@ export default function ManageMyOrdersPage() {
             console.log(err);
         }
     };
+
     return (
         <ManageMyOrdersComponent
             customerDetails={customerDetails}

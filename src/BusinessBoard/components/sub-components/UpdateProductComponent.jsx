@@ -1,7 +1,9 @@
 import { Box, Card, CardActionArea, CardContent, CardMedia, Grid } from '@mui/material'
 import React, { useEffect } from 'react'
+import { useCustomTheme } from '../../../providers/CustomThemeProvider'
 
-export default function UpdateProductComponent({ allProducts, handleFetchProductId }) {
+
+export default function UpdateProductComponent({ allProducts, handleFetchProductId, toTitleCase }) {
 
     return (
         <Box sx={{ width: "80%", margin: "auto" }}>
@@ -22,8 +24,8 @@ export default function UpdateProductComponent({ allProducts, handleFetchProduct
                                     width: "100%",
                                     backgroundColor: 'white',
                                 }}>
-                                <CardContent sx={{ textAlign: "center", fontWeight: "bold", fontSize: "24px", height: "60px" }}>
-                                    {product?.name}
+                                <CardContent sx={{ textAlign: "center", fontWeight: "bold", fontSize: { xs: "18px", sm: "20px", md: "24px" }, height: "20px" }}>
+                                    {toTitleCase(product?.name)}
                                 </CardContent>
                                 <CardMedia
                                     component="img"

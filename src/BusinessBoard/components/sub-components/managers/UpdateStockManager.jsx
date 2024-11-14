@@ -4,7 +4,7 @@ import useProducts from '../../../../products/hooks/useProducts';
 import { Typography } from '@mui/material';
 
 export default function UpdateStockManager() {
-    const { getProducts, updateInStock, getProductById } = useProducts();
+    const { getProducts, updateInStock, getProductById, toTitleCase } = useProducts();
     const [allProducts, setAllProducts] = useState([]);
     const [editProductId, setEditProductId] = useState(null);
     const [editAddProductId, setEditAddProductId] = useState(null);
@@ -68,18 +68,22 @@ export default function UpdateStockManager() {
     }
 
     return (
-        <UpdateStockComponent
-            products={allProducts}
-            editProductId={editProductId}
-            handleEditClick={handleEditClick}
-            newStock={newStock}
-            setNewStock={(value) => setNewStock(Math.max(0, value))}
-            handleSave={handleChangeInStock}
-            addStock={addStock}
-            setAddStock={(value) => setAddStock(Math.max(0, value))}
-            handleEditAddClick={handleEditAddClick}
-            editAddProductId={editAddProductId}
-            handleAddToStock={handleAddToStock}
-        />
+        <>
+            <Typography sx={{ textAlign: "center", py: 2, color: "black", fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" } }} variant='h3'>Manage Stock</Typography>
+            <UpdateStockComponent
+                products={allProducts}
+                editProductId={editProductId}
+                handleEditClick={handleEditClick}
+                newStock={newStock}
+                setNewStock={(value) => setNewStock(Math.max(0, value))}
+                handleSave={handleChangeInStock}
+                addStock={addStock}
+                setAddStock={(value) => setAddStock(Math.max(0, value))}
+                handleEditAddClick={handleEditAddClick}
+                editAddProductId={editAddProductId}
+                handleAddToStock={handleAddToStock}
+                toTitleCase={toTitleCase}
+            />
+        </>
     );
 }

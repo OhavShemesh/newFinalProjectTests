@@ -1,17 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import RegisterComponent from '../components/RegisterComponent'
 import useForm from '../../formHelpers/useForm'
 import signupSchema from '../../formHelpers/schemas/signupSchema'
 import initialRegisterForm from '../helpers/initialForms/initialRegisterForm'
 import useCustomers from '../hooks/useCustomers'
-import { setToLocalStorage } from '../../localStorageFunctions/useLocalStorage'
+import { setTokenInLocalStorage } from '../../localStorageFunctions/useLocalStorage'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from '../../router/routesModel'
+import { useSnack } from '../../providers/SnackBarProvider'
+import { useCurrentCustomer } from '../provider/UserProvider'
 
 export default function RegitsterPage() {
 
     const { register } = useCustomers()
     const navigate = useNavigate()
+    const setSnack = useSnack()
+    const { customer } = useCurrentCustomer()
+
+    useEffect(() => {
+        if (customer) {
+            navigate(ROUTES.ROOT)
+            setSnack("success", "You are already logged in");
+        }
+    }, [customer, navigate, setSnack])
 
     const handleSubmit = async (registerationData) => {
         const fixData = {
@@ -37,12 +48,15 @@ export default function RegitsterPage() {
         }
 
         try {
-            let customer = await register(fixData)
-            setToLocalStorage("token", customer)
-            navigate(ROUTES.ROOT)
+            let token = await register(fixData)
+            setTokenInLocalStorage(token)
+            navigate(ROUTES.LOGIN)
         } catch (err) {
-            console.log(err);
-
+            if (err.response && err.response.data && typeof err.response.data === 'string' && err.response.data.includes("email")) {
+                setSnack("error", "Email already exists")
+            } else {
+                console.log(err);
+            }
         }
 
 
@@ -50,7 +64,6 @@ export default function RegitsterPage() {
     }
 
     const { handleChange, error, isFormValid, onSubmit } = useForm(initialRegisterForm, signupSchema, handleSubmit)
-
 
 
     return (

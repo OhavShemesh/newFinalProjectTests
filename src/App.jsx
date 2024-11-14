@@ -6,6 +6,7 @@ import CustomerProvider from "./customers/provider/UserProvider";
 import SnackbarProvider from "./providers/SnackBarProvider";
 import CustomThemeProvider from "./providers/CustomThemeProvider";
 import { Box } from "@mui/material";
+import { CartProvider } from "./providers/CartProvider";
 
 function App() {
 
@@ -14,9 +15,11 @@ function App() {
       <CustomerProvider>
         <CustomThemeProvider>
           <SnackbarProvider>
-            <Layout>
-              <Router />
-            </Layout>
+            <CartProvider>
+              <Layout>
+                <Router />
+              </Layout>
+            </CartProvider>
           </SnackbarProvider>
         </CustomThemeProvider>
       </CustomerProvider>

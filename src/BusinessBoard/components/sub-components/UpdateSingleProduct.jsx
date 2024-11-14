@@ -60,7 +60,7 @@ export default function UpdateSingleProduct({ handleChange, error, onSubmit, isF
                     currentCategory={product.category || ""}
                 />
 
-                <Box sx={{ display: "flex", justifyContent: "flex-end", my: 3, width: "80%" }}>
+                <Box sx={{ display: "flex", justifyContent: { xs: "center", sm: "center", md: "flex-end" }, my: 3, width: { xs: "100%", sm: "100%", md: "80%" } }}>
                     <Button
                         onClick={onSubmit}
                         disabled={!Boolean(isFormValid)}
@@ -68,9 +68,10 @@ export default function UpdateSingleProduct({ handleChange, error, onSubmit, isF
                         sx={{
                             backgroundColor: "black",
                             borderRadius: "10px",
-                            width: "50%",
-                            fontSize: "1rem",
-                            border: "3px solid black"
+                            width: { sx: "100%", sm: "70%", md: "50%" },
+                            fontSize: { xs: "0.7rem", sm: "0.8rem", md: "1rem" },
+                            border: "3px solid",
+                            borderColor: "black"
                         }}
                     >
                         Update Product

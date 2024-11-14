@@ -24,12 +24,12 @@ export default function FormInputs({ label, inputNames, handleChange, error, wid
     };
 
     return (
-        <Box sx={{ py: "2%", width: { width }, display: "flex", alignItems: "flex-start", margin: "auto" }}>
+        <Box sx={{ py: "2%", width: { width }, display: "flex", alignItems: "center", margin: "auto", flexDirection: { xs: "column", sm: "column", md: "row" }, gap: 2 }}>
             <Box sx={{ width: "20%", ml: "2%", display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ fontWeight: "bold", color: "black" }}>{label}:</Typography>
+                <Typography sx={{ fontWeight: "bold", color: "black", fontSize: { xs: "0.7rem", sm: "1rem", md: "1" } }}>{label}:</Typography>
             </Box>
             <Box sx={{ display: "flex", width: "80%", gap: "2%", mr: "2%" }}>
-                {inputNames?.map((inputName, index) => {
+                {inputNames?.map((inputName, index) => { 
                     const schemaName = givenName || handleFitToSchema(inputName.toLowerCase().replace(/\s+/g, ''));
                     return (
                         <Box key={index} sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: `${100 / inputNames.length}%` }}>
@@ -55,6 +55,7 @@ export default function FormInputs({ label, inputNames, handleChange, error, wid
                                         "&::placeholder": {
                                             color: "grey",
                                             opacity: 1,
+                                            fontSize: { xs: "0.6rem", sm: "0.8rem", md: "1rem" }
                                         },
                                     },
                                 }}

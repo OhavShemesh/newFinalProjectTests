@@ -2,7 +2,7 @@ import { Box, Button, Card, CardContent, CardMedia, Grid, IconButton, Typography
 import React, { useState, useEffect } from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-export default function DeleteProductsComponent({ handleDelete, products }) {
+export default function DeleteProductsComponent({ handleDelete, products, toTitleCase }) {
     const [displayedProducts, setDisplayedProducts] = useState(products);
     const [checkSureMap, setCheckSureMap] = useState({});
 
@@ -22,7 +22,7 @@ export default function DeleteProductsComponent({ handleDelete, products }) {
 
     return (
         <Box sx={{ pb: 5, width: "80%", margin: "auto" }}>
-            <Typography sx={{ textAlign: "center", pt: 2, pb: 5 }} variant="h3">DELETE PRODUCTS</Typography>
+            <Typography sx={{ textAlign: "center", py: 2, color: "black", fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" } }} variant='h3'>Delete Product</Typography>
             <Grid container spacing={3} px={3} justifyContent="center">
                 {displayedProducts.map((product) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} key={product._id}>
@@ -33,13 +33,15 @@ export default function DeleteProductsComponent({ handleDelete, products }) {
                             border: "1px solid",
                             borderColor: "black"
                         }}>
-                            <CardContent sx={{ textAlign: "center", fontWeight: "bold", fontSize: "24px", height: "50px" }}>
-                                {product?.name}
+                            <CardContent >
+                                <Typography sx={{ textAlign: "center", fontWeight: "bold", fontSize: { xs: "18px", sm: "20px", md: "24px" }, height: "20px" }} variant='h5'>
+                                    {toTitleCase(product?.name)}
+                                </Typography>
                             </CardContent>
                             <CardMedia
                                 component="img"
-                                image={product.image.url}
-                                alt={product.image.alt}
+                                image={product?.image?.url}
+                                alt={product?.image?.alt}
                                 sx={{ height: 250, objectFit: "fill" }}
                             />
                             {!checkSureMap[product._id] ? (

@@ -8,7 +8,7 @@ import addProductSchema from '../../../../formHelpers/schemas/addProductSchema';
 import initialAddProductFrom from '../../../helpers/initialAddProductFrom';
 
 export default function UpdateProductManager() {
-    const { getProducts, getProductById, updateProduct } = useProducts();
+    const { getProducts, getProductById, updateProduct, toTitleCase } = useProducts();
     const [isLoading, setIsLoading] = useState(true);
     const [allProducts, setAllProducts] = useState([]);
     const [selectedComponent, setSelectedComponent] = useState('products');
@@ -70,17 +70,17 @@ export default function UpdateProductManager() {
     const renderContent = () => {
         switch (selectedComponent) {
             case 'products':
-                return <UpdateProductComponent allProducts={allProducts} handleFetchProductId={handleFetchProductId} />;
+                return <UpdateProductComponent allProducts={allProducts} handleFetchProductId={handleFetchProductId} toTitleCase={toTitleCase} />;
             case 'update':
                 return <UpdateSingleProduct handleBackButton={handleBackButton} product={singleProduct} handleChange={handleChange} error={error} onSubmit={onSubmit} isFormValid={isFormValid} />;
             default:
-                return <UpdateProductComponent allProducts={allProducts} handleFetchProductId={handleFetchProductId} />;
+                return <UpdateProductComponent allProducts={allProducts} handleFetchProductId={handleFetchProductId} toTitleCase={toTitleCase} />;
         }
     };
 
     return (
         <>
-            <Typography sx={{ textAlign: "center", pt: 2, pb: 5, color: "black" }} variant="h3">UPDATE PRODUCT</Typography>
+            <Typography sx={{ textAlign: "center", py: 2, color: "black", fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" } }} variant='h3'>Update Product</Typography>
             <Box>
                 {isLoading ? (
                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
