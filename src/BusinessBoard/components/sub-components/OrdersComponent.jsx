@@ -101,62 +101,61 @@ export default function OrdersComponent({ orders, fetchProduct, toTitleCase, han
                                 <TableCell colSpan={7} sx={{ paddingBottom: 0, paddingTop: 0 }}>
                                     <Collapse sx={{ backgroundColor: "white", filter: "brightness(0.9)" }} in={expandedOrderId === order._id} timeout="auto" unmountOnExit>
                                         <Box sx={{ margin: 2 }}>
-                                            <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline" }}>
+                                            <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline", fontSize: { xs: "18px", sm: "20px", md: "24px" } }}>
                                                 Customer's Name
                                             </Typography>
-                                            <Typography variant='h6' sx={{ textAlign: "center", paddingBottom: "2%" }}>{toTitleCase(customerNames[order.customer_id]) || "Loading..."}</Typography>
-                                            <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline" }}>
+                                            <Typography variant='h6' sx={{ textAlign: "center", paddingBottom: "2%", fontSize: { xs: "14px", sm: "16px", md: "20px" } }}>{toTitleCase(customerNames[order.customer_id]) || "Loading..."}</Typography>
+                                            <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline", fontSize: { xs: "18px", sm: "20px", md: "24px" } }}>
                                                 Full Address
                                             </Typography>
                                             <Table sx={{ width: "50%", margin: "auto" }} aria-label="simple table">
                                                 <TableHead>
                                                     <TableRow>
-                                                        <TableCell align="center" sx={{ fontWeight: "bold" }}>City</TableCell>
-                                                        <TableCell align="center" sx={{ fontWeight: "bold" }}>Street</TableCell>
-                                                        <TableCell align="center" sx={{ fontWeight: "bold" }}>House Number</TableCell>
-                                                        <TableCell align="center" sx={{ fontWeight: "bold" }}>Zip</TableCell>
+                                                        <TableCell align="center" sx={{ fontWeight: "bold", fontSize: { xs: "10px", sm: "12px", md: "18px" } }}>City</TableCell>
+                                                        <TableCell align="center" sx={{ fontWeight: "bold", fontSize: { xs: "10px", sm: "12px", md: "18px" } }}>Street</TableCell>
+                                                        <TableCell align="center" sx={{ fontWeight: "bold", fontSize: { xs: "10px", sm: "12px", md: "18px" } }}>House Number</TableCell>
+                                                        <TableCell align="center" sx={{ fontWeight: "bold", fontSize: { xs: "10px", sm: "12px", md: "18px" } }}>Zip</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
                                                     <TableRow>
-                                                        <TableCell align="center">{toTitleCase(order?.address.city)}</TableCell>
-                                                        <TableCell align="center">{toTitleCase(order?.address.street)}</TableCell>
-                                                        <TableCell align="center">{order?.address.houseNumber}</TableCell>
-                                                        <TableCell align="center">{order?.address.zip}</TableCell>
+                                                        <TableCell align="center" sx={{ fontSize: { xs: "8px", sm: "10px", md: "14px" } }}>{toTitleCase(order?.address.city)}</TableCell>
+                                                        <TableCell align="center" sx={{ fontSize: { xs: "8px", sm: "10px", md: "14px" } }}>{toTitleCase(order?.address.street)}</TableCell>
+                                                        <TableCell align="center" sx={{ fontSize: { xs: "8px", sm: "10px", md: "14px" } }}>{order?.address.houseNumber}</TableCell>
+                                                        <TableCell align="center" sx={{ fontSize: { xs: "8px", sm: "10px", md: "14px" } }}>{order?.address.zip}</TableCell>
                                                     </TableRow>
                                                 </TableBody>
                                             </Table>
-
-                                            <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", marginTop: "2%", textDecoration: "underline" }}>
+                                            <Typography variant="h5" gutterBottom component="div" sx={{ textAlign: "center", fontWeight: "bold", textDecoration: "underline", fontSize: { xs: "18px", sm: "20px", md: "24px" }, marginTop: 2 }}>
                                                 Products and Quantities
                                             </Typography>
-                                            <Table sx={{ width: "70%", margin: "auto" }}>
+                                            <Table sx={{ width: { xs: "50%", sm: "60%", md: "70%" }, margin: "auto" }}>
                                                 <TableHead>
                                                     <TableRow>
-                                                        <TableCell align="center" sx={{ fontWeight: "bold" }}>Product Name</TableCell>
-                                                        <TableCell align="center" sx={{ fontWeight: "bold" }}>Quantity</TableCell>
+                                                        <TableCell align="center" sx={{ fontWeight: "bold", fontSize: { xs: "10px", sm: "12px", md: "18px" } }}>Product Name</TableCell>
+                                                        <TableCell align="center" sx={{ fontWeight: "bold", fontSize: { xs: "10px", sm: "12px", md: "18px" } }}>Quantity</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
                                                     {order.productsAndQuantity.map((product, index) => (
                                                         <TableRow key={index}>
-                                                            <TableCell align="center">
+                                                            <TableCell align="center" sx={{ fontSize: { xs: "8px", sm: "10px", md: "14px" } }}>
                                                                 {productNames[product.id] || "Loading..."}
                                                             </TableCell>
-                                                            <TableCell align="center">{product.quantity}</TableCell>
+                                                            <TableCell align="center" sx={{ fontSize: { xs: "8px", sm: "10px", md: "14px" } }}>{product.quantity}</TableCell>
                                                         </TableRow>
                                                     ))}
                                                 </TableBody>
                                             </Table>
 
-                                            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                                                <Button onClick={() => handleUpdateStatus(order?._id, "Pending")} variant="contained" color="warning" sx={{ marginRight: 1 }}>
+                                            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2, gap: 1 }}>
+                                                <Button onClick={() => handleUpdateStatus(order?._id, "Pending")} variant="contained" color="warning" sx={{ minWidth: "unset", fontSize: { xs: "8px", sm: "10px", md: "14px" }, padding: { xs: 0.5, sm: 0.7, md: 1 } }}>
                                                     Pending
                                                 </Button>
-                                                <Button onClick={() => handleUpdateStatus(order?._id, "In Progress")} variant="contained" color="info" sx={{ marginRight: 1 }}>
+                                                <Button onClick={() => handleUpdateStatus(order?._id, "In Progress")} variant="contained" color="info" sx={{ minWidth: "unset", fontSize: { xs: "8px", sm: "10px", md: "14px" }, padding: { xs: 0.5, sm: 0.7, md: 1 } }}>
                                                     In Progress
                                                 </Button>
-                                                <Button onClick={() => handleUpdateStatus(order?._id, "Completed")} variant="contained" color="success">
+                                                <Button onClick={() => handleUpdateStatus(order?._id, "Completed")} variant="contained" color="success" sx={{ minWidth: "unset", fontSize: { xs: "8px", sm: "10px", md: "14px" }, padding: { xs: 0.5, sm: 0.7, md: 1 } }}>
                                                     Complete
                                                 </Button>
                                             </Box>
