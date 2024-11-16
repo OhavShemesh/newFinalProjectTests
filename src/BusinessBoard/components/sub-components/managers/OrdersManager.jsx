@@ -4,6 +4,7 @@ import useOrders from '../../../../orders/hooks/useOrders'
 import useProducts from '../../../../products/hooks/useProducts'
 import useCustomers from '../../../../customers/hooks/useCustomers'
 import OrdersComponent from '../OrdersComponent'
+import FilterOrdersComponent from '../FilterOrdersComponent'
 
 export default function OrdersManager() {
     const { getCustomerById } = useCustomers()
@@ -12,6 +13,7 @@ export default function OrdersManager() {
     const [allOrders, setAllOrders] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const [somethingChanged, setSomethingChanged] = useState(false)
+    const [filter, setFilter] = useState("All")
 
     useEffect(() => {
         const fetchAllOrders = async () => {
@@ -72,7 +74,8 @@ export default function OrdersManager() {
     return (
         <Box sx={{ height: "100vh", backgroundColor: "white" }}>
             <Typography sx={{ textAlign: "center", py: 2, color: "black", fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" } }} variant='h3'>Manage Orders</Typography>
-            <OrdersComponent orders={allOrders} fetchProduct={fetchProduct} toTitleCase={toTitleCase} handleUpdateStatus={handleUpdateStatus} fetchCustomerName={fetchCustomerName} />
+            <FilterOrdersComponent setFilter={setFilter} />
+            <OrdersComponent orders={allOrders} fetchProduct={fetchProduct} toTitleCase={toTitleCase} handleUpdateStatus={handleUpdateStatus} fetchCustomerName={fetchCustomerName} filter={filter} />
         </Box>
     )
 }

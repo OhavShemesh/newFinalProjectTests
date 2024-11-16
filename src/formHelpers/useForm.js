@@ -3,9 +3,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 export default function useForm(initialForm, schema, handleSubmit) {
     const [error, setError] = useState({});
-
     const [data, setData] = useState(initialForm);
     const [isFormValid, setIsFormValid] = useState(false);
+
+
 
     const validateProperty = useCallback(
         (name, value) => {
@@ -24,6 +25,9 @@ export default function useForm(initialForm, schema, handleSubmit) {
         const joiSchema = Joi.object(schema);
 
         const { error } = joiSchema.validate(data, { abortEarly: false });
+        console.log(data);
+
+
 
         if (error) {
             return false;

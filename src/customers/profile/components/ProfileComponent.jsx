@@ -64,7 +64,6 @@ export default function ProfileComponent({ customerDetails, handleChange, error,
             <Box sx={{ display: "flex", justifyContent: { xs: "center", sm: "center", md: "flex-end" }, my: 3, width: { xs: "100%", sm: "100%", md: "80%" } }}>
                 <Button
                     onClick={onSubmit}
-                    disabled={!isFormValid}
                     variant="contained"
                     sx={{
                         backgroundColor: "black",

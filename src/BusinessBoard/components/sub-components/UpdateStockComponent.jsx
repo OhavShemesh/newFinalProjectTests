@@ -14,6 +14,7 @@ export default function UpdateStockComponent({ products, editProductId, handleEd
             <TableCell align="center" sx={{ fontWeight: "bold", width: "20%", fontSize: { xs: "10px", sm: "12px", md: "16px" }, lineHeight: "1rem" }}>Product Name</TableCell>
             <TableCell align="center" sx={{ fontWeight: "bold", paddingLeft: { xs: "5%", md: "35%" }, fontSize: { xs: "10px", sm: "12px", md: "16px" }, lineHeight: "1rem" }}>Add Stock</TableCell>
             <TableCell align="center" sx={{ fontWeight: "bold", width: "5%", fontSize: { xs: "10px", sm: "12px", md: "16px" }, lineHeight: "1rem" }}>Product in Stock</TableCell>
+            <TableCell align="center" sx={{ fontWeight: "bold", width: "5%", fontSize: { xs: "10px", sm: "12px", md: "16px" }, lineHeight: "1rem" }}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

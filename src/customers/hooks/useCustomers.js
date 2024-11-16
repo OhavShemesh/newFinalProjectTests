@@ -50,11 +50,20 @@ export default function useCustomers() {
         }
 
     }
+    const updateCustomer = async (id, infoAfterChange) => {
+        try {
+            let customer = await axios.put(`${CustomersApi}/updateCustomer`, { id: id, infoAfterChange: infoAfterChange })
+            return customer.data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
 
 
     const getCartFromDb = async (id) => {
         try {
-            let customer = await axios.get(`${CustomersApi}/${id}`)
+            let customer = await axios.put(`${CustomersApi}/${id}`)
             return customer.data.cart
 
         } catch (err) {
@@ -145,7 +154,8 @@ export default function useCustomers() {
         getAllCustomers,
         deleteContactMessage,
         sendEmail,
-        likeProducts
+        likeProducts,
+        updateCustomer
     }
 
 }
