@@ -54,7 +54,7 @@ export default function FormInputsForProfile({ label, inputNames, handleChange, 
                                         inputProps={{
                                             style: {
                                                 textAlign: "center",
-                                                color: "gray",
+                                                color: "black",
                                                 display: 'flex',
                                                 alignItems: 'center',
                                             },
