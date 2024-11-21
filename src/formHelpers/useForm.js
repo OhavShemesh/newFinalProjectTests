@@ -25,8 +25,6 @@ export default function useForm(initialForm, schema, handleSubmit) {
         const joiSchema = Joi.object(schema);
 
         const { error } = joiSchema.validate(data, { abortEarly: false });
-        console.log(data);
-
 
 
         if (error) {

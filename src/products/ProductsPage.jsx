@@ -48,6 +48,7 @@ export default function ProductsPage() {
             }
         } catch (err) {
             console.log(err);
+
         }
     }
 

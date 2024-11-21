@@ -52,7 +52,7 @@ export default function useCustomers() {
     }
     const updateCustomer = async (id, infoAfterChange) => {
         try {
-            let customer = await axios.patch(`${CustomersApi}/updateCustomer`, { id: id, infoAfterChange: infoAfterChange })
+            let customer = await axios.put(`${CustomersApi}/updateCustomer`, { id: id, infoAfterChange: infoAfterChange })
             return customer.data
         } catch (err) {
             console.log(err);
