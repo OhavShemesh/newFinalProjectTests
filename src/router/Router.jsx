@@ -6,7 +6,7 @@ import RegitsterPage from '../customers/pages/RegitsterPage';
 import LoginPage from '../customers/pages/LoginPage';
 import CartPage from '../products/pages/CartPage';
 import BusinessBoardPage from '../BusinessBoard/BusinessBoardPage';
-import ManageMyOrdersPage from '../customers/manageOrders/manageMyOrdersPage';
+import ManageMyOrdersPage from "../customers/manageOrders/ManageMyOrdersPage";
 import ProfilePage from '../customers/profile/ProfilePage';
 import ContactPage from '../layout/components/sub-component/contact/ContactPage';
 import AboutPage from '../layout/components/sub-component/about/AboutPage';
