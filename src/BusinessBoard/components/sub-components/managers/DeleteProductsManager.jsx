@@ -29,6 +29,26 @@ export default function DeleteProductsManager() {
         await deleteProduct(id)
 
     }
+
+    const [displayedProducts, setDisplayedProducts] = useState(allProducts);
+    const [checkSureMap, setCheckSureMap] = useState({});
+
+    useEffect(() => {
+        setDisplayedProducts(allProducts);
+    }, [allProducts]);
+
+    const handleCheckSure = (productId, value) => {
+        setCheckSureMap(prev => ({ ...prev, [productId]: value }));
+    };
+
+    const handleDeleteProduct = (productId) => {
+        handleDelete(productId);
+        setDisplayedProducts(prevProducts => prevProducts.filter(product => product._id !== productId));
+        setCheckSureMap(prev => ({ ...prev, [productId]: false }));
+    };
+
+
+
     if (isloading) {
         return <div>Loading...</div>;
     }
@@ -39,6 +59,6 @@ export default function DeleteProductsManager() {
 
 
     return (
-        <DeleteProductsComponent handleDelete={handleDelete} products={allProducts} toTitleCase={toTitleCase} />
+        <DeleteProductsComponent handleDeleteProduct={handleDeleteProduct} products={allProducts} toTitleCase={toTitleCase} displayedProducts={displayedProducts} handleCheckSure={handleCheckSure} checkSureMap={checkSureMap} />
     )
 }

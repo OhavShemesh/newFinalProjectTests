@@ -16,7 +16,7 @@ export default function AddProductManager() {
             },
         };
 
-        let product = await addProduct(fixedData)
+        await addProduct(fixedData)
     }
 
     const { handleChange, error, onSubmit, isFormValid } = useForm(initialAddProductFrom, addProductSchema, handleSubmit)

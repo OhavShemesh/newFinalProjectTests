@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useProducts from './useProducts';
 import { useCurrentCustomer } from '../../customers/provider/UserProvider';

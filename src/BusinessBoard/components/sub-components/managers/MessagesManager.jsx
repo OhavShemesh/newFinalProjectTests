@@ -10,10 +10,15 @@ export default function MessagesManager() {
     const { customer } = useCurrentCustomer()
     const { getAllCustomers, deleteContactMessage, sendEmail } = useCustomers()
     const { toTitleCase } = useProducts()
-    const [customerDetails, setCustomerDetails] = useState()
     const [allCustomersDetails, setAllCustomersDetails] = useState()
     const [responseData, setResponseData] = useState("")
     const setSnack = useSnack()
+    const [expanded, setExpanded] = useState(null);
+
+    const toggleExpandRow = (uniqueId) => {
+        setExpanded(expanded === uniqueId ? null : uniqueId);
+    };
+
 
 
     useEffect(() => {
@@ -126,7 +131,7 @@ Your Support Team`);
     return (
         <Box sx={{ height: "100vh", backgroundColor: "white" }}>
             <Typography sx={{ textAlign: "center", py: 2, color: "black", fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" } }} variant='h3'>Manage Messages</Typography>
-            <MessagesComponent allCustomersDetails={allCustomersDetails} toTitleCase={toTitleCase} handleDeleteMessage={handleDeleteMessage} handleCompleteMessage={handleCompleteMessage} handleResponseMessage={handleResponseMessage} handleOnChange={handleOnChange} />
+            <MessagesComponent allCustomersDetails={allCustomersDetails} toTitleCase={toTitleCase} handleDeleteMessage={handleDeleteMessage} handleCompleteMessage={handleCompleteMessage} handleResponseMessage={handleResponseMessage} handleOnChange={handleOnChange} expanded={expanded} toggleExpandRow={toggleExpandRow} />
         </Box>
     )
 }

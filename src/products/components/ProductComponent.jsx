@@ -1,53 +1,8 @@
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Grid, IconButton, Menu, Typography } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import { useEffect, useState } from "react";
-import { useCurrentCustomer } from "../../customers/provider/UserProvider";
-import { useLocation } from "react-router-dom";
-import { useSnack } from "../../providers/SnackBarProvider";
 
-export default function ProductComponent({ allProducts = [], handleAddToCart, cart, navigate, category, toTitleCase, handleLikeProduct, customerDetails, handleShare }) {
-    const [quantities, setQuantities] = useState({});
-    const { customer } = useCurrentCustomer();
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const searchValue = searchParams.get("searchValue") || "";
-    const setSnack = useSnack()
-
-    useEffect(() => {
-        const initialQuantities = allProducts.reduce((acc, product) => {
-            const cartItem = cart?.find(item => item.id === product._id);
-            acc[product._id] = cartItem ? cartItem.quantity : 0;
-            return acc;
-        }, {});
-
-        setQuantities(initialQuantities);
-    }, [allProducts, cart]);
-
-    const handleIncrement = (productId) => {
-        const product = allProducts.find(product => product._id === productId);
-        const currentQuantity = quantities[productId] || 0;
-
-        if (currentQuantity < product.inStock) {
-            setQuantities(prev => ({
-                ...prev,
-                [productId]: prev[productId] + 1,
-            }));
-        }
-    };
-
-    const handleDecrement = (productId) => {
-        setQuantities(prev => ({
-            ...prev,
-            [productId]: Math.max(0, prev[productId] - 1),
-        }));
-    };
-
-    const filteredProducts = allProducts.filter(product => {
-        const matchesCategory = !category || product.category === category;
-        const matchesSearchValue = product.name.toLowerCase().includes(searchValue.toLowerCase());
-        return matchesCategory && matchesSearchValue;
-    });
+export default function ProductComponent({ handleAddToCart, navigate, toTitleCase, handleLikeProduct, customerDetails, handleShare, filteredProducts, customer, quantities, handleIncrement, handleDecrement }) {
 
 
     return (

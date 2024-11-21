@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
-import "../styles/registerStyles.css";
 import FormInputs from '../../formHelpers/FormInputs';
 
 export default function LoginComponent({ handleChange, error, isFormValid, onSubmit }) {

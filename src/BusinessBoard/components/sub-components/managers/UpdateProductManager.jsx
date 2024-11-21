@@ -59,7 +59,7 @@ export default function UpdateProductManager() {
                 url: data.url,
             },
         };
-        let product = await updateProduct(productId, fixedData)
+        await updateProduct(productId, fixedData)
 
     }
 

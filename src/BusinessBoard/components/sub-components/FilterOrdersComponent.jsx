@@ -1,23 +1,18 @@
-import { Box, Button, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Button } from '@mui/material';
+import React from 'react';
 
-export default function FilterOrdersComponent({ setFilter }) {
-    const [activeFilter, setActiveFilter] = useState("All");
-
-    const handleFilterClick = (filter) => {
-        setActiveFilter(filter);
-        setFilter(filter)
-    };
+export default function FilterOrdersComponent({ handleFilterClick, activeFilter }) {
 
     return (
-        <Box sx={{ pt: 1, pb: 2, display: 'flex', alignItems: "center", gap: 1, justifyContent: "center" }}>
+        <Box sx={{ pt: 1, pb: 2, display: 'flex', alignItems: "center", gap: 1, justifyContent: "center", width: "40%", margin: "auto" }}>
             <Button
                 variant='contained'
                 sx={{
                     opacity: activeFilter === "All" ? 1 : 0.6,
                     fontWeight: activeFilter === "All" ? "bold" : "normal",
                     backgroundColor: activeFilter === "All" ? "black" : "gray",
-                    color: activeFilter === "All" ? "white" : "black",
+                    color: activeFilter === "All" ? "white" : "white",
+                    fontSize: { xs: "8px", sm: "12px", md: "14px" }
                 }}
                 onClick={() => handleFilterClick("All")}
             >
@@ -28,6 +23,7 @@ export default function FilterOrdersComponent({ setFilter }) {
                 sx={{
                     opacity: activeFilter === "Pending" ? 1 : 0.6,
                     fontWeight: activeFilter === "Pending" ? "bold" : "normal",
+                    fontSize: { xs: "8px", sm: "12px", md: "14px" }
                 }}
                 color='warning'
                 onClick={() => handleFilterClick("Pending")}
@@ -39,6 +35,8 @@ export default function FilterOrdersComponent({ setFilter }) {
                 sx={{
                     opacity: activeFilter === "In Progress" ? 1 : 0.6,
                     fontWeight: activeFilter === "In Progress" ? "bold" : "normal",
+                    fontSize: { xs: "8px", sm: "12px", md: "14px" },
+                    whiteSpace: "nowrap"
                 }}
                 color='info'
                 onClick={() => handleFilterClick("In Progress")}
@@ -50,6 +48,8 @@ export default function FilterOrdersComponent({ setFilter }) {
                 sx={{
                     opacity: activeFilter === "Completed" ? 1 : 0.6,
                     fontWeight: activeFilter === "Completed" ? "bold" : "normal",
+                    fontSize: { xs: "8px", sm: "12px", md: "14px" }
+
                 }}
                 color='success'
                 onClick={() => handleFilterClick("Completed")}

@@ -4,8 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useSnack } from '../../providers/SnackBarProvider';
 import ROUTES from '../../router/routesModel';
 
-export default function CartComponent({ calculateTotalQuantity, calculateTotalPrice, customer, productDetails, toTitleCase, handleRemoveItemFromCart, handlePlaceOrder, cart, navigate }) {
-    const setSnack = useSnack()
+export default function CartComponent({ calculateTotalQuantity, calculateTotalPrice, customer, productDetails, toTitleCase, handleRemoveItemFromCart, handlePlaceOrder, cart, navigate, setSnack }) {
     return (
         <Box sx={{ minHeight: "100vh" }}>
             <Box sx={{ width: "35%", height: "fit-content", border: "2px solid", borderColor: "black", position: "fixed", right: { xs: 0, md: 20 }, borderRadius: "20px", backgroundColor: "#000000" }}>
@@ -51,7 +50,7 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
             <Grid container spacing={2} sx={{ width: { xs: '50%', sm: "50%", md: "60%" }, my: 2, ml: 1, position: "relative" }}>
                 {productDetails.length > 0 ? (
                     productDetails.map((item) => (
-                        <Grid item xs={12} sx={{ border: '1px solid', borderColor: "black", display: 'flex', flexDirection: { xs: "column", sm: "column", md: "row" }, borderRadius: "20px", gap: 1, m: { xs: 1, md: 2 }, pb: { xs: 2, sm: 2, md: 0 }, alignItems: { xs: "flex-start", sm: "center" }, position: 'relative' }} key={item.id}>
+                        <Grid item xs={12} sx={{ border: '1px solid', borderColor: "black", display: 'flex', flexDirection: { xs: "column", sm: "column", md: "row" }, borderRadius: "20px", gap: 1, m: { xs: 1, md: 2 }, pb: { xs: 2, sm: 2, md: 0 }, alignItems: { xs: "flex-start", sm: "center", md: "center" }, position: 'relative' }} key={item.id}>
                             <CardMedia
                                 component="img"
                                 image={item.product?.image.url}
@@ -59,7 +58,7 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
                                     objectFit: "contain",
                                     width: { xs: "100px", md: "150px" },
                                     height: { xs: "100px", md: "150px" },
-                                    borderRadius: "20px"
+                                    borderRadius: "20px",
                                 }}
                             />
                             <Box
@@ -69,7 +68,7 @@ export default function CartComponent({ calculateTotalQuantity, calculateTotalPr
                                     width: { xs: "50%", sm: "50%", md: 'auto' },
                                     height: { xs: "1vw", sm: "1vw", md: "5vw" },
                                     margin: "auto 5px",
-                                    color:"black"
+                                    color: "black"
                                 }}
                             >
                             </Box>

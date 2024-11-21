@@ -4,6 +4,7 @@ import CartCheckCustomer from '../helpers/CartCheckCustomer'
 import useProducts from '../hooks/useProducts';
 import useCart from '../hooks/useCart';
 import { useCurrentCustomer } from '../../customers/provider/UserProvider';
+import { useSnack } from '../../providers/SnackBarProvider';
 
 
 export default function CartPage() {
@@ -11,6 +12,8 @@ export default function CartPage() {
     const [productDetails, setProductDetails] = useState([]);
     const { handleRemoveItemFromCart, cart, handlePlaceOrder } = useCart()
     const { customer } = useCurrentCustomer()
+    const setSnack = useSnack()
+
 
 
     useEffect(() => {
@@ -54,7 +57,7 @@ export default function CartPage() {
 
     return (
         <>
-            <CartComponent calculateTotalPrice={calculateTotalPrice} calculateTotalQuantity={calculateTotalQuantity} customer={customer} productDetails={productDetails} toTitleCase={toTitleCase} handleRemoveItemFromCart={handleRemoveItemFromCart} handlePlaceOrder={handlePlaceOrder} cart={cart} navigate={navigate} />
+            <CartComponent calculateTotalPrice={calculateTotalPrice} calculateTotalQuantity={calculateTotalQuantity} customer={customer} productDetails={productDetails} toTitleCase={toTitleCase} handleRemoveItemFromCart={handleRemoveItemFromCart} handlePlaceOrder={handlePlaceOrder} cart={cart} navigate={navigate} setSnack={setSnack} />
         </>
     )
 }

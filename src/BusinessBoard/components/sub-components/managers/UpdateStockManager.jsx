@@ -25,7 +25,7 @@ export default function UpdateStockManager() {
 
     const handleChangeInStock = async (productId) => {
         try {
-            const product = await updateInStock(productId, Math.max(0, newStock));
+            await updateInStock(productId, Math.max(0, newStock));
             setEditProductId(null);
             setNewStock('');
             setSomethingChanged(true);

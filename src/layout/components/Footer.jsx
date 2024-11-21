@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Toolbar, Button } from '@mui/material';
-import './styles/Footer.css';
 import ROUTES from '../../router/routesModel';
 
 export default function Footer({ navigate, customer, setSnack }) {
@@ -14,7 +13,7 @@ export default function Footer({ navigate, customer, setSnack }) {
         backgroundColor: '#333',
       }}
     >
-      <Toolbar className="toolbar" sx={{ justifyContent: 'center' }}>
+      <Toolbar sx={{ justifyContent: 'center', display: "flex", gap: "3%", backgroundColor: '#000000' }}>
         <Button onClick={() => navigate(ROUTES.ABOUT)} sx={{ color: '#FFFFFF', fontSize: { xs: "0.6rem", sm: "0.8rem" } }}>
           About
         </Button>

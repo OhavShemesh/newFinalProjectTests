@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../styles/SidebarMenu.css';
 import { Box } from '@mui/material';
 import SideBarComponent from '../styles/SideBarComponent';
 import AddProductManager from './sub-components/managers/AddProductManager';

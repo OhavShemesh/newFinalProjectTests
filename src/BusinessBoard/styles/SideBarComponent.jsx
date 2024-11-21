@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Button, List, ListItem, Typography } from '@mui/material';
-import '../styles/SidebarMenu.css';
 
 export default function SideBarComponent({ setSelectedComponent, selectedComponent }) {
 

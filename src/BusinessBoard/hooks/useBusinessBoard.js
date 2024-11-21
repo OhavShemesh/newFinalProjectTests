@@ -1,4 +1,3 @@
-import axios from "axios";
 import useCustomers from "../../customers/hooks/useCustomers";
 
 export default function useBusinessBoard() {

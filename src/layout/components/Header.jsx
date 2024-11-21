@@ -1,34 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Button, CardMedia } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ROUTES from '../../router/routesModel';
-import { removeToken } from '../../localStorageFunctions/useLocalStorage';
-import { useCurrentCustomer } from '../../customers/provider/UserProvider';
 import SearchBar from './sub-component/SearchBar';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import { useCustomTheme } from '../../providers/CustomThemeProvider';
-import axios from 'axios';
 
-export default function Header({ cart, navigate, customerDetails }) {
-  const { customer } = useCurrentCustomer();
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  const { mode, toggleMode } = useCustomTheme();
-  const [isImageValid, setIsImageValid] = useState(true);
-
-  const handleUserMenu = (event) => {
-    setAnchorElUser((prev) => (prev ? null : event.currentTarget));
-  };
-
-  const handleLogout = () => {
-    removeToken();
-    window.location.reload();
-  };
-
-
-
-  const settings = ['Profile', "Manage Orders", 'Logout'];
+export default function Header({ cart, navigate, customerDetails, toggleMode, mode, customer, anchorElUser, handleUserMenu, settings, handleLogout, isImageValid, setIsImageValid }) {
 
   return (
     <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", top: 0, zIndex: 1000 }}>

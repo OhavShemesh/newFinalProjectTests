@@ -2,23 +2,7 @@ import { Box, Button, Card, CardContent, CardMedia, Grid, IconButton, Typography
 import React, { useState, useEffect } from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-export default function DeleteProductsComponent({ handleDelete, products, toTitleCase }) {
-    const [displayedProducts, setDisplayedProducts] = useState(products);
-    const [checkSureMap, setCheckSureMap] = useState({});
-
-    useEffect(() => {
-        setDisplayedProducts(products);
-    }, [products]);
-
-    const handleCheckSure = (productId, value) => {
-        setCheckSureMap(prev => ({ ...prev, [productId]: value }));
-    };
-
-    const handleDeleteProduct = (productId) => {
-        handleDelete(productId);
-        setDisplayedProducts(prevProducts => prevProducts.filter(product => product._id !== productId));
-        setCheckSureMap(prev => ({ ...prev, [productId]: false }));
-    };
+export default function DeleteProductsComponent({ handleDeleteProduct, toTitleCase, displayedProducts = [], handleCheckSure, checkSureMap }) {
 
     return (
         <Box sx={{ pb: 5, width: "80%", margin: "auto" }}>

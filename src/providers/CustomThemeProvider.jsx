@@ -21,10 +21,12 @@ const CustomThemeProvider = ({ children }) => {
                         ? {
                             black: "black",
                             white: "white",
+                            lightgrey: "lightgrey"
                         }
                         : {
                             black: "white",
                             white: "black",
+                            lightgrey: "#333"
                         }),
                 },
                 typography: {

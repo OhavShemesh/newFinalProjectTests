@@ -1,10 +1,8 @@
 import axios from 'axios';
-import { useSnack } from '../../providers/SnackBarProvider';
 
 export default function useCustomers() {
 
     const CustomersApi = "http://localhost:8181/customers";
-    const setSnack = useSnack()
 
 
     const register = async (registerData) => {
@@ -141,6 +139,20 @@ export default function useCustomers() {
 
         }
     }
+    const deleteOrderFromCustomer = async (customerId, orderId) => {
+        try {
+            console.log("customerId", customerId);
+            console.log("orderId", orderId);
+
+
+            const response = await axios.patch(`${CustomersApi}/deleteOrderFromCustomer`, { customerId: customerId, orderId: orderId })
+            const data = response.data
+            return data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
 
 
     return {
@@ -155,7 +167,8 @@ export default function useCustomers() {
         deleteContactMessage,
         sendEmail,
         likeProducts,
-        updateCustomer
+        updateCustomer,
+        deleteOrderFromCustomer
     }
 
 }

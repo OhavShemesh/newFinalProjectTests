@@ -11,7 +11,7 @@ import { Typography } from '@mui/material';
 export default function ManageMyOrdersPage() {
     const { customer } = useCurrentCustomer();
     const { toTitleCase, navigate, getProductById } = useProducts();
-    const { getCustomerById } = useCustomers();
+    const { getCustomerById, deleteOrderFromCustomer } = useCustomers();
     const { getOrderById, deleteOrder } = useOrders();
     const [customerDetails, setCustomerDetails] = useState();
     const [customerOrders, setCustomerOrders] = useState([]);
@@ -27,7 +27,6 @@ export default function ManageMyOrdersPage() {
                 }
             } catch (err) {
                 console.log(err);
-
             }
         };
 
@@ -55,13 +54,15 @@ export default function ManageMyOrdersPage() {
     const fetchAllProductImages = async () => {
         const images = {};
         for (const order of customerOrders) {
-            for (const product of order.productsAndQuantity) {
-                if (!images[product.id]) {
-                    try {
-                        const productData = await getProductById(product.id);
-                        images[product.id] = productData.image;
-                    } catch (err) {
-                        console.log(err);
+            if (Array.isArray(order.productsAndQuantity)) {
+                for (const product of order.productsAndQuantity) {
+                    if (!images[product.id]) {
+                        try {
+                            const productData = await getProductById(product.id);
+                            images[product.id] = productData.image;
+                        } catch (err) {
+                            console.log(err);
+                        }
                     }
                 }
             }
@@ -87,19 +88,19 @@ export default function ManageMyOrdersPage() {
             return product.name
         } catch (err) {
             console.log(err);
-
         }
     }
+
     const getTotalOrderPrice = async (order) => {
         try {
             let totalPrice = 0;
 
-            for (const object of order.productsAndQuantity) {
-                const product = await getProductById(object.id);
-
-                const productTotal = product.price * object.quantity;
-
-                totalPrice += productTotal;
+            if (Array.isArray(order.productsAndQuantity)) {
+                for (const object of order.productsAndQuantity) {
+                    const product = await getProductById(object.id);
+                    const productTotal = product.price * object.quantity;
+                    totalPrice += productTotal;
+                }
             }
 
             return parseFloat(totalPrice.toFixed(2));
@@ -110,8 +111,6 @@ export default function ManageMyOrdersPage() {
     };
 
     const handleCancleOrder = async (id) => {
-        console.log(id);
-
         try {
             const todayDate = new Date();
             const order = await getOrderById(id);
@@ -131,11 +130,11 @@ export default function ManageMyOrdersPage() {
             } else {
                 try {
                     await deleteOrder(id)
+                    await deleteOrderFromCustomer(customer?._id, id)
                     setCustomerOrders(prevOrders => prevOrders.filter(order => order._id !== id));
                     setSnack("success", "Order Deleted")
                 } catch (err) {
                     console.log(err);
-
                 }
             }
 
@@ -143,6 +142,44 @@ export default function ManageMyOrdersPage() {
             console.log(err);
         }
     };
+
+    const [expandedOrderId, setExpandedOrderId] = useState(null);
+    const [productNames, setProductNames] = useState({});
+    const [orderPrices, setOrderPrices] = useState({});
+
+    const toggleExpand = (orderId) => {
+        setExpandedOrderId(prevId => (prevId === orderId ? null : orderId));
+    };
+
+    useEffect(() => {
+        const fetchNames = async () => {
+            const names = {};
+            for (const order of customerOrders) {
+                if (Array.isArray(order.productsAndQuantity)) {
+                    for (const product of order.productsAndQuantity) {
+                        if (!names[product.id]) {
+                            names[product.id] = await fetchProductName(product.id);
+                        }
+                    }
+                }
+            }
+            setProductNames(names);
+        };
+
+        fetchNames();
+    }, [customerOrders]);
+
+    useEffect(() => {
+        const fetchOrderPrices = async () => {
+            const prices = {};
+            for (const order of customerOrders) {
+                prices[order._id] = await getTotalOrderPrice(order);
+            }
+            setOrderPrices(prices);
+        };
+
+        fetchOrderPrices();
+    }, [customerOrders]);
 
     return (
         <ManageMyOrdersComponent
@@ -153,6 +190,10 @@ export default function ManageMyOrdersPage() {
             fetchProductName={fetchProductName}
             getTotalOrderPrice={getTotalOrderPrice}
             handleCancleOrder={handleCancleOrder}
+            orderPrices={orderPrices}
+            expandedOrderId={expandedOrderId}
+            productNames={productNames}
+            toggleExpand={toggleExpand}
         />
     );
 }

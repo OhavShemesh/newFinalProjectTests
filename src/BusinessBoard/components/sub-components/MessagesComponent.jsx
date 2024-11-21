@@ -1,14 +1,9 @@
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography, Collapse, IconButton, Button, TextField, TableContainer, Paper } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import SendIcon from '@mui/icons-material/Send';
 
-export default function MessagesComponent({ allCustomersDetails = [], toTitleCase, handleDeleteMessage, handleCompleteMessage, handleResponseMessage, handleOnChange }) {
-    const [expanded, setExpanded] = useState(null);
-
-    const toggleExpandRow = (uniqueId) => {
-        setExpanded(expanded === uniqueId ? null : uniqueId);
-    };
+export default function MessagesComponent({ allCustomersDetails = [], toTitleCase, handleDeleteMessage, handleCompleteMessage, handleResponseMessage, handleOnChange, expanded, toggleExpandRow }) {
 
     return (
         <TableContainer component={Paper}>

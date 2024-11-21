@@ -3,18 +3,15 @@ import { Route, Routes } from "react-router-dom";
 import ProductsPage from '../products/ProductsPage';
 import ROUTES from './routesModel';
 import RegitsterPage from '../customers/pages/RegitsterPage';
-import SingleProduct from '../products/components/SingleProduct';
 import LoginPage from '../customers/pages/LoginPage';
-import CartComponent from '../products/components/CartComponent';
 import CartPage from '../products/pages/CartPage';
 import BusinessBoardPage from '../BusinessBoard/BusinessBoardPage';
 import ManageMyOrdersPage from '../customers/manageOrders/manageMyOrdersPage';
 import ProfilePage from '../customers/profile/ProfilePage';
 import ContactPage from '../layout/components/sub-component/contact/ContactPage';
 import AboutPage from '../layout/components/sub-component/about/AboutPage';
-import ErrorPage from './errorPage/ErrorPage';
-import Error404 from './errorPage/Error404';
-import SingleProductPage from '../products/components/SingleProductPage';
+import SingleProductPage from '../products/pages/SingleProductPage';
+import ErrorComponent from './errorPage/ErrorComponent';
 
 
 export default function Router() {
@@ -30,7 +27,7 @@ export default function Router() {
             <Route path={ROUTES.PROFILE_PAGE} element={<ProfilePage />} />
             <Route path={ROUTES.CONTACT} element={<ContactPage />} />
             <Route path={ROUTES.ABOUT} element={<AboutPage />} />
-            <Route path={ROUTES.ERROR404} element={<ErrorPage />} />
+            <Route path={ROUTES.ERROR404} element={<ErrorComponent />} />
         </Routes>
     )
 }

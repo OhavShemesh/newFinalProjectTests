@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SingleProduct from './SingleProduct';
+import SingleProduct from '../components/SingleProduct';
 import { useSnack } from '../../providers/SnackBarProvider';
 import useProducts from '../hooks/useProducts';
 import useCart from '../hooks/useCart';
@@ -61,7 +61,7 @@ export default function SingleProductPage() {
     };
 
     const handleDecrement = () => {
-        if (quantity > 1) {
+        if (quantity > 0) {
             setQuantity(prev => prev - 1);
         }
     };

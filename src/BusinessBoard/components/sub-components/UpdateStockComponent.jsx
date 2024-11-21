@@ -1,5 +1,5 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, TextField, IconButton, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { Table, TableBody, TableCell, TableHead, TableRow, Box, TextField, IconButton, Typography } from '@mui/material';
+import React from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 
 export default function UpdateStockComponent({ products, editProductId, handleEditClick, newStock, setNewStock, handleSave, addStock, setAddStock, handleEditAddClick, editAddProductId, handleAddToStock, toTitleCase }) {

@@ -11,7 +11,7 @@ export default function CartCheckCustomer() {
   const { customer } = useCurrentCustomer();
   const { getCustomerById } = useCustomers()
   const [myCustomer, setMyCustomer] = useState(customer)
-  const { toTitleCase, navigate } = useProducts()
+  const { navigate } = useProducts()
   const [isHidden, setIsHidden] = useState(false)
 
   useEffect(() => {
