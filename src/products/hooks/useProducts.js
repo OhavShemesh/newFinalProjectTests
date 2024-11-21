@@ -8,7 +8,7 @@ export default function useProducts() {
     const [chosenCategory, setChosenCategory] = useState("")
     const navigate = useNavigate()
 
-    const ProductsApi = "http://localhost:8181/products";
+    const ProductsApi = "https://newback-ye1s.onrender.com/products";
 
 
     const getProducts = async () => {

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default function useCustomers() {
 
-    const CustomersApi = "http://localhost:8181/customers";
+    const CustomersApi = "https://newback-ye1s.onrender.com/customers";
 
 
     const register = async (registerData) => {
