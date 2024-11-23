@@ -1,10 +1,11 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 
 export default function FilterOrdersComponent({ handleFilterClick, activeFilter }) {
 
     return (
         <Box sx={{ pt: 1, pb: 2, display: 'flex', alignItems: "center", gap: 1, justifyContent: "center", width: "40%", margin: "auto" }}>
+            <Typography sx={{ marginRight: 1 }}>Filter By:</Typography>
             <Button
                 variant='contained'
                 sx={{

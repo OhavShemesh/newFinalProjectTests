@@ -14,6 +14,11 @@ export default function OrdersManager() {
     const [isLoading, setIsLoading] = useState(true)
     const [somethingChanged, setSomethingChanged] = useState(false)
     const [filter, setFilter] = useState("All")
+    const [expandedOrderId, setExpandedOrderId] = useState(null);
+    const [productNames, setProductNames] = useState({});
+    const [customerNames, setCustomerNames] = useState({});
+    const fetchedProductIds = useRef(new Set());
+
 
     useEffect(() => {
         const fetchAllOrders = async () => {
@@ -58,6 +63,7 @@ export default function OrdersManager() {
             let customerFirstName = String(`${customer.name.first} ${customer.name.middle || ""} ${customer.name.last}`)
             nameArr.push(customerFirstName)
 
+
             return nameArr
 
         } catch (err) {
@@ -66,10 +72,6 @@ export default function OrdersManager() {
         }
     }
 
-    const [expandedOrderId, setExpandedOrderId] = useState(null);
-    const [productNames, setProductNames] = useState({});
-    const [customerNames, setCustomerNames] = useState({});
-    const fetchedProductIds = useRef(new Set());
 
     useEffect(() => {
         const fetchAllProductNames = async () => {
@@ -111,6 +113,7 @@ export default function OrdersManager() {
 
 
 
+
     if (isLoading) {
         return <Typography>Loading...</Typography>
     }
@@ -119,7 +122,7 @@ export default function OrdersManager() {
         <Box sx={{ height: "100vh", backgroundColor: "white" }}>
             <Typography sx={{ textAlign: "center", py: 2, color: "black", fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" } }} variant='h3'>Manage Orders</Typography>
             <FilterOrderManager setFilter={setFilter} />
-            <OrdersComponent allOrders={allOrders} fetchProduct={fetchProduct} toTitleCase={toTitleCase} handleUpdateStatus={handleUpdateStatus} fetchCustomerName={fetchCustomerName} filter={filter} expandedOrderId={expandedOrderId} productNames={productNames} handleExpand={handleExpand} />
+            <OrdersComponent allOrders={allOrders} fetchProduct={fetchProduct} toTitleCase={toTitleCase} handleUpdateStatus={handleUpdateStatus} filter={filter} expandedOrderId={expandedOrderId} productNames={productNames} handleExpand={handleExpand} customerNames={customerNames} />
         </Box>
     )
 }

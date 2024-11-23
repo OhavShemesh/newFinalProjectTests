@@ -22,7 +22,8 @@ export default function OrdersComponent({
     expandedOrderId,
     productNames,
     handleExpand,
-    handleUpdateStatus
+    handleUpdateStatus,
+    customerNames
 }) {
     return (
         <TableContainer component={Paper} sx={{ paddingBottom: 20 }}>
@@ -93,6 +94,29 @@ export default function OrdersComponent({
                                     <TableRow sx={{ backgroundColor: "lightgrey" }}>
                                         <TableCell colSpan={7} sx={{ paddingBottom: 0, paddingTop: 0 }}>
                                             <Collapse in={expandedOrderId === order._id} timeout="auto" unmountOnExit>
+                                                <Box>
+                                                    <Typography
+                                                        textAlign="center"
+                                                        sx={{ fontWeight: 'bold', fontSize: { xs: "16px", sm: "18px", md: "24px" } }}
+                                                        variant="h5"
+                                                        gutterBottom
+                                                    >
+                                                        Customer Details
+                                                    </Typography>
+                                                    <Box
+                                                        sx={{ borderBottom: "1px dotted", width: "70%", margin: "auto" }}
+                                                    ></Box>
+                                                    <Box sx={{ display: 'flex', flexDirection: "column", gap: 2, paddingTop: 2 }}>
+                                                        <Box sx={{ display: "flex", gap: 2, justifyContent: 'center' }}>
+                                                            <Typography sx={{ fontWeight: "bold", color: "black" }}>Full Name:</Typography>
+                                                            <Typography sx={{ color: 'black' }}>{toTitleCase(customerNames[order?.customer_id])}</Typography>
+                                                        </Box>
+                                                        <Box sx={{ display: "flex", gap: 2, justifyContent: 'center' }}>
+                                                            <Typography sx={{ fontWeight: "bold", color: "black" }}>Address:</Typography>
+                                                            <Typography sx={{ color: 'black' }}>{`${toTitleCase(order?.address?.city)}, ${toTitleCase(order?.address?.street)}, ${order?.address?.houseNumber}, ${order?.address?.zip}`}</Typography>
+                                                        </Box>
+                                                    </Box>
+                                                </Box>
                                                 <Box sx={{ margin: 2 }}>
                                                     <Typography
                                                         textAlign="center"
