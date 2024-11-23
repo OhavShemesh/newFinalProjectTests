@@ -1,9 +1,17 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 
 export default function useCustomers() {
 
-    const CustomersApi = "https://newback-ye1s.onrender.com/customers";
+    const CustomersApi =
+        window.location.hostname === "localhost"
+            ? "http://localhost:8181/customers"
+            : "https://newback-ye1s.onrender.com/customers";
 
+    useEffect(() => {
+        console.log(CustomersApi);
+
+    }, [])
 
     const register = async (registerData) => {
         try {

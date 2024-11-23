@@ -3,7 +3,16 @@ import React, { useEffect } from 'react'
 
 export default function useOrders() {
 
-    const ordersApi = "https://newback-ye1s.onrender.com/orders";
+    const ordersApi =
+        window.location.hostname === "localhost"
+            ? "http://localhost:8181/orders"
+            : "https://newback-ye1s.onrender.com/orders";
+
+
+    useEffect(() => {
+        console.log(ordersApi);
+
+    }, [])
 
 
     const placeNewOrder = async (orderDetails) => {
