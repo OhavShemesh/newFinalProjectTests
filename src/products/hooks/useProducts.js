@@ -13,10 +13,6 @@ export default function useProducts() {
             ? "http://localhost:8181/products"
             : "https://newback-ye1s.onrender.com/products";
 
-    useEffect(() => {
-        console.log(ProductsApi);
-
-    }, [])
 
 
     const getProducts = async () => {

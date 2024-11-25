@@ -9,11 +9,6 @@ export default function useOrders() {
             : "https://newback-ye1s.onrender.com/orders";
 
 
-    useEffect(() => {
-        console.log(ordersApi);
-
-    }, [])
-
 
     const placeNewOrder = async (orderDetails) => {
         try {

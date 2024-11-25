@@ -1,8 +1,9 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 import FormInputs from '../../formHelpers/FormInputs';
+import ROUTES from '../../router/routesModel';
 
-export default function LoginComponent({ handleChange, error, isFormValid, onSubmit }) {
+export default function LoginComponent({ handleChange, error, isFormValid, onSubmit, navigate }) {
 
 
     return (
@@ -13,6 +14,23 @@ export default function LoginComponent({ handleChange, error, isFormValid, onSub
                 </Typography>
                 <FormInputs width={"80%"} error={error} handleChange={handleChange} label={"Email"} inputNames={["Email"]} />
                 <FormInputs width={"80%"} error={error} handleChange={handleChange} label={"Password"} inputNames={["Password"]} />
+                <Box onClick={() => navigate(ROUTES.FORGOTPASSWORD)} sx={{
+                    display: 'flex', justifyContent: "flex-start", width: { xs: "73%", md: "46%" }, margin: "auto"
+                }}>
+                    <Typography
+                        variant="body2"
+                        sx={{
+                            color: "red",
+                            cursor: "pointer",
+                            fontSize: { xs: "12px", sm: "14px", md: '16px' },
+                            "&:hover": {
+                                textDecoration: "underline",
+                            },
+                        }}
+                    >
+                        Forgot Password?
+                    </Typography>
+                </Box>
 
                 <Box sx={{ display: "flex", justifyContent: { xs: "center", sm: "center", md: "flex-end" }, my: { xs: 1, sm: 2, md: 3 }, width: { xs: "100%", sm: "100%", md: '80%' } }}>
                     <Button
@@ -32,6 +50,6 @@ export default function LoginComponent({ handleChange, error, isFormValid, onSub
                     </Button>
                 </Box>
             </Box>
-        </Box>
+        </Box >
     );
 }

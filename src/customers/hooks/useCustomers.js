@@ -8,10 +8,6 @@ export default function useCustomers() {
             ? "http://localhost:8181/customers"
             : "https://newback-ye1s.onrender.com/customers";
 
-    useEffect(() => {
-        console.log(CustomersApi);
-
-    }, [])
 
     const register = async (registerData) => {
         try {
@@ -35,7 +31,17 @@ export default function useCustomers() {
         }
     }
 
-    const getAllCustomers = async (id) => {
+    const changePasword = async (email, newPassword) => {
+        try {            
+            let customer = await axios.patch(`${CustomersApi}/changePassword`, { email: email, newPassword: newPassword })
+            return customer.data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
+
+    const getAllCustomers = async () => {
         try {
             let customers = await axios.get(CustomersApi)
             return customers.data
@@ -46,6 +52,16 @@ export default function useCustomers() {
         }
 
     }
+    const getCustomerByEmail = async (email) => {
+        try {
+            let customer = await axios.get(`${CustomersApi}/getCustomerByEmail`, { params: { email } })
+            return customer.data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
+
     const getCustomerById = async (id) => {
         try {
             let customer = await axios.get(`${CustomersApi}/${id}`)
@@ -106,6 +122,17 @@ export default function useCustomers() {
             return "wrong code"
         }
     }
+
+    const changeBusinessStatus = async (customerId) => {
+        try {
+            const response = await axios.patch(`${CustomersApi}/updateBusiness`, { customerId });
+            return response.data
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
+
     const sendContactMessage = async (message, customerId) => {
         try {
             const response = await axios.patch(`${CustomersApi}/contactMessage`, { customerId: customerId, message: message })
@@ -176,7 +203,10 @@ export default function useCustomers() {
         sendEmail,
         likeProducts,
         updateCustomer,
-        deleteOrderFromCustomer
+        deleteOrderFromCustomer,
+        changeBusinessStatus,
+        getCustomerByEmail,
+        changePasword
     }
 
 }

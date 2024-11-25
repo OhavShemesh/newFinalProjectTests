@@ -12,6 +12,7 @@ import ContactPage from '../layout/components/sub-component/contact/ContactPage'
 import AboutPage from '../layout/components/sub-component/about/AboutPage';
 import SingleProductPage from '../products/pages/SingleProductPage';
 import ErrorComponent from './errorPage/ErrorComponent';
+import ForgotPasswordPage from '../customers/pages/ForgotPasswordPage';
 
 
 export default function Router() {
@@ -27,6 +28,7 @@ export default function Router() {
             <Route path={ROUTES.PROFILE_PAGE} element={<ProfilePage />} />
             <Route path={ROUTES.CONTACT} element={<ContactPage />} />
             <Route path={ROUTES.ABOUT} element={<AboutPage />} />
+            <Route path={ROUTES.FORGOTPASSWORD} element={<ForgotPasswordPage />} />
             <Route path={ROUTES.ERROR404} element={<ErrorComponent />} />
         </Routes>
     )

@@ -7,6 +7,8 @@ import UpdateProductManager from './sub-components/managers/UpdateProductManager
 import OrdersManager from './sub-components/managers/OrdersManager';
 import UpdateStockManager from './sub-components/managers/UpdateStockManager';
 import MessagesManager from './sub-components/managers/MessagesManager';
+import ManageCustomers from './sub-components/managers/ManageCustomers';
+import StatisticsManager from './sub-components/managers/StatisticsManager';
 
 export default function BusinessBoardComponent() {
   const [selectedComponent, setSelectedComponent] = useState('Add');
@@ -25,6 +27,10 @@ export default function BusinessBoardComponent() {
         return <UpdateProductManager />;
       case 'Messages':
         return <MessagesManager />;
+      case 'Customers':
+        return <ManageCustomers />;
+      case 'Statics':
+        return <StatisticsManager />;
       default:
         return <AddProductManager />;
     }

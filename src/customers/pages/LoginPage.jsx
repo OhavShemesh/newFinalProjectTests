@@ -45,6 +45,6 @@ export default function LoginPage() {
 
 
     return (
-        <LoginComponent onSubmit={onSubmit} isFormValid={isFormValid} handleSubmit={handleSubmit} handleChange={handleChange} error={error} />
+        <LoginComponent onSubmit={onSubmit} isFormValid={isFormValid} handleSubmit={handleSubmit} handleChange={handleChange} error={error} navigate={navigate} />
     )
 }

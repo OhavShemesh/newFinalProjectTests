@@ -39,7 +39,7 @@ export default function SideBarComponent({ setSelectedComponent, selectedCompone
                     gap: { xs: 0.5, sm: 0.5, md: 2 },
                     flexWrap: "wrap"
                 }}>
-                    {['Add', 'Update', 'Delete', 'Orders', 'Stock', 'Messages'].map((item) => (
+                    {['Add', 'Update', 'Delete', 'Orders', 'Stock', 'Messages', `Customers`, `Statics`].map((item) => (
                         <ListItem key={item} sx={{ padding: "0", width: { xs: 'auto', sm: 'auto', md: '80%' } }}>
                             <Button
                                 onClick={() => setSelectedComponent(item)}
@@ -47,7 +47,11 @@ export default function SideBarComponent({ setSelectedComponent, selectedCompone
                                     backgroundColor: selectedComponent === item ? '#444' : '#888',
                                     color: '#FFFFFF',
                                     border: 'none',
-                                    fontSize: { xs: "8px", sm: "10px", md: "14px" },
+                                    fontSize: {
+                                        xs: "8px",
+                                        sm: "10px",
+                                        md: item === "Customers" ? "12px" : "14px"
+                                    },
                                     width: { xs: '50px', sm: '80px', md: '100%' },
                                     cursor: 'pointer',
                                     textAlign: 'center',
@@ -63,6 +67,6 @@ export default function SideBarComponent({ setSelectedComponent, selectedCompone
                     ))}
                 </List>
             </Box>
-        </Box>
+        </Box >
     );
 }

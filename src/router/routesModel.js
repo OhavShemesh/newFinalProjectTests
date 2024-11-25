@@ -10,6 +10,7 @@ const ROUTES = {
     PROFILE_PAGE: "/profile-page",
     CONTACT: "/contact",
     ABOUT: "/about",
+    FORGOTPASSWORD: "/forgot-password",
     ERROR404: "/*"
 
 }

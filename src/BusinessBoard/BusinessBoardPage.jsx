@@ -46,7 +46,8 @@ export default function BusinessBoardPage() {
 
 
 
-    if (customer?.isBusiness || customer?.isAdmin) {
+    if (customer?.isBusiness) {
+
         return <BusinessBoardComponent />;
     } else {
         return <MakeCustomerBusiness customerDetails={customerDetails} toTitleCase={toTitleCase} handleOnSubmitSecretCode={handleSubmitSecretCode} wrongCode={wrongCode} />;
