@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import useCustomers from "../hooks/useCustomers";
 import { useSnack } from "../../providers/SnackBarProvider";
 import { useNavigate } from "react-router-dom";
@@ -33,7 +33,7 @@ export default function ForgotPasswordPage() {
         )
         .rule({
             message:
-                "The password must be at least seven characters long and contain an uppercase letter, a lowercase letter, a number, and one of the following characters: !@#$%^&*-",
+                "Password must be 7+ characters, with uppercase, lowercase, a number, and one of !@#$ %^&* -.",
         })
         .required();
 
@@ -171,6 +171,7 @@ If you did not request this password reset, please ignore this email, and your a
 
     return (
         <Box sx={{ height: "100vh", backgroundColor: "white" }}>
+            <Typography variant='h3' sx={{ color: "black", fontSize: { xs: "28px", sm: "32px", md: "38px", textAlign: "center" } }}>Change Password</Typography>
             {currentComponent === "CheckEmail" && (
                 <CheckEmail
                     handleGetEmail={handleGetEmail}

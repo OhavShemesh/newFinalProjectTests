@@ -4,12 +4,11 @@ import React from 'react';
 export default function CheckEmail({ handleGetEmail, handleSendConfirmationMail, validationError }) {
     return (
         <Box sx={{ display: 'flex', alignItems: "center", py: 1, flexDirection: "column" }}>
-            <Typography variant='h3' sx={{ color: "black" }}>Change Password</Typography>
             <Box
                 sx={{
                     border: '1px solid',
                     borderColor: "black",
-                    width: "40%",
+                    width: { xs: "80%", sm: "60%", md: "40%" },
                     borderRadius: "20px",
                     mt: 3,
                     display: "flex",
@@ -20,6 +19,7 @@ export default function CheckEmail({ handleGetEmail, handleSendConfirmationMail,
             >
                 <Typography variant='h6' sx={{ color: "black" }}>What is your email?</Typography>
                 <Input
+                    type='email'
                     onChange={handleGetEmail}
                     disableUnderline
                     sx={{
