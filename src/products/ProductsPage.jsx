@@ -128,7 +128,7 @@ export default function ProductsPage() {
     return (
         <Box sx={{ height: "100%", backgroundColor: "white" }}>
             <ProductsFilter setCategory={setCategory} />
-            <SetDisplay setDisplay={setDisplay} />
+            <SetDisplay setDisplay={setDisplay} display={display} />
             {display === "cards" && (<ProductComponent
                 allProducts={allProducts}
                 handleAddToCart={handleAddToCart}
