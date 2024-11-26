@@ -9,6 +9,8 @@ import { Box, Typography } from '@mui/material';
 import { useSnack } from '../providers/SnackBarProvider';
 import ROUTES from '../router/routesModel';
 import { useLocation } from 'react-router-dom';
+import SetDisplay from './helpers/SetDisplay';
+import ProductComponentTable from './components/ProductComponentTable';
 
 export default function ProductsPage() {
     const { allProducts, navigate, toTitleCase } = useProducts();
@@ -23,6 +25,7 @@ export default function ProductsPage() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const searchValue = searchParams.get("searchValue") || "";
+    const [display, setDisplay] = useState("cards")
 
 
     useEffect(() => {
@@ -98,6 +101,17 @@ export default function ProductsPage() {
         }));
     };
 
+    const handleQuantityChange = (event, productId, inStock) => {
+        let { value } = event.target;
+
+        value = Math.max(0, Math.min(inStock, Number(value) || 0));
+
+        setQuantities((prevQuantities) => ({
+            ...prevQuantities,
+            [productId]: value,
+        }));
+    };
+
     const filteredProducts = allProducts.filter(product => {
         const matchesCategory = !category || product.category === category;
         const matchesSearchValue = product.name.toLowerCase().includes(searchValue.toLowerCase());
@@ -114,7 +128,8 @@ export default function ProductsPage() {
     return (
         <Box sx={{ height: "100%", backgroundColor: "white" }}>
             <ProductsFilter setCategory={setCategory} />
-            <ProductComponent
+            <SetDisplay setDisplay={setDisplay} />
+            {display === "cards" && (<ProductComponent
                 allProducts={allProducts}
                 handleAddToCart={handleAddToCart}
                 isAddedMap={isAddedMap}
@@ -130,7 +145,27 @@ export default function ProductsPage() {
                 quantities={quantities}
                 handleDecrement={handleDecrement}
                 handleIncrement={handleIncrement}
-            />
+            />)}
+            {display === "table" && (
+                <ProductComponentTable
+                    allProducts={allProducts}
+                    handleAddToCart={handleAddToCart}
+                    isAddedMap={isAddedMap}
+                    navigate={navigate}
+                    category={category}
+                    cart={cart}
+                    toTitleCase={toTitleCase}
+                    handleLikeProduct={handleLikeProduct}
+                    customerDetails={customerDetails}
+                    handleShare={handleShare}
+                    filteredProducts={filteredProducts}
+                    customer={customer}
+                    quantities={quantities}
+                    handleDecrement={handleDecrement}
+                    handleIncrement={handleIncrement}
+                    handleQuantityChange={handleQuantityChange}
+                />
+            )}
         </Box>
     )
 }
