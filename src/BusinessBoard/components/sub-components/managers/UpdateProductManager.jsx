@@ -6,6 +6,7 @@ import UpdateSingleProduct from '../UpdateSingleProduct';
 import useForm from '../../../../formHelpers/useForm';
 import addProductSchema from '../../../../formHelpers/schemas/addProductSchema';
 import initialAddProductFrom from '../../../helpers/initialAddProductFrom';
+import { ClipLoader } from 'react-spinners';
 
 export default function UpdateProductManager() {
     const { getProducts, getProductById, updateProduct, toTitleCase } = useProducts();
@@ -83,9 +84,11 @@ export default function UpdateProductManager() {
             <Typography sx={{ textAlign: "center", py: 2, color: "black", fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" } }} variant='h3'>Update Product</Typography>
             <Box>
                 {isLoading ? (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
-                        <CircularProgress />
+
+                    <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center", width: "100%", pt: 40 }}>
+                        <ClipLoader size={"60px"} color="turquoise" cssOverride={{ fontWeight: "900" }} />
                     </Box>
+
                 ) : (
                     renderContent()
                 )}

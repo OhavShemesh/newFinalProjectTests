@@ -13,7 +13,9 @@ export default function ProductComponentTable({
     filteredProducts,
     quantities,
     handleQuantityChange,
-    toTitleCase
+    toTitleCase,
+    setSnack,
+    customer
 }) {
 
     const cellWidth = "12.5%";
@@ -86,7 +88,7 @@ export default function ProductComponentTable({
                             </TableCell>
                             <TableCell sx={{ width: cellWidth }}>
                                 <IconButton
-                                    onClick={() => handleAddToCart(product?._id, quantities[product._id])}
+                                    onClick={() => customer ? handleAddToCart(product._id, quantities[product._id]) : setSnack("error", "Please LogIn")}
                                     disabled={product?.inStock === 0}
                                 >
                                     <AddShoppingCartIcon />

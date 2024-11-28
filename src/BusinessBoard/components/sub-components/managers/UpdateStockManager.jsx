@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import UpdateStockComponent from '../UpdateStockComponent';
 import useProducts from '../../../../products/hooks/useProducts';
 import { Typography } from '@mui/material';
+import { ClipLoader } from 'react-spinners';
 
 export default function UpdateStockManager() {
     const { getProducts, updateInStock, getProductById, toTitleCase } = useProducts();
@@ -64,7 +65,11 @@ export default function UpdateStockManager() {
     }, [somethingChanged]);
 
     if (isLoading) {
-        return <Typography>Loading...</Typography>;
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center", width: "100%", pt: 40 }}>
+                <ClipLoader size={"60px"} color="turquoise" cssOverride={{ fontWeight: "900" }} />
+            </Box>
+        )
     }
 
     return (

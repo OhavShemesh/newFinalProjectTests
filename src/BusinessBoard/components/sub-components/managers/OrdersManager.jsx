@@ -5,6 +5,7 @@ import useProducts from '../../../../products/hooks/useProducts'
 import useCustomers from '../../../../customers/hooks/useCustomers'
 import OrdersComponent from '../OrdersComponent'
 import FilterOrderManager from './FilterOrderManager'
+import { ClipLoader } from 'react-spinners'
 
 export default function OrdersManager() {
     const { getCustomerById } = useCustomers()
@@ -115,7 +116,11 @@ export default function OrdersManager() {
 
 
     if (isLoading) {
-        return <Typography>Loading...</Typography>
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center", width: "100%", pt: 40 }}>
+                <ClipLoader size={"60px"} color="turquoise" cssOverride={{ fontWeight: "900" }} />
+            </Box>
+        )
     }
 
     return (

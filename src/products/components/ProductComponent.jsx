@@ -2,7 +2,7 @@ import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardHeader
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 
-export default function ProductComponent({ handleAddToCart, navigate, toTitleCase, handleLikeProduct, customerDetails, handleShare, filteredProducts, customer, quantities, handleIncrement, handleDecrement }) {
+export default function ProductComponent({ handleAddToCart, navigate, toTitleCase, handleLikeProduct, customerDetails, handleShare, filteredProducts, customer, quantities, handleIncrement, handleDecrement, setSnack }) {
 
 
     return (

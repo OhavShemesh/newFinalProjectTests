@@ -3,6 +3,7 @@ import ManageCustomersCompoenent from '../ManageCustomersCompoenent'
 import { Box, Typography } from '@mui/material'
 import useCustomers from '../../../../customers/hooks/useCustomers'
 import useProducts from '../../../../products/hooks/useProducts'
+import { ClipLoader } from 'react-spinners'
 
 export default function ManageCustomers() {
     const [allCustomers, setAllCustomers] = useState({})
@@ -42,7 +43,11 @@ export default function ManageCustomers() {
 
 
     if (isloading) {
-        return <Typography>Loading...</Typography>
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center", width: "100%", pt: 40 }}>
+                <ClipLoader size={"60px"} color="turquoise" cssOverride={{ fontWeight: "900" }} />
+            </Box>
+        )
     }
 
     return (

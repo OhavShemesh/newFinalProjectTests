@@ -6,6 +6,7 @@ import useForm from '../../formHelpers/useForm';
 import signupSchema from '../../formHelpers/schemas/signupSchema';
 import { Box, Container, Typography } from '@mui/material';
 import MiddleProfileComponent from './components/MiddleProfileComponent';
+import { ClipLoader } from 'react-spinners';
 
 export default function ProfilePage() {
     const { customer } = useCurrentCustomer();
@@ -55,10 +56,10 @@ export default function ProfilePage() {
 
     if (isLoading || !formValues) {
         return (
-            <Container>
-                <Typography>Loading...</Typography>
-            </Container>
-        );
+            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center", width: "100%", pt: 40 }}>
+                <ClipLoader size={"60px"} color="turquoise" cssOverride={{ fontWeight: "900" }} />
+            </Box>
+        )
     }
 
     return (

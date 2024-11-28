@@ -129,7 +129,11 @@ export default function ProductsPage() {
     }
 
     if (isLoading) {
-        return <ClipLoader />
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center", width: "100%", pt: 40 }}>
+                <ClipLoader size={"60px"} color="turquoise" cssOverride={{ fontWeight: "900" }} />
+            </Box>
+        )
     }
 
 
@@ -153,6 +157,7 @@ export default function ProductsPage() {
                 quantities={quantities}
                 handleDecrement={handleDecrement}
                 handleIncrement={handleIncrement}
+                setSnack={setSnack}
             />)}
             {display === "table" && (
                 <ProductComponentTable
@@ -172,6 +177,8 @@ export default function ProductsPage() {
                     handleDecrement={handleDecrement}
                     handleIncrement={handleIncrement}
                     handleQuantityChange={handleQuantityChange}
+                    setSnack={setSnack}
+
                 />
             )}
         </Box>
