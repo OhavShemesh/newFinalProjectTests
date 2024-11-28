@@ -11,6 +11,7 @@ import ROUTES from '../router/routesModel';
 import { useLocation } from 'react-router-dom';
 import SetDisplay from './helpers/SetDisplay';
 import ProductComponentTable from './components/ProductComponentTable';
+import { ClipLoader } from 'react-spinners';
 
 export default function ProductsPage() {
     const { allProducts, navigate, toTitleCase } = useProducts();
@@ -118,10 +119,13 @@ export default function ProductsPage() {
         return matchesCategory && matchesSearchValue;
     });
 
+    if (!allProducts) {
+        return <ClipLoader />
 
+    }
 
     if (isLoading) {
-        return <Typography>Loading...</Typography>
+        return <ClipLoader />
     }
 
 

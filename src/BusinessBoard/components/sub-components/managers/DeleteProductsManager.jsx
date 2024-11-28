@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DeleteProductsComponent from '../DeleteProductsComponent'
 import useProducts from '../../../../products/hooks/useProducts'
+import { ClipLoader } from 'react-spinners'
 
 export default function DeleteProductsManager() {
     const { deleteProduct, getProducts, toTitleCase } = useProducts()
@@ -50,7 +51,7 @@ export default function DeleteProductsManager() {
 
 
     if (isloading) {
-        return <div>Loading...</div>;
+        return <ClipLoader />;
     }
 
     if (!allProducts) {

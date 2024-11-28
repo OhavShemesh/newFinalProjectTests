@@ -16,10 +16,10 @@ export default function ProductComponentTable({
     toTitleCase
 }) {
 
-    const cellWidth = "12.5%";  // Set a fixed width for all cells
+    const cellWidth = "12.5%";
 
     return (
-        <TableContainer>
+        <TableContainer sx={{ height: "100vh", overflow: "hidden" }}>
             <Table sx={{ width: "90%", margin: 'auto' }}>
                 <TableHead>
                     <TableRow>
@@ -32,7 +32,7 @@ export default function ProductComponentTable({
                         <TableCell sx={{ fontWeight: "bold", width: cellWidth }}>Like/Share</TableCell>
                         <TableCell sx={{ fontWeight: "bold", width: cellWidth }}>Quantity</TableCell>
                         <TableCell sx={{ fontWeight: "bold", width: cellWidth }}>Add</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: "bold", width: "5%" }}>Info</TableCell> {/* Reduced width */}
+                        <TableCell align="center" sx={{ fontWeight: "bold", width: "5%" }}>Info</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
