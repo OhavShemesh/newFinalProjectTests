@@ -120,7 +120,11 @@ export default function ProductsPage() {
     });
 
     if (!allProducts) {
-        return <ClipLoader />
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center", width: "100%", pt: 40 }}>
+                <ClipLoader size={"60px"} color="turquoise" cssOverride={{ fontWeight: "900" }} />
+            </Box>
+        )
 
     }
 
