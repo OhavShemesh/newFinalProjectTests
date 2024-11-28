@@ -119,7 +119,7 @@ export default function ProductsPage() {
         return matchesCategory && matchesSearchValue;
     });
 
-    if (!allProducts) {
+    if (allProducts.length === 0) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", alignContent: "center", width: "100%", pt: 40 }}>
                 <ClipLoader size={"60px"} color="turquoise" cssOverride={{ fontWeight: "900" }} />
